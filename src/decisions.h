@@ -1,16 +1,24 @@
+#ifndef  _DECISIONS_INCLUDE
+#define  _DECISIONS_INCLUDE
+
 #include <iostream>
+#include "external_anomalies_listener.h"
+#include "external_conditions.h"
+#include "weather_report.h"
 
-#include "weather_station.h"
-
-class Decisions {
+class Decisions : public ExternalAnomaliesListener {
   public:
     Decisions();
     virtual ~Decisions();
+
+    void ExternalNotification(WeatherReport wr);
 
   private:
     /*
      * Pasar esto a puntero, que le pasemos una funcion
      * nuestra para que nos notifique
      */
-    WeatherStation _weather;
+    ExternalConditions _external;
 };
+
+#endif
