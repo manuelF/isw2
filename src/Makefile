@@ -1,7 +1,8 @@
 BING=gui
 BIND=decisions
-CXXFLAGS=--std=c++0x -Wall
-OBJS=weather_station.o weather_report.o external_conditions.o master_plan.o history.o
+CXXFLAGS=--std=c++0x -Wall -pedantic
+OBJS=weather_station.o weather_report.o external_conditions.o master_plan.o history.o \
+		 actuators_handler.o antibiotic_actuator.o
 
 all: $(BIND) $(BING)
 

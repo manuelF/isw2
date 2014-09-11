@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include "actuators_handler.h"
 #include "external_anomalies_listener.h"
 #include "external_conditions.h"
 #include "master_plan.h"
@@ -23,6 +24,7 @@ class Decisions : public ExternalAnomaliesListener {
      */
     ExternalConditions _external;
     MasterPlan _plan;
+    ActuatorsHandler _actuators;
 };
 
 #endif
