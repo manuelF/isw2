@@ -1,9 +1,13 @@
 BIN=gui
 CXXFLAGS=--std=c++0x
+OBJS=gui.o
 
+$(BIN): $(OBJS)
+	$(CXX) -o $(BIN) $(CXXFLAGS) $(OBJS)
 
-all:
-	$(CXX) -o $(BIN) $(CXXFLAGS) $(BIN).cpp
+$.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
 
 clean:
-	rm -f $(BIN)
+	rm -f $(BIN) $(OBJS)
