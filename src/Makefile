@@ -1,14 +1,14 @@
 BING=gui
 BIND=decisions
 CXXFLAGS=--std=c++0x -Wall
-OBJS=
+OBJS=weather_station.o weather_report.o
 
 all: $(BIND) $(BING)
 
-$(BIND): decisions.o $(OBJS)
+$(BIND): $(OBJS) decisions.o
 	$(CXX) -o $(BIND) $(CXXFLAGS) $(OBJS) decisions.o
 
-$(BING): gui.o $(OBJS)
+$(BING): $(OBJS) gui.o
 	$(CXX) -o $(BING) $(CXXFLAGS) $(OBJS) gui.o
 
 $.o: %.cpp
@@ -16,4 +16,4 @@ $.o: %.cpp
 
 
 clean:
-	rm -f decisions.o gui,o $(BIND) $(BING) $(OBJS)
+	rm -f decisions.o gui.o $(BIND) $(BING) $(OBJS)
