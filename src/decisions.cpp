@@ -1,12 +1,14 @@
 #include "decisions.h"
 
-Decisions::Decisions() : _external() {
-  std::cout << "Registering" << std::endl;
+Decisions::Decisions(std::string filename) : _external(), _plan(filename) {
+  _external.Register(static_cast<ExternalAnomaliesListener*>(this));
+}
+
+Decisions::Decisions() : _external(), _plan("default_plan") {
   _external.Register(static_cast<ExternalAnomaliesListener*>(this));
 }
 
 Decisions::~Decisions() {
-  std::cout << "Unregistering" << std::endl;
   _external.Unregister(static_cast<ExternalAnomaliesListener*>(this));
 }
 
@@ -19,8 +21,8 @@ int main(int argc, char* argv[]) {
   /* We have to create sockets to make this class the server with an
    * attachable GUI
   */
-  std::cout << "Prueba" << std::endl;
   Decisions d;
 
+  std::cout << "Prueba" << std::endl;
 
 }

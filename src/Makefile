@@ -1,7 +1,7 @@
 BING=gui
 BIND=decisions
 CXXFLAGS=--std=c++0x -Wall
-OBJS=weather_station.o weather_report.o external_conditions.o master_plan.o
+OBJS=weather_station.o weather_report.o external_conditions.o master_plan.o history.o
 
 all: $(BIND) $(BING)
 
@@ -16,4 +16,4 @@ $.o: %.cpp
 
 
 clean:
-	rm -f decisions.o gui.o $(BIND) $(BING) $(OBJS)
+	rm -f *.o $(BIND) $(BING)
