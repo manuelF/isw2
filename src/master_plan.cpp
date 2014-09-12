@@ -1,6 +1,6 @@
 #include "master_plan.h"
-#include <iostream>
 #include <sstream>
+#include <fstream>
 
 Stage::Stage(
     int order, std::string name, int target_humidity, double target_ph,
@@ -12,14 +12,40 @@ Stage::Stage(
 Stage::~Stage() {
 }
 
+std::string Stage::Serialize() {
+  std::stringstream ss;
+  ss << _natural_order;
+  ss << _friendly_name;
+  ss << _humidity_required;
+  ss << _ph_required;
+  ss << _temperature_required;
+  return ss.str();
+}
+
+Stage Stage::Build(std::string input) {
+  std::stringstream ss(input);
+  int order; ss >> order;
+  std::string name; ss >> name;
+  int target_humidity; ss >> target_humidity;
+  double target_ph; ss >> target_ph;
+  int target_temperature; ss >> target_temperature;
+
+  return Stage(order, name, target_humidity, target_ph, target_temperature);
+}
 
 
-MasterPlan::MasterPlan(std::string filename) {
-  /* Abrir el archivo
-   * Parsear el MasterPlan del archivo
-   * Cargar la estructura local
-   */
+MasterPlan::MasterPlan(std::string filename) :_filename(filename) {
+  std::ifstream input(_filename);
+  std::string tmp;
+  while(input >> tmp) {
+    _stages.push_back(Stage::Build(tmp));
+  }
 }
 
 MasterPlan::~MasterPlan() {
+  std::ofstream output(_filename);
+  for(auto &s : _stages) {
+    output << s.Serialize() << std::endl;
+  }
 }
+

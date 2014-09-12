@@ -6,6 +6,9 @@
 struct Stage {
   Stage(int, std::string, int, double, int);
   virtual ~Stage();
+  std::string Serialize();
+
+  static Stage Build(std::string);
 
   int _natural_order;
   std::string _friendly_name;
@@ -21,6 +24,7 @@ class MasterPlan{
 
   private:
     std::vector<Stage> _stages;
+    std::string _filename;
 };
 
 #endif
