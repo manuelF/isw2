@@ -6,6 +6,7 @@ class WeatherStation {
     virtual ~WeatherStation();
     void NotifyOfSuddenChanges();
 
+
     WeatherReport GetCurrentWeather();
     WeatherReport GetForecast();
 };

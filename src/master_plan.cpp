@@ -3,8 +3,8 @@
 #include <fstream>
 
 Stage::Stage(
-    int order, std::string name, int target_humidity, double target_ph,
-    int target_temperature) : _natural_order(order), _friendly_name(name),
+    int order, std::string name, double target_humidity, double target_ph,
+    double target_temperature) : _natural_order(order), _friendly_name(name),
     _humidity_required(target_humidity), _ph_required(target_ph),
     _temperature_required(target_temperature) {
 }
@@ -14,11 +14,11 @@ Stage::~Stage() {
 
 std::string Stage::Serialize() {
   std::stringstream ss;
-  ss << _natural_order;
-  ss << _friendly_name;
-  ss << _humidity_required;
-  ss << _ph_required;
-  ss << _temperature_required;
+  ss << _natural_order << " ";
+  ss << _friendly_name << " ";
+  ss << _humidity_required << " ";
+  ss << _ph_required << " ";
+  ss << _temperature_required << std::endl;
   return ss.str();
 }
 
@@ -26,9 +26,9 @@ Stage Stage::Build(std::string input) {
   std::stringstream ss(input);
   int order; ss >> order;
   std::string name; ss >> name;
-  int target_humidity; ss >> target_humidity;
+  double target_humidity; ss >> target_humidity;
   double target_ph; ss >> target_ph;
-  int target_temperature; ss >> target_temperature;
+  double target_temperature; ss >> target_temperature;
 
   return Stage(order, name, target_humidity, target_ph, target_temperature);
 }

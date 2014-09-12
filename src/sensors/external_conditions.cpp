@@ -21,3 +21,12 @@ void ExternalConditions::Unregister(ExternalAnomaliesListener* listener) {
   }
 }
 
+SensorsReading ExternalConditions::ReadSensors() {
+  return SensorsReading(
+      _humidity.GetCurrentReading(), _ph.GetCurrentReading(),
+      _temperature.GetCurrentReading());
+}
+
+WeatherReport ExternalConditions::GetCurrentWeather() {
+  return _weather.GetCurrentWeather();
+}
