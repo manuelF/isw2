@@ -30,3 +30,7 @@ SensorsReading ExternalConditions::GetSensorsReading() {
 WeatherReport ExternalConditions::GetCurrentWeather() {
   return _weather.GetCurrentWeather();
 }
+
+WeatherReport ExternalConditions::GetForecastWeather() {
+  return _weather.GetForecastWeather();;
+}

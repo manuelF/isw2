@@ -18,6 +18,8 @@ class Decisions : public ExternalAnomaliesListener {
     virtual ~Decisions();
 
     std::string GetSensorsReading();
+    std::string GetForecastWeather();
+
     void ExternalNotification(WeatherReport wr);
 
   private:

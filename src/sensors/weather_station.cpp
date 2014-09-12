@@ -8,12 +8,12 @@ WeatherStation::~WeatherStation() {
 
 }
 
-WeatherReport WeatherStation::GetForecast() {
-  return WeatherReport();
+WeatherReport WeatherStation::GetForecastWeather() {
+  return WeatherReport(13.0);
 }
 
 WeatherReport WeatherStation::GetCurrentWeather() {
-  return WeatherReport();
+  return WeatherReport(88.0);
 }
 
 void WeatherStation::NotifyOfSuddenChanges() {

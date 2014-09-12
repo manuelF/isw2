@@ -19,6 +19,7 @@ class ExternalConditions {
 
     SensorsReading GetSensorsReading();
     WeatherReport GetCurrentWeather();
+    WeatherReport GetForecastWeather();
 
   private:
     WeatherStation _weather;

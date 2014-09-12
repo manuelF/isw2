@@ -1,7 +1,14 @@
 #include "weather_report.h"
+#include <sstream>
 
-WeatherReport::WeatherReport() {
+WeatherReport::WeatherReport(double rain_chance) : _rain_chance(rain_chance) {
 }
 
 WeatherReport::~WeatherReport() {
+}
+
+std::string WeatherReport::Serialize() {
+  std::stringstream ss;
+  ss << _rain_chance << "\% chance of rain";
+  return ss.str();
 }

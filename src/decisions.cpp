@@ -22,6 +22,10 @@ std::string Decisions::GetSensorsReading() {
   return _external.GetSensorsReading().Serialize();
 }
 
+std::string Decisions::GetForecastWeather() {
+  return _external.GetForecastWeather().Serialize();
+}
+
 void Decisions::ExternalNotification(WeatherReport wr) {
   std::cout << "We have external notification" << std::endl;
 }
@@ -32,8 +36,7 @@ int main(int argc, char* argv[]) {
    * attachable GUI
   */
   Decisions d;
-  std::cout << "Lectura: " << d.GetSensorsReading() << std::endl;
-
-  std::cout << "Prueba" << std::endl;
+  std::cout << "Lectura Sensores: " << d.GetSensorsReading() << std::endl;
+  std::cout << "Lectura clima: " << d.GetForecastWeather() << std::endl;
 
 }

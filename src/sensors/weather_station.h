@@ -8,5 +8,5 @@ class WeatherStation {
 
 
     WeatherReport GetCurrentWeather();
-    WeatherReport GetForecast();
+    WeatherReport GetForecastWeather();
 };
