@@ -7,6 +7,8 @@ OBJS=sensors/weather_station.o sensors/weather_report.o sensors/external_conditi
 		 sensors/sensors_reading.o \
 		 master_plan.o history.o \
 		 actuators/actuators_handler.o actuators/antibiotic_actuator.o \
+		 actuators/fertilizer_actuator.o actuators/water_actuator.o \
+		 actuators/light_actuator.o \
 		 plant_log_item.o action_log_item.o plant.o
 
 all: $(BIND) $(BING)

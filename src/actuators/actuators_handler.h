@@ -1,8 +1,10 @@
 #ifndef _ACTUATORS_HANDLER_INCLUDE
 #define _ACTUATORS_HANDLER_INCLUDE
 
-#include "actuator.h"
 #include "antibiotic_actuator.h"
+#include "fertilizer_actuator.h"
+#include "light_actuator.h"
+#include "water_actuator.h"
 
 class ActuatorsHandler {
   public:
@@ -11,10 +13,9 @@ class ActuatorsHandler {
 
   private:
     AntibioticActuator _antibiotic;
-#if 0
-    Actuator _water;
-    Actuator _light;
-#endif
+    WaterActuator _water;
+    LightActuator _light;
+    FertilizerActuator _fertilizer;
 };
 
 #endif
