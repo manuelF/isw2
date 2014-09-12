@@ -4,15 +4,16 @@
 #include <iostream>
 #include <string>
 #include "actuators/actuators_handler.h"
-#include "external_anomalies_listener.h"
-#include "external_conditions.h"
+#include "history.h"
 #include "master_plan.h"
-#include "weather_report.h"
+#include "sensors/external_anomalies_listener.h"
+#include "sensors/external_conditions.h"
+#include "sensors/weather_report.h"
 
 class Decisions : public ExternalAnomaliesListener {
   public:
     Decisions();
-    Decisions(std::string);
+    Decisions(std::string, std::string);
     virtual ~Decisions();
 
     void ExternalNotification(WeatherReport wr);
@@ -25,6 +26,7 @@ class Decisions : public ExternalAnomaliesListener {
     ExternalConditions _external;
     MasterPlan _plan;
     ActuatorsHandler _actuators;
+    History _history;
 };
 
 #endif

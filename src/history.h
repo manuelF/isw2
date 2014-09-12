@@ -6,13 +6,17 @@
 
 class History {
   public:
-    History();
+    History(std::string);
     virtual ~History();
 
+    void Insert();
+
     void Save(std::string);
-    void Load(std::string);
 
   private:
+    void Load(std::string);
+
+    std::string _current_filename;
     std::vector<LogItem> _items;
 };
 

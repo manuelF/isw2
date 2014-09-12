@@ -1,10 +1,16 @@
 #include "history.h"
 #include <iostream>
 
-History::History() {
+History::History(std::string filename) : _current_filename(filename) {
+  Load(filename);
 }
 
 History::~History() {
+  Save(_current_filename);
+}
+
+void History::Insert() {
+  //_items.push_back(item);
 }
 
 void History::Save(std::string filename) {

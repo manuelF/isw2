@@ -1,20 +1,21 @@
 BING=gui
 BIND=decisions
 CXXFLAGS=--std=c++0x -Wall -pedantic
-OBJS=weather_station.o weather_report.o external_conditions.o master_plan.o history.o \
-		 actuators/actuators_handler.o actuators/antibiotic_actuator.o
+OBJS=sensors/weather_station.o sensors/weather_report.o sensors/external_conditions.o master_plan.o history.o \
+		 actuators/actuators_handler.o actuators/antibiotic_actuator.o \
+		 plant_log_item.o action_log_item.o
 
 all: $(BIND) $(BING)
 
-$(BIND): $(OBJS) decisions.o
-	$(CXX) -o $(BIND) $(CXXFLAGS) $(OBJS) decisions.o
+$(BIND): $(OBJS) $(BIND).o
+	$(CXX) -o $(BIND) $(CXXFLAGS) $(OBJS) $(BIND).o
 
-$(BING): $(OBJS) gui.o
-	$(CXX) -o $(BING) $(CXXFLAGS) $(OBJS) gui.o
+$(BING): $(OBJS) $(BING).o
+	$(CXX) -o $(BING) $(CXXFLAGS) $(OBJS) $(BING).o
 
 $.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 
 clean:
-	rm -f $(OBJS) $(BIND) $(BING)
+	rm -f $(OBJS) $(BIND) $(BING) $(BIND).o $(BING).o

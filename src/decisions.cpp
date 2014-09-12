@@ -1,10 +1,11 @@
 #include "decisions.h"
 
-Decisions::Decisions(std::string filename) : _external(), _plan(filename) {
+Decisions::Decisions(std::string plan_filename, std::string history_filename)
+    :  _plan(plan_filename), _history(history_filename) {
   _external.Register(static_cast<ExternalAnomaliesListener*>(this));
 }
 
-Decisions::Decisions() : _external(), _plan("default_plan") {
+Decisions::Decisions() : _plan("default_plan"), _history("default_log") {
   _external.Register(static_cast<ExternalAnomaliesListener*>(this));
 }
 
