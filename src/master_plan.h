@@ -19,10 +19,14 @@ struct Stage {
 
 class MasterPlan{
   public:
-    MasterPlan(std::string);
     virtual ~MasterPlan();
 
+    static MasterPlan BuildFromFile(std::string);
+    static MasterPlan BuildFromString(std::string);
+
   private:
+    explicit MasterPlan(std::string);
+
     std::vector<Stage> _stages;
     std::string _filename;
 };

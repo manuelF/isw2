@@ -6,6 +6,7 @@
 #include "actuators/actuators_handler.h"
 #include "history.h"
 #include "master_plan.h"
+#include "plant.h"
 #include "sensors/external_anomalies_listener.h"
 #include "sensors/external_conditions.h"
 #include "sensors/weather_report.h"
@@ -27,6 +28,7 @@ class Decisions : public ExternalAnomaliesListener {
     MasterPlan _plan;
     ActuatorsHandler _actuators;
     History _history;
+    Plant _plant;
 };
 
 #endif

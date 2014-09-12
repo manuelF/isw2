@@ -33,13 +33,28 @@ Stage Stage::Build(std::string input) {
   return Stage(order, name, target_humidity, target_ph, target_temperature);
 }
 
+MasterPlan::MasterPlan(std::string filename) : _filename(filename) {
+}
 
-MasterPlan::MasterPlan(std::string filename) :_filename(filename) {
-  std::ifstream input(_filename);
+MasterPlan MasterPlan::BuildFromString(std::string all_stages) {
+  MasterPlan plan("default_plan");
+  std::stringstream input (all_stages);
+  std::string tmp;
+
+  while(input >> tmp) {
+    plan._stages.push_back(Stage::Build(tmp));
+  }
+  return plan;
+}
+
+MasterPlan MasterPlan::BuildFromFile(std::string filename) {
+  MasterPlan plan(filename);
+  std::ifstream input(filename);
   std::string tmp;
   while(input >> tmp) {
-    _stages.push_back(Stage::Build(tmp));
+    plan._stages.push_back(Stage::Build(tmp));
   }
+  return plan;
 }
 
 MasterPlan::~MasterPlan() {
