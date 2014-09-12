@@ -18,6 +18,10 @@ Decisions::~Decisions() {
   _external.Unregister(static_cast<ExternalAnomaliesListener*>(this));
 }
 
+std::string Decisions::GetSensorsReading() {
+  return _external.GetSensorsReading().Serialize();
+}
+
 void Decisions::ExternalNotification(WeatherReport wr) {
   std::cout << "We have external notification" << std::endl;
 }
@@ -28,6 +32,7 @@ int main(int argc, char* argv[]) {
    * attachable GUI
   */
   Decisions d;
+  std::cout << "Lectura: " << d.GetSensorsReading() << std::endl;
 
   std::cout << "Prueba" << std::endl;
 

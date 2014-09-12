@@ -17,7 +17,7 @@ class ExternalConditions {
     void Register(ExternalAnomaliesListener*);
     void Unregister(ExternalAnomaliesListener*);
 
-    SensorsReading ReadSensors();
+    SensorsReading GetSensorsReading();
     WeatherReport GetCurrentWeather();
 
   private:
