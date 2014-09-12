@@ -2,7 +2,7 @@ BING=gui
 BIND=decisions
 CXXFLAGS=--std=c++0x -Wall -pedantic
 OBJS=weather_station.o weather_report.o external_conditions.o master_plan.o history.o \
-		 actuators_handler.o antibiotic_actuator.o
+		 actuators/actuators_handler.o actuators/antibiotic_actuator.o
 
 all: $(BIND) $(BING)
 
@@ -17,4 +17,4 @@ $.o: %.cpp
 
 
 clean:
-	rm -f *.o $(BIND) $(BING)
+	rm -f $(OBJS) $(BIND) $(BING)
