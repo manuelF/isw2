@@ -1,27 +1,24 @@
-CXX=clang++
+CXX=g++
 BING=gui
 BIND=decisions
 CXXFLAGS=-std=c++0x -Wall
-OBJS=sensors/weather_station.o sensors/weather_report.o sensors/external_conditions.o \
-		 sensors/temperature_sensor.o sensors/ph_sensor.o sensors/humidity_sensor.o \
-		 sensors/sensors_reading.o \
-		 master_plan.o history.o \
-		 actuators/actuators_handler.o actuators/antibiotic_actuator.o \
-		 actuators/fertilizer_actuator.o actuators/water_actuator.o \
-		 actuators/light_actuator.o \
-		 plant_log_item.o action_log_item.o plant.o
+
+SRCS:=$(wildcard *.cpp) $(wildcard sensors/*.cpp) $(wildcard actuators/*.cpp)
+OBJS:=$(SRCS:%.cpp=%.o)
+
+BINOBJS := $(filter-out $(BIND).o $(BING).o,$(OBJS))
+
 
 all: $(BIND) $(BING)
 
-$(BIND): $(OBJS) $(BIND).o
-	$(CXX) -o $(BIND) $(CXXFLAGS) $(OBJS) $(BIND).o
-
-$(BING): $(OBJS) $(BING).o
-	$(CXX) -o $(BING) $(CXXFLAGS) $(OBJS) $(BING).o
-
-$.o: %.cpp
+$.o: %.cpp %.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
+$(BIND): $(OBJS) $(BIND).o
+	$(CXX) -o $(BIND) $(CXXFLAGS) $(BINOBJS) $(BIND).o
+
+$(BING): $(OBJS) $(BING).o
+	$(CXX) -o $(BING) $(CXXFLAGS) $(BINOBJS) $(BING).o
 
 clean:
 	rm -f $(OBJS) $(BIND) $(BING) $(BIND).o $(BING).o
