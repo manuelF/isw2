@@ -1,7 +1,7 @@
 CXX=g++
 BING=gui
 BIND=decisions
-CXXFLAGS=-std=c++0x -Wall
+CXXFLAGS=-std=c++0x -Wall -pthread
 
 SRCS:=$(wildcard *.cpp) $(wildcard sensors/*.cpp) $(wildcard actuators/*.cpp)
 OBJS:=$(SRCS:%.cpp=%.o)

@@ -2,10 +2,13 @@
 
 #include <iostream>
 
-ExternalConditions::ExternalConditions() : _weather() {
+ExternalConditions::ExternalConditions()
+  : _weather(), _polling_timer(1, static_cast<TimerNotifiable*>(this)) {
+    _polling_timer.Start();
 }
 
 ExternalConditions::~ExternalConditions() {
+  _polling_timer.Stop();
 }
 
 void ExternalConditions::Register(ExternalAnomaliesListener* listener) {
@@ -33,4 +36,9 @@ WeatherReport ExternalConditions::GetCurrentWeather() {
 
 WeatherReport ExternalConditions::GetForecastWeather() {
   return _weather.GetForecastWeather();;
+}
+
+void ExternalConditions::TimerExpired() {
+  // GetSensorsReading y enviar
+  std::cout << "timer" << std::endl;
 }

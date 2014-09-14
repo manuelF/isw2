@@ -8,7 +8,7 @@ typedef int Seconds;
 
 class Timer {
   public:
-    Timer(Seconds, TimerNotifiable&);
+    Timer(Seconds, TimerNotifiable*);
     virtual ~Timer();
 
     void Start();
@@ -17,10 +17,11 @@ class Timer {
   private:
     void Trigger();
 
-    std::thread _control_thread;
     std::chrono::seconds _interval;
-    TimerNotifiable& _to_awake;
+    TimerNotifiable* _to_awake;
     bool _abort;
+    bool _started;
+    std::thread _control_thread;
 };
 
 #endif
