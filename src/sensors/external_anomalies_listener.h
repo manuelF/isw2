@@ -3,7 +3,6 @@
 
 #include "weather_report.h"
 
-
 class ExternalAnomaliesListener {
   public:
     virtual void ExternalNotification(WeatherReport wr) = 0;

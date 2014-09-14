@@ -1,9 +1,7 @@
 #ifndef _HUMIDITY_SENSOR_INCLUDE
 #define _HUMIDITY_SENSOR_INCLUDE
 
-#include "sensor.h"
-
-class HumiditySensor : public Sensor {
+class HumiditySensor {
   public:
     double GetCurrentReading();
 };
