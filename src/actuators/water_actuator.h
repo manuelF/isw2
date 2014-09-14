@@ -1,6 +1,7 @@
 #ifndef _WATER_ACTUATOR_INCLUDE
 #define _WATER_ACTUATOR_INCLUDE
 #include "actuator.h"
+#include "quantity.h"
 
 class WaterActuator : public Actuator {
   public:
@@ -8,9 +9,8 @@ class WaterActuator : public Actuator {
     virtual ~WaterActuator();
 
     virtual bool IsWorking();
-    virtual int SupplyRemaining() ;
-    virtual void SendLittle();
-    virtual void SendLot();
+    virtual Quantity SupplyRemaining() ;
+    virtual void Send(Quantity);
 };
 
 #endif

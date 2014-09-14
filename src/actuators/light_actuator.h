@@ -1,6 +1,7 @@
 #ifndef _LIGHT_ACTUATOR_INCLUDE
 #define _LIGHT_ACTUATOR_INCLUDE
 #include "actuator.h"
+#include "quantity.h"
 
 class LightActuator : public Actuator {
   public:
@@ -8,9 +9,8 @@ class LightActuator : public Actuator {
     virtual ~LightActuator();
 
     virtual bool IsWorking();
-    virtual int SupplyRemaining() ;
-    virtual void SendLittle();
-    virtual void SendLot();
+    virtual Quantity SupplyRemaining() ;
+    virtual void Send(Quantity);
 };
 
 #endif

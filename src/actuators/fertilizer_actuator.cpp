@@ -10,12 +10,10 @@ bool FertilizerActuator::IsWorking() {
   return false;
 }
 
-int FertilizerActuator::SupplyRemaining() {
+Quantity FertilizerActuator::SupplyRemaining() {
   return 4;
 }
 
-void FertilizerActuator::SendLittle() {
+void FertilizerActuator::Send(Quantity q) {
 }
 
-void FertilizerActuator::SendLot() {
-}

@@ -10,12 +10,9 @@ bool WaterActuator::IsWorking() {
   return false;
 }
 
-int WaterActuator::SupplyRemaining() {
+Quantity WaterActuator::SupplyRemaining() {
   return 4;
 }
 
-void WaterActuator::SendLittle() {
-}
-
-void WaterActuator::SendLot() {
+void WaterActuator::Send(Quantity q) {
 }

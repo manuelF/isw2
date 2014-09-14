@@ -1,6 +1,7 @@
 #ifndef _FERTILIZER_ACTUATOR_INCLUDE
 #define _FERTILIZER_ACTUATOR_INCLUDE
 #include "actuator.h"
+#include "quantity.h"
 
 class FertilizerActuator : public Actuator {
   public:
@@ -8,9 +9,8 @@ class FertilizerActuator : public Actuator {
     virtual ~FertilizerActuator();
 
     virtual bool IsWorking();
-    virtual int SupplyRemaining() ;
-    virtual void SendLittle();
-    virtual void SendLot();
+    virtual Quantity SupplyRemaining() ;
+    virtual void Send(Quantity);
 };
 
 #endif

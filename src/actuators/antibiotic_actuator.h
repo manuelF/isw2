@@ -1,6 +1,7 @@
 #ifndef _ANTIBIOTC_ACTUATOR_INCLUDE
 #define _ANTIBIOTC_ACTUATOR_INCLUDE
 #include "actuator.h"
+#include "quantity.h"
 
 class AntibioticActuator : public Actuator {
   public:
@@ -8,9 +9,8 @@ class AntibioticActuator : public Actuator {
     virtual ~AntibioticActuator();
 
     virtual bool IsWorking();
-    virtual int SupplyRemaining() ;
-    virtual void SendLittle();
-    virtual void SendLot();
+    virtual Quantity SupplyRemaining() ;
+    virtual void Send(Quantity);
 };
 
 #endif
