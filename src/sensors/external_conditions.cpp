@@ -35,10 +35,18 @@ WeatherReport ExternalConditions::GetCurrentWeather() {
 }
 
 WeatherReport ExternalConditions::GetForecastWeather() {
-  return _weather.GetForecastWeather();;
+  return _weather.GetForecastWeather();
+}
+
+void ExternalConditions::NotifyListeners() {
+  WeatherReport w = GetCurrentWeather();
+  for (auto& l : _listeners) {
+    l->ExternalNotification(w);
+  }
 }
 
 void ExternalConditions::TimerExpired() {
   // GetSensorsReading y enviar
-  std::cout << "timer" << std::endl;
+  std::cout << "ExternalConditions::TimerExpired" << std::endl;
+  NotifyListeners();
 }

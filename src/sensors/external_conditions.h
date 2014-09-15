@@ -26,6 +26,8 @@ class ExternalConditions : public TimerNotifiable {
     void TimerExpired();
 
   private:
+    void NotifyListeners();
+
     WeatherStation _weather;
     std::set<ExternalAnomaliesListener*> _listeners;
     HumiditySensor _humidity;
