@@ -1,7 +1,7 @@
 #include "sensors_reading.h"
 #include <sstream>
 
-SensorsReading::SensorsReading(double humidity, double ph, double temperature) :
+SensorsReading::SensorsReading(Humidity humidity, PH ph, Temperature temperature) :
   humidity(humidity), ph(ph), temperature(temperature) {
 }
 

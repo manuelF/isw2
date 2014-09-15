@@ -1,5 +1,5 @@
 #include "humidity_sensor.h"
 
-double HumiditySensor::GetCurrentReading() {
+Humidity HumiditySensor::GetCurrentReading() {
   return 98.0f;
 }

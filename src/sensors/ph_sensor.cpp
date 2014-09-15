@@ -1,5 +1,5 @@
 #include "ph_sensor.h"
 
-double PHSensor::GetCurrentReading() {
+PH PHSensor::GetCurrentReading() {
   return 1.0f;
 }

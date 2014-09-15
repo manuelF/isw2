@@ -1,16 +1,17 @@
 #ifndef _SENSORS_READING_INCLUDE
 #define _SENSORS_READING_INCLUDE
 
+#include "../basic_datatypes.h"
 #include <string>
 
 struct SensorsReading {
-  SensorsReading(double, double, double);
+  SensorsReading(Humidity, PH, Temperature);
 
   std::string Serialize();
 
-  double humidity;
-  double ph;
-  double temperature;
+  Humidity humidity;
+  PH ph;
+  Temperature temperature;
 };
 
 #endif

@@ -3,8 +3,7 @@
 #include <chrono>
 #include <thread>
 #include "timer_notifiable.h"
-
-typedef int Seconds;
+#include "basic_datatypes.h"
 
 class Timer {
   public:
