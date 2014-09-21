@@ -1,4 +1,5 @@
 #include "decisions.h"
+#include <thread>
 
 Decisions::Decisions(std::string plan_filename, std::string history_filename)
     :  _plan(MasterPlan::BuildFromFile(plan_filename)),
@@ -38,5 +39,7 @@ int main(int argc, char* argv[]) {
   Decisions d;
   std::cout << "Lectura Sensores: " << d.GetSensorsReading() << std::endl;
   std::cout << "Lectura clima: " << d.GetForecastWeather() << std::endl;
-
+  while(1) {
+    std::this_thread::yield();
+  }
 }

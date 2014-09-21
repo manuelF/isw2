@@ -1,11 +1,11 @@
 #ifndef _PH_SENSOR_INCLUDE
 #define _PH_SENSOR_INCLUDE
 
-#include "sensor.h"
+#include "../basic_datatypes.h"
 
-class PHSensor : public Sensor {
+class PHSensor {
   public:
-    double GetCurrentReading();
+    PH GetCurrentReading();
 };
 
 #endif

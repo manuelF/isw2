@@ -10,12 +10,9 @@ bool LightActuator::IsWorking() {
   return false;
 }
 
-int LightActuator::SupplyRemaining() {
+Quantity LightActuator::SupplyRemaining() {
   return 4;
 }
 
-void LightActuator::SendLittle() {
-}
-
-void LightActuator::SendLot() {
+void LightActuator::Send(Quantity q) {
 }

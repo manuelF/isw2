@@ -1,10 +1,10 @@
 #ifndef _HUMIDITY_SENSOR_INCLUDE
 #define _HUMIDITY_SENSOR_INCLUDE
 
-#include "sensor.h"
+#include "../basic_datatypes.h"
 
-class HumiditySensor : public Sensor {
+class HumiditySensor {
   public:
-    double GetCurrentReading();
+    Humidity GetCurrentReading();
 };
 #endif

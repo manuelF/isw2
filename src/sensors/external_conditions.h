@@ -8,8 +8,10 @@
 #include "temperature_sensor.h"
 #include "sensors_reading.h"
 #include "weather_station.h"
+#include "../timer_notifiable.h"
+#include "../timer.h"
 
-class ExternalConditions {
+class ExternalConditions : public TimerNotifiable {
   public:
     ExternalConditions();
     ~ExternalConditions();
@@ -21,12 +23,17 @@ class ExternalConditions {
     WeatherReport GetCurrentWeather();
     WeatherReport GetForecastWeather();
 
+    void TimerExpired();
+
   private:
+    void NotifyListeners();
+
     WeatherStation _weather;
     std::set<ExternalAnomaliesListener*> _listeners;
     HumiditySensor _humidity;
     PHSensor _ph;
     TemperatureSensor _temperature;
+    Timer _polling_timer;
 
 };
 

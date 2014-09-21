@@ -10,12 +10,9 @@ bool AntibioticActuator::IsWorking() {
   return false;
 }
 
-int AntibioticActuator::SupplyRemaining() {
+Quantity AntibioticActuator::SupplyRemaining() {
   return 4;
 }
 
-void AntibioticActuator::SendLittle() {
-}
-
-void AntibioticActuator::SendLot() {
+void AntibioticActuator::Send(Quantity q) {
 }

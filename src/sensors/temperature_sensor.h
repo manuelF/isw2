@@ -1,10 +1,10 @@
 #ifndef _TEMPERATURE_SENSOR_INCLUDE
 #define _TEMPERATURE_SENSOR_INCLUDE
 
-#include "sensor.h"
+#include "../basic_datatypes.h"
 
-class TemperatureSensor : public Sensor {
+class TemperatureSensor {
   public:
-    double GetCurrentReading();
+    Temperature GetCurrentReading();
 };
 #endif
