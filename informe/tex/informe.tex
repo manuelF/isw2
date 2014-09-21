@@ -1,0 +1,126 @@
+\documentclass{article}
+\usepackage{color}
+\usepackage{geometry}
+\usepackage{pdflscape}
+\usepackage{multirow}
+\usepackage[inline]{enumitem}
+\newgeometry{margin=1.5cm}
+
+\usepackage{listings}
+\lstset{ %
+	language=C++,                % choose the language of the code
+	basicstyle=\footnotesize\ttfamily,       % the size of the fonts that are used for the code
+	numbers=left,                   % where to put the line-numbers
+	numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+	stepnumber=1,                   % the step between two line-numbers. If it is 1 each line will be numbered
+	numbersep=5pt,                  % how far the line-numbers are from the code
+	backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+	showspaces=false,               % show spaces adding particular underscores
+	showstringspaces=false,         % underline spaces within strings
+	showtabs=false,                 % show tabs within strings adding particular underscores
+	frame=single,           % adds a frame around the code
+	tabsize=4,          % sets default tabsize to 2 spaces
+	captionpos=b,           % sets the caption-position to bottom
+	breaklines=true,        % sets automatic line breaking
+	breakatwhitespace=false,    % sets if automatic breaks should only happen at whitespace
+}
+
+
+
+\newcommand{\condiciones}{\texttt{Lector Condiciones Externas}}
+\newcommand{\decisiones}{\texttt{Tomador Decisiones}}
+
+\newcommand{\empezarenum}{\begin{enumerate*}[label=(\arabic*.),itemjoin={\newline}]}
+\newcommand{\terminarenum}{\end{enumerate*}}
+
+\begin{document}
+
+  \title{Trabajo Pr\'actico de Programaci\'on FALTA}
+  \date{Segundo cuatrimestre, $2014$}
+  \author{Grupo: FALTA \\ Gallardo Guillermo, LU:$032/10$\\ Luis Scoccola, LU:$382/10$}
+
+  \maketitle
+ 
+  \newpage
+
+  \section{Product Backlog}
+
+  \input{sprintbacklog.tex}
+
+  \section{Burndown Charts}
+
+  \section{Retrospectiva}
+
+    \subsection{Inconvenientes encontrados}
+    \paragraph{Abstracci\'on de los sensores}
+    El enunciado habla sobre tres tipos de sensores bien concretos. Finalmente
+    decidimos modelar a cada uno de ellos por serparado. Es decir, no realizamos
+    una abstracci\'on para Sensor. Tenemos un motivo para sustentar esta decisi\'on
+    que se refleja tanto a nivel de dise\~no como a nivel implementativo.
+
+    Si bien los sensores se comportan de forma semejante,
+    o mejor dicho, son polimorficos con respecto al mensaje \texttt{Sensar},
+    no lo son vistos desde la perspectiva de un lenguaje est\'aticamente tipado.
+    Esto es porque cada sensor devuelve un valor de un tipo o clase distinta.
+    Una soluci\'on a esto hubiese sido no modelar los tipos de los valores de
+    retorno con distintas clases, y poner \'unicamente un valor numerico. Nos
+    pareci\'o que perdiamos mucha sem\'antica con esta soluci\'on.
+
+    Otra soluci\'on podr\'ia haber sido utilizar el patr\'on \textit{visitor}.
+    Pero nos pareci\'o que complejiza el modelo y la implementaci\'on innecesariamente.
+
+    Al no haber realizado esta abstracci\'on se podr\'ia objetar que restringimos
+    la extensibilidad en cuanto a m\'as o distinto tipo de sensores.
+    Para responder a esta posible objeci\'on debe observarse el modelado del
+    \condiciones, el de los sensores y el del
+    \textit{Arduino}. Al desligar el sensor del \textit{Arduino} conseguimos
+    sensores versatiles, en el sentido de que pueden depender de varios sensores
+    reales (es decir del mundo real). M\'as a\'un, los sensores modelados
+    permiten tener l\'ogica interna para manejar los sensores del mundo real
+    correctamente.
+    (FALTA nombrar patron composit)
+
+    Si se quisieran agregar nuevos tipos de sensores deber\'ian agregarse nuevas
+    clases de sensores al modelo. Por supuesto deber\'a tambi\'en modificarse
+    el c\'odigo del \condiciones para que se comunique
+    con los nuevos sensores. Pero consideramos que esto es b\'asicamente inevitable,
+    por m\'as que se realice una abstracci\'on del sensor, pues la l\'ogica
+    de todo el sistema depender\'a, en este caso, de nuevos par\'ametros.
+
+    \paragraph{Abstracci\'on de los actuadores}
+    Para el caso de los actuadores nos encontramos con una situaci\'on semejante
+    a la reci\'en presentada. En este caso, sin embargo, optamos por realizar
+    una abstracci\'on. Esta se denomina \texttt{Actuador Simple}. El nombre
+    refleja la naturaleza sencilla de los actuadores modelados: b\'asicamente
+    responden al mensaje \texttt{Suministrar} con una cantidad. Donde
+    \texttt{Cantidad} es una clase que representa valores discretos y que adem\'as
+    son interpretados por cada actuador de forma independiente.
+
+    Esta abstracci\'on permite realizar una calibraci\'on de cada actuador a la
+    hora de inicializar el sistema (FALTA o cuando se lo necesite?), que queda
+    guardada en el actuador. Por otro lado permite, al \decisiones,
+    devolver decisiones en un formato semejante al almacenado en el
+    \texttt{Plan Maestro} (y el descripto en el enunciado), que \'unicamente
+    especifica cantidades aproximadas, las modeladas en la clase
+    \texttt{Cantidades}.
+
+    \paragraph{Interacci\'on entre \decisiones y \condiciones}
+    FALTA
+
+
+  \section{Dise\~no}
+
+    \subsection{Diagrama de clases}
+
+    \subsection{Diagramas de objetos}
+
+    \subsection{Diagramas de FALTA}
+
+%\begin{landscape}
+%
+% \lstinputlisting{zip/LPO.hs}
+% \lstinputlisting{zip/Tests.hs}
+%
+%\end{landscape}
+
+\end{document}
