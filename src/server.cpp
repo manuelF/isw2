@@ -17,9 +17,6 @@
 #include <string.h>
 
 #include "server.h"
-#include "messages.h"
-
-#define BACKLOG 10   // how many pending connections queue will hold
 
 void sigchld_handler(int s)
 {
@@ -30,18 +27,18 @@ Plant Server::GetPlant() {
   return _plant;
 }
 
+void Server::SetPlant(Plant plant) {
+  _plant=plant;
+}
+
 MasterPlan Server::GetMasterPlan() {
   return _plan;
 }
 
-std::string Server::Process(std::string input) {
-  Message* message = MessageBuilder::Build(input);
-  Message* response = message->Execute(*this);
-  std::string response_string = response->Serialize();
-  delete message;
-  delete response;
-  return response_string;
+void Server::SetMasterPlan(MasterPlan plan) {
+  _plan = plan;
 }
+
 
 void Server::Communicate(int sender_fd) {
   char buf[10000];
@@ -50,15 +47,21 @@ void Server::Communicate(int sender_fd) {
     int len = 0;
     if((len = recv(sender_fd, buf, sizeof(buf), 0)) > 0) {
       buf[len] = '\0';
-      std::string reply = Process(std::string(buf));
-      if (send(sender_fd, reply.c_str(), reply.size(), 0) == -1) {
-        perror("Error on Communicate::OnSendReply");
-        exit(1);
+      Message* message = MessageBuilder::Build(std::string(buf));
+      Message* response = message->Execute(*this);
+      if (message->ExpectResponse() && response) {
+        std::string response_string = response->Serialize();
+        if (send(sender_fd, response_string.c_str(), response_string.size(), 0) == -1) {
+            perror("Error on Communicate::OnSendReply");
+            exit(1);
+         }
+        delete response;
       }
+      delete message;
     }
     else {
       std::cout << "Communication closed" << std::endl;
-      exit(1);
+      return;
     }
   }
 }
@@ -111,7 +114,8 @@ Server::Server(int port) : _port(port), _plant(), _plan(MasterPlan::BuildFromFil
 
   freeaddrinfo(servinfo); // all done with this structure
 
-  if (listen(sockfd, BACKLOG) == -1) {
+  #define CONNECTIONS_BACKLOG 10   // how many pending connections queue will hold
+  if (listen(sockfd, CONNECTIONS_BACKLOG) == -1) {
     perror("listen");
     exit(1);
   }
@@ -153,13 +157,9 @@ void Server::Listen() {
     inet_ntop(their_addr.ss_family, inet_addr, s, sizeof s);
     printf("server: got connection from %s\n", s);
 
-    if (!fork()) { // this is the child process
-      close(sockfd); // child doesn't need the listener
-      Communicate(newfd);
-      close(newfd);
-      exit(0);
-    }
-    close(newfd);  // parent doesn't need this
+
+    Communicate(newfd);
+    close(newfd);
   }
 }
 

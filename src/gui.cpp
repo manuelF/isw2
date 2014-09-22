@@ -18,43 +18,63 @@
 
 #include "messages.h"
 
-std::string GUI::Process(std::string input) {
-/*
-  Message* message = MessageBuilder::Build(input);
-  Message* response = message->Execute(*this);
-  std::string response_string = response->Serialize();
-  delete message;
-  delete response;
-  return response_string;
-  */
-  return input;
-}
-
 Message* GUI::Menu() {
   int chosen_option = 0;
-  switch(_current_screen) {
-    case 0: // Main menu
-      std::cout << "Pantalla principal" << std::endl;
-      switch (chosen_option) {
-        case 1:
-          return static_cast<Message*>(new MessageGetPlant()); // Goto plant view
-        case 2:
-          return static_cast<Message*>(new MessageGetMasterPlan());
-        default:
-          assert(false);
-      }
-      break;
-    case 1: // Plant view
-      break;
-    case 2: // Plant edition
-      break;
-    case 3: // Master plan view
-      break;
-    case 4: // Master plan edition
-      break;
-    default:
-      assert(false);
+  std::string new_content;
+  while(1) {
+    switch(_current_screen) {
+      case 0: // Main menu
+        std::cout << std::endl;
+        std::cout << "Pantalla principal" << std::endl;
+        std::cout << "0. Salir" << std::endl;
+        std::cout << "1. Ver/editar planta " << std::endl;
+        std::cout << "2. Ver/editar plan maestro " << std::endl;
+        std::cout << "Elija la opcion deseada: " ;
+        std::cin >> chosen_option;
+        switch (chosen_option) {
+          case 0: return NULL;
+          case 1: _current_screen = 1; // Goto plant view
+                  return static_cast<Message*>(new MessageGetPlant());
+          case 2: _current_screen = 3; // Goto masterplan view
+                  return static_cast<Message*>(new MessageGetMasterPlan());
+          default: continue;
+        }
+        assert(false);
+        break;
+      case 1: // Plant view
+        std::cout << std::endl;
+        std::cout << "Planta" << std::endl;
+        std::cout << _plant.GetContentForDisplay() << std::endl;
+        std::cout << std::endl;
+        std::cout << "0. Volver" << std::endl;
+        std::cout << "1. Agregar una entrada a la planta " << std::endl;
+        std::cout << "Elija la opcion deseada: " ;
+        std::cin >> chosen_option;
+        switch (chosen_option) {
+          case 0: _current_screen = 0; // Goto main screen
+                  continue;
+          case 1: _current_screen = 2; // Goto new plant entry
+                  continue;
+          default: continue;
+        }
+        assert(false);
+        break;
+      case 2: // Plant edition
+        std::cout << std::endl;
+        std::cout << "Ingrese una nueva entrada: " ;
+        std::cin.ignore();
+        getline(std::cin, new_content);
+        _plant.AddNewEntry(new_content);
+        _current_screen = 1;
+        return static_cast<Message*>(new MessageReturnPlant(_plant));
 
+      case 3: // Master plan view
+        break;
+      case 4: // Master plan edition
+        break;
+      default:
+        assert(false);
+    }
   }
   return NULL;
 }
@@ -76,41 +96,31 @@ void GUI::Communicate(int sender_fd) {
 
   while(1) {
     Message* message_needed = Menu();
-    {
-      int len = 0;
-      std::string query = message_needed->Serialize();
-      if (send(sender_fd, query.c_str(), query.size(), 0) == -1) {
-        perror("Error on Communicate::OnSendQuery"); exit(1);
-      }
-      if( (len = recv(sender_fd, buf, sizeof(buf), 0)) > 0){
+    if (message_needed == NULL) return; // Exit
+
+    int len = 0;
+    std::string query = message_needed->Serialize();
+    if (send(sender_fd, query.c_str(), query.size(), 0) == -1) {
+      perror("Error on Communicate::OnSendQuery"); exit(1);
+    }
+
+    if (message_needed->ExpectResponse()) {
+      len = recv(sender_fd, buf, sizeof(buf), 0);
+      if( len  > 0){
         buf[len] = '\0';
+      }
+      else if (len == 0 ) {
+        perror("Server cerro la comunicacion"); exit(1);
       }
       else {
         perror("Error on Communicate::OnReceiveResponse"); exit(1);
       }
+      Message* message_response = MessageBuilder::Build(std::string(buf));
+      message_response->Execute(*this);
+      delete message_response;
     }
     delete message_needed;
-    Message* message_response = MessageBuilder::Build(std::string(buf));
-    // Dostuff
-    message_response->Execute(*this);
-    delete message_response;
   }
-
-    /*
-    int len = 0;
-    if( len = recv(sender_fd, buf, sizeof(buf), 0) > 0){
-      buf[len] = '\0';
-      std::string reply = Process(std::string(buf));
-      if (send(sender_fd, reply.c_str(), reply.size(), 0) == -1) {
-        perror("Error on Communicate::OnSendReply");
-        exit(1);
-      }
-    }
-    else {
-      std::cout << "Communication closed" << std::endl;
-      exit(1);
-    }
-  }*/
 }
 
 
@@ -166,6 +176,13 @@ void GUI::Connect() {
   Communicate(sockfd);
 
   close(sockfd);
+}
+
+void GUI::SetPlant(Plant plant) {
+  _plant = Plant(plant);
+}
+
+void GUI::SetMasterPlan(MasterPlan) {
 }
 
 GUI::GUI(char* server, int port) : _server(server), _port(port), _current_screen(0) {

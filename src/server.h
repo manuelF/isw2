@@ -1,8 +1,10 @@
 #ifndef _SERVER_INCLUDE
 #define _SERVER_INCLUDE
 #include "decisions.h"
-#include "plant.h"
 #include "master_plan.h"
+#include "messages.h"
+#include "plant.h"
+
 
 class Server {
   public:
@@ -12,12 +14,12 @@ class Server {
     void Listen();
 
     Plant GetPlant();
+    void SetPlant(Plant);
     MasterPlan GetMasterPlan();
+    void SetMasterPlan(MasterPlan);
 
   private:
     void Communicate(int);
-    std::string Process(std::string);
-
     int _port;
     int sockfd, newfd;  // listen on sock_fd, new connection on new_fd
 

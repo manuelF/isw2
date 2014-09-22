@@ -30,6 +30,10 @@ Message* MessageGetPlant::Execute(GUI& s) {
   return NULL;
 }
 
+bool MessageGetPlant::ExpectResponse() {
+  return true;
+}
+
 /*
  * ***************************
  */
@@ -42,14 +46,18 @@ std::string MessageReturnPlant::Serialize () {
 }
 
 Message* MessageReturnPlant::Execute(Server &s) {
+  s.SetPlant(_plant);
   return NULL;
 }
 
 Message* MessageReturnPlant::Execute(GUI &g) {
-  // Aca hay que llamarnos a gui lo que corresponda
+  g.SetPlant(_plant);
   return NULL;
 }
 
+bool MessageReturnPlant::ExpectResponse() {
+  return false;
+}
 /*
  * ***************************
  */
@@ -66,6 +74,10 @@ Message* MessageGetMasterPlan::Execute(GUI& s) {
   return NULL;
 }
 
+bool MessageGetMasterPlan::ExpectResponse() {
+  return true;
+}
+
 /*
  * ***************************
  */
@@ -78,12 +90,17 @@ std::string MessageReturnMasterPlan::Serialize () {
 }
 
 Message* MessageReturnMasterPlan::Execute(Server &s) {
+  s.SetMasterPlan(_plan);
   return NULL;
 }
 
 Message* MessageReturnMasterPlan::Execute(GUI &g) {
-  // Aca hay que llamarnos a gui lo que corresponda
+  g.SetMasterPlan(_plan);
   return NULL;
+}
+
+bool MessageReturnMasterPlan::ExpectResponse() {
+  return false;
 }
 
 

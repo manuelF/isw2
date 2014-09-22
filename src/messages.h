@@ -13,6 +13,7 @@ class Message {
     virtual std::string Serialize() = 0;
     virtual Message* Execute(Server&) = 0;
     virtual Message* Execute(GUI&) = 0;
+    virtual bool ExpectResponse() = 0;
 };
 
 class MessageBuilder {
@@ -26,6 +27,7 @@ class MessageGetPlant : public Message {
     std::string Serialize();
     Message* Execute(Server&);
     Message* Execute(GUI&);
+    bool ExpectResponse();
 };
 
 class MessageReturnPlant : public Message {
@@ -34,6 +36,7 @@ class MessageReturnPlant : public Message {
     std::string Serialize();
     Message* Execute(Server&);
     Message* Execute(GUI&);
+    bool ExpectResponse();
 
   private:
     Plant _plant;
@@ -44,16 +47,18 @@ class MessageGetMasterPlan : public Message {
     std::string Serialize();
     Message* Execute(Server&);
     Message* Execute(GUI&);
+    bool ExpectResponse();
 };
 
 class MessageReturnMasterPlan : public Message {
-public:
-  explicit MessageReturnMasterPlan(MasterPlan);
-  std::string Serialize();
-  Message* Execute(Server&);
-  Message* Execute(GUI&);
+  public:
+    explicit MessageReturnMasterPlan(MasterPlan);
+    std::string Serialize();
+    Message* Execute(Server&);
+    Message* Execute(GUI&);
+    bool ExpectResponse();
 
-private:
-  MasterPlan _plan;
+  private:
+    MasterPlan _plan;
 };
 #endif
