@@ -1,3 +1,4 @@
+#include "gui.h"
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
@@ -11,52 +12,69 @@
 
 #include <arpa/inet.h>
 
-#define PORT "3490" // the port client will be connecting to
+#include <sstream>
 
-#define MAXDATASIZE 100 // max number of bytes we can get at once
+#include "messages.h"
 
-
-bool valid(char option) {
-  return (('1'<=option) && ('9'>=option));
+std::string GUI::Process(std::string input) {
+/*
+  Message* message = MessageBuilder::Build(input);
+  Message* response = message->Execute(*this);
+  std::string response_string = response->Serialize();
+  delete message;
+  delete response;
+  return response_string;
+  */
+  return input;
 }
 
-#define SIG_QUIT 9
-#define SIG_HELP 1
+void GUI::Communicate(int sender_fd) {
+  char buf[10000];
 
-void pollingLoop(int fd) {
-
-}
-
-// get sockaddr, IPv4 or IPv6:
-void *get_in_addr(struct sockaddr *sa)
-{
-  if (sa->sa_family == AF_INET) {
-    return &(((struct sockaddr_in*)sa)->sin_addr);
+  while(1) {
+    /*
+     * Pseudocodigo:
+     * while(1):
+     *  Interactuar hasta llegar a un menu que necesita algun dato
+     *  Construir el mensaje que lo pide
+     *  enviarlo
+     *  Esperar a recibir la respuesta
+     *  construir el mensaje de respuesta
+     *  llamarnos a traves del mensaje con una cosa interactiva para seguir avanzando
+     *  volver a la pantalla anterior
+     */
+    int len = 0;
+    if( len = recv(sender_fd, buf, sizeof(buf), 0) > 0){
+      buf[len] = '\0';
+      std::string reply = Process(std::string(buf));
+      if (send(sender_fd, reply.c_str(), reply.size(), 0) == -1) {
+        perror("Error on Communicate::OnSendReply");
+        exit(1);
+      }
+    }
+    else {
+      std::cout << "Communication closed" << std::endl;
+      exit(1);
+    }
   }
-
-  return &(((struct sockaddr_in6*)sa)->sin6_addr);
 }
 
-int main(int argc, char *argv[])
-{
-  int sockfd, numbytes;
-  char buf[MAXDATASIZE];
+
+void GUI::Connect() {
+  int numbytes;
   struct addrinfo hints, *servinfo, *p;
   int rv;
   char s[INET6_ADDRSTRLEN];
-
-  if (argc != 2) {
-      fprintf(stderr,"usage: client hostname\n");
-      exit(1);
-  }
+  std::stringstream ss;
+  ss << _port;
 
   memset(&hints, 0, sizeof hints);
   hints.ai_family = AF_UNSPEC;
   hints.ai_socktype = SOCK_STREAM;
 
-  if ((rv = getaddrinfo(argv[1], PORT, &hints, &servinfo)) != 0) {
+  if ((rv = getaddrinfo(_server, ss.str().c_str(), &hints, &servinfo)) != 0) {
     fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
-    return 1;
+    exit(1);
   }
 
   // loop through all the results and connect to the first we can
@@ -78,63 +96,25 @@ int main(int argc, char *argv[])
 
   if (p == NULL) {
     fprintf(stderr, "client: failed to connect\n");
-    return 2;
+    exit(2);
   }
 
-  inet_ntop(p->ai_family, get_in_addr((struct sockaddr *)p->ai_addr),
-      s, sizeof s);
+  void *inet_addr;
+  if (( (struct sockaddr *)&p->ai_addr)->sa_family == AF_INET)
+    inet_addr = &(((struct sockaddr_in*) (struct sockaddr *)&p->ai_addr)->sin_addr);
+  else
+    inet_addr = &(((struct sockaddr_in6*) (struct sockaddr *)&p->ai_addr)->sin6_addr);
+
+  inet_ntop(p->ai_family, inet_addr, s, sizeof s);
   printf("client: connecting to %s\n", s);
 
   freeaddrinfo(servinfo); // all done with this structure
 
-  pollingLoop(sockfd);
-
-  if ((numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)) == -1) {
-      perror("recv");
-      exit(1);
-  }
-  send(sockfd, "Peron", 6, 0);
-  while(1);
-  buf[numbytes] = '\0';
-
-  printf("client: received '%s'\n",buf);
+  Communicate(sockfd);
 
   close(sockfd);
-
-  return 0;
 }
 
+GUI::GUI(char* server, int port) : _server(server), _port(port) {
 
-
-
-
-
-
-
-
-int kind(char option) {
-  return (static_cast<int>(option) - static_cast<int>('0'));
 }
-
-void printGreeting() {
-  std::cout << "Bienvenidos a H.O.P." << std::endl;
-  std::cout << "Por favor, ingrese la opcion: " << std::endl;
-  std::cout << "9 para salir" << std::endl;
-  std::cout << "Opcion deseada: ";
-}
-/*
-int main() {
-  char option;
-
-  do {
-    printGreeting();
-    std::cin >> option;
-    if(valid(option)) {
-      if(kind(option)==SIG_QUIT)
-        break;
-    }
-  } while (1);
-
-  return 0;
-}
-*/

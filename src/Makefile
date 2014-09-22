@@ -1,4 +1,4 @@
-BING=gui
+BING=client
 BIND=system
 CXXFLAGS=-std=c++0x -Wall -pthread -pedantic
 

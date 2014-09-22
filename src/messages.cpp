@@ -4,6 +4,8 @@
 Message* MessageBuilder::Build(std::string input) {
   if (input == std::string("Q-GET-PLANT"))
     return static_cast<Message*>( new MessageGetPlant());
+  if (input.substr(0, 5) == std::string("Plant"))
+    return static_cast<Message*> ( new MessageReturnPlant(Plant::Build(input)));
   return NULL;
 }
 

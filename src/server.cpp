@@ -50,7 +50,6 @@ Server::Server(int port) : _port(port) {
   struct sigaction sa;
   int yes=1;
   int rv;
-  char ports[10];
   std::stringstream ss;
   ss << _port;
 
