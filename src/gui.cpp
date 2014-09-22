@@ -25,7 +25,7 @@ Message* GUI::Menu() {
     switch(_current_screen) {
       case 0: // Main menu
         std::cout << std::endl;
-        std::cout << "Pantalla principal" << std::endl;
+        std::cout << "******* Pantalla principal" << std::endl;
         std::cout << "0. Salir" << std::endl;
         std::cout << "1. Ver/editar planta " << std::endl;
         std::cout << "2. Ver/editar plan maestro " << std::endl;
@@ -43,7 +43,7 @@ Message* GUI::Menu() {
         break;
       case 1: // Plant view
         std::cout << std::endl;
-        std::cout << "Planta" << std::endl;
+        std::cout << "******* Planta" << std::endl;
         std::cout << _plant.GetContentForDisplay() << std::endl;
         std::cout << std::endl;
         std::cout << "0. Volver" << std::endl;
@@ -61,6 +61,7 @@ Message* GUI::Menu() {
         break;
       case 2: // Plant edition
         std::cout << std::endl;
+        std::cout << "********* Editando la planta" << std::endl;
         std::cout << "Ingrese una nueva entrada: " ;
         std::cin.ignore();
         getline(std::cin, new_content);
@@ -98,13 +99,13 @@ void GUI::Communicate(int sender_fd) {
     Message* message_needed = Menu();
     if (message_needed == NULL) return; // Exit
 
-    int len = 0;
     std::string query = message_needed->Serialize();
     if (send(sender_fd, query.c_str(), query.size(), 0) == -1) {
       perror("Error on Communicate::OnSendQuery"); exit(1);
     }
 
     if (message_needed->ExpectResponse()) {
+      int len = 0;
       len = recv(sender_fd, buf, sizeof(buf), 0);
       if( len  > 0){
         buf[len] = '\0';
@@ -142,14 +143,14 @@ void GUI::Connect() {
 
   // loop through all the results and connect to the first we can
   for(p = servinfo; p != NULL; p = p->ai_next) {
-    if ((sockfd = socket(p->ai_family, p->ai_socktype,
+    if ((_socket = socket(p->ai_family, p->ai_socktype,
         p->ai_protocol)) == -1) {
       perror("client: socket");
       continue;
     }
 
-    if (connect(sockfd, p->ai_addr, p->ai_addrlen) == -1) {
-      close(sockfd);
+    if (connect(_socket, p->ai_addr, p->ai_addrlen) == -1) {
+      close(_socket);
       perror("client: connect");
       continue;
     }
@@ -173,9 +174,9 @@ void GUI::Connect() {
 
   freeaddrinfo(servinfo); // all done with this structure
 
-  Communicate(sockfd);
+  Communicate(_socket);
 
-  close(sockfd);
+  close(_socket);
 }
 
 void GUI::SetPlant(Plant plant) {
@@ -185,6 +186,6 @@ void GUI::SetPlant(Plant plant) {
 void GUI::SetMasterPlan(MasterPlan) {
 }
 
-GUI::GUI(char* server, int port) : _server(server), _port(port), _current_screen(0) {
+GUI::GUI(char* server, int port) : _server(server), _port(port), _socket(0), _current_screen(0) {
 
 }

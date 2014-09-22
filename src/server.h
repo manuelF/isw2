@@ -21,7 +21,7 @@ class Server {
   private:
     void Communicate(int);
     int _port;
-    int sockfd, newfd;  // listen on sock_fd, new connection on new_fd
+    int _listener, _newconnection;  // listen on sock_fd, new connection on new_fd
 
     Plant _plant;
     MasterPlan _plan;

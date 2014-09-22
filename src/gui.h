@@ -21,7 +21,7 @@ class GUI {
 
     char* _server;
     int _port;
-    int sockfd;
+    int _socket;
     int _current_screen;
     Plant _plant;
 };

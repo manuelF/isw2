@@ -66,7 +66,8 @@ void Server::Communicate(int sender_fd) {
   }
 }
 
-Server::Server(int port) : _port(port), _plant(), _plan(MasterPlan::BuildFromFile("default_plan")) {
+Server::Server(int port) : _port(port), _listener(0), _newconnection(0),
+    _plant(), _plan(MasterPlan::BuildFromFile("default_plan")) {
   struct addrinfo hints, *servinfo, *p;
   struct sigaction sa;
   int yes=1;
@@ -86,20 +87,20 @@ Server::Server(int port) : _port(port), _plant(), _plan(MasterPlan::BuildFromFil
 
   // loop through all the results and bind to the first we can
   for(p = servinfo; p != NULL; p = p->ai_next) {
-    if ((sockfd = socket(p->ai_family, p->ai_socktype,
+    if ((_listener = socket(p->ai_family, p->ai_socktype,
         p->ai_protocol)) == -1) {
       perror("server: socket");
       continue;
     }
 
-    if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &yes,
+    if (setsockopt(_listener, SOL_SOCKET, SO_REUSEADDR, &yes,
         sizeof(int)) == -1) {
       perror("setsockopt");
       exit(1);
     }
 
-    if (bind(sockfd, p->ai_addr, p->ai_addrlen) == -1) {
-      close(sockfd);
+    if (bind(_listener, p->ai_addr, p->ai_addrlen) == -1) {
+      close(_listener);
       perror("server: bind");
       continue;
     }
@@ -115,7 +116,7 @@ Server::Server(int port) : _port(port), _plant(), _plan(MasterPlan::BuildFromFil
   freeaddrinfo(servinfo); // all done with this structure
 
   #define CONNECTIONS_BACKLOG 10   // how many pending connections queue will hold
-  if (listen(sockfd, CONNECTIONS_BACKLOG) == -1) {
+  if (listen(_listener, CONNECTIONS_BACKLOG) == -1) {
     perror("listen");
     exit(1);
   }
@@ -130,8 +131,8 @@ Server::Server(int port) : _port(port), _plant(), _plan(MasterPlan::BuildFromFil
 }
 
 Server::~Server() {
-  close(sockfd); sockfd = 0;
-  close(newfd); newfd = 0;
+  close(_listener); _listener = 0;
+  close(_newconnection); _newconnection = 0;
 }
 
 void Server::Listen() {
@@ -142,8 +143,8 @@ void Server::Listen() {
 
   while(1) {  // main accept() loop
     sin_size = sizeof their_addr;
-    newfd = accept(sockfd, (struct sockaddr *)&their_addr, &sin_size);
-    if (newfd == -1) {
+    _newconnection = accept(_listener, (struct sockaddr *)&their_addr, &sin_size);
+    if (_newconnection == -1) {
       perror("accept");
       continue;
     }
@@ -158,8 +159,8 @@ void Server::Listen() {
     printf("server: got connection from %s\n", s);
 
 
-    Communicate(newfd);
-    close(newfd);
+    Communicate(_newconnection);
+    close(_newconnection);
   }
 }
 
