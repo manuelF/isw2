@@ -4,11 +4,11 @@
 
 class Plant {
   public:
-    Plant(History&);
+    Plant();
     virtual ~Plant();
+    std::string Serialize();
 
-  private:
-    History& _historical_logger;
+    static Plant Build(std::string);
 };
 
 #endif

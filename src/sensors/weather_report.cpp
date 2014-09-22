@@ -9,6 +9,6 @@ WeatherReport::~WeatherReport() {
 
 std::string WeatherReport::Serialize() {
   std::stringstream ss;
-  ss << _rain_chance << "\% chance of rain";
+  ss << _rain_chance << "% chance of rain";
   return ss.str();
 }
