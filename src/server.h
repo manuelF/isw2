@@ -2,20 +2,7 @@
 #define _SERVER_INCLUDE
 #include "decisions.h"
 #include "plant.h"
-
-#include <cstdio>
-#include <cstdlib>
-#include <string>
-#include <unistd.h>
-#include <errno.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netdb.h>
-#include <arpa/inet.h>
-#include <sys/wait.h>
-#include <signal.h>
-
+#include "master_plan.h"
 
 class Server {
   public:
@@ -25,6 +12,7 @@ class Server {
     void Listen();
 
     Plant GetPlant();
+    MasterPlan GetMasterPlan();
 
   private:
     void Communicate(int);
@@ -34,6 +22,7 @@ class Server {
     int sockfd, newfd;  // listen on sock_fd, new connection on new_fd
 
     Plant _plant;
+    MasterPlan _plan;
     //Decisions _d;
 };
 

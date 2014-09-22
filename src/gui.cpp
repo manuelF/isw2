@@ -12,6 +12,8 @@
 
 #include <arpa/inet.h>
 
+#include <cassert>
+#include <iostream>
 #include <sstream>
 
 #include "messages.h"
@@ -28,10 +30,38 @@ std::string GUI::Process(std::string input) {
   return input;
 }
 
+Message* GUI::Menu() {
+  int chosen_option = 0;
+  switch(_current_screen) {
+    case 0: // Main menu
+      std::cout << "Pantalla principal" << std::endl;
+      switch (chosen_option) {
+        case 1:
+          return static_cast<Message*>(new MessageGetPlant()); // Goto plant view
+        case 2:
+          return static_cast<Message*>(new MessageGetMasterPlan());
+        default:
+          assert(false);
+      }
+      break;
+    case 1: // Plant view
+      break;
+    case 2: // Plant edition
+      break;
+    case 3: // Master plan view
+      break;
+    case 4: // Master plan edition
+      break;
+    default:
+      assert(false);
+
+  }
+  return NULL;
+}
+
 void GUI::Communicate(int sender_fd) {
   char buf[10000];
 
-  while(1) {
     /*
      * Pseudocodigo:
      * while(1):
@@ -43,6 +73,30 @@ void GUI::Communicate(int sender_fd) {
      *  llamarnos a traves del mensaje con una cosa interactiva para seguir avanzando
      *  volver a la pantalla anterior
      */
+
+  while(1) {
+    Message* message_needed = Menu();
+    {
+      int len = 0;
+      std::string query = message_needed->Serialize();
+      if (send(sender_fd, query.c_str(), query.size(), 0) == -1) {
+        perror("Error on Communicate::OnSendQuery"); exit(1);
+      }
+      if( (len = recv(sender_fd, buf, sizeof(buf), 0)) > 0){
+        buf[len] = '\0';
+      }
+      else {
+        perror("Error on Communicate::OnReceiveResponse"); exit(1);
+      }
+    }
+    delete message_needed;
+    Message* message_response = MessageBuilder::Build(std::string(buf));
+    // Dostuff
+    message_response->Execute(*this);
+    delete message_response;
+  }
+
+    /*
     int len = 0;
     if( len = recv(sender_fd, buf, sizeof(buf), 0) > 0){
       buf[len] = '\0';
@@ -56,12 +110,11 @@ void GUI::Communicate(int sender_fd) {
       std::cout << "Communication closed" << std::endl;
       exit(1);
     }
-  }
+  }*/
 }
 
 
 void GUI::Connect() {
-  int numbytes;
   struct addrinfo hints, *servinfo, *p;
   int rv;
   char s[INET6_ADDRSTRLEN];
@@ -115,6 +168,6 @@ void GUI::Connect() {
   close(sockfd);
 }
 
-GUI::GUI(char* server, int port) : _server(server), _port(port) {
+GUI::GUI(char* server, int port) : _server(server), _port(port), _current_screen(0) {
 
 }

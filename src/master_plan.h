@@ -17,12 +17,13 @@ struct Stage {
   double _temperature_required;
 };
 
-class MasterPlan{
+class MasterPlan {
   public:
     virtual ~MasterPlan();
 
     static MasterPlan BuildFromFile(std::string);
     static MasterPlan BuildFromString(std::string);
+    std::string Serialize();
 
   private:
     explicit MasterPlan(std::string);

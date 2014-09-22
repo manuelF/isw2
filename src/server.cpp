@@ -1,7 +1,21 @@
+#include <cstdio>
+#include <cstdlib>
+#include <string>
+#include <unistd.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h>
+#include <arpa/inet.h>
+#include <sys/wait.h>
+#include <signal.h>
+
 #include <thread>
 #include <iostream>
 #include <sstream>
 #include <string.h>
+
 #include "server.h"
 #include "messages.h"
 
@@ -14,6 +28,10 @@ void sigchld_handler(int s)
 
 Plant Server::GetPlant() {
   return _plant;
+}
+
+MasterPlan Server::GetMasterPlan() {
+  return _plan;
 }
 
 std::string Server::Process(std::string input) {
@@ -30,7 +48,7 @@ void Server::Communicate(int sender_fd) {
 
   while(1) {
     int len = 0;
-    if( len = recv(sender_fd, buf, sizeof(buf), 0) > 0){
+    if((len = recv(sender_fd, buf, sizeof(buf), 0)) > 0) {
       buf[len] = '\0';
       std::string reply = Process(std::string(buf));
       if (send(sender_fd, reply.c_str(), reply.size(), 0) == -1) {
@@ -45,7 +63,7 @@ void Server::Communicate(int sender_fd) {
   }
 }
 
-Server::Server(int port) : _port(port) {
+Server::Server(int port) : _port(port), _plant(), _plan(MasterPlan::BuildFromFile("default_plan")) {
   struct addrinfo hints, *servinfo, *p;
   struct sigaction sa;
   int yes=1;

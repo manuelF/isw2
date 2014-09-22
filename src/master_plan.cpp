@@ -57,6 +57,15 @@ MasterPlan MasterPlan::BuildFromFile(std::string filename) {
   return plan;
 }
 
+std::string MasterPlan::Serialize() {
+  std::stringstream ss;
+  ss << "MasterPlan ";
+  for(auto &s: _stages) { // TODO: caracter extra al final?
+    ss << s.Serialize() << " ";
+  }
+  return ss.str();
+}
+
 MasterPlan::~MasterPlan() {
   std::ofstream output(_filename);
   for(auto &s : _stages) {
