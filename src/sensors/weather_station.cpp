@@ -15,6 +15,3 @@ WeatherReport WeatherStation::GetForecastWeather() {
 WeatherReport WeatherStation::GetCurrentWeather() {
   return WeatherReport(88.0);
 }
-
-void WeatherStation::NotifyOfSuddenChanges() {
-}
