@@ -24,6 +24,7 @@ class GUI {
     int _socket;
     int _current_screen;
     Plant _plant;
+    MasterPlan _plan;
 };
 
 #endif

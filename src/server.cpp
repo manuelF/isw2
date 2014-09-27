@@ -28,7 +28,7 @@ Plant Server::GetPlant() {
 }
 
 void Server::SetPlant(Plant plant) {
-  _plant=plant;
+  _plant = plant;
 }
 
 MasterPlan Server::GetMasterPlan() {
@@ -45,6 +45,7 @@ void Server::Communicate(int sender_fd) {
 
   while(1) {
     int len = 0;
+    memset(buf, 0, sizeof buf);
     if((len = recv(sender_fd, buf, sizeof(buf), 0)) > 0) {
       buf[len] = '\0';
       Message* message = MessageBuilder::Build(std::string(buf));

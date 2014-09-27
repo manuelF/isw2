@@ -1,6 +1,7 @@
 #ifndef _ACTUATORS_HANDLER_INCLUDE
 #define _ACTUATORS_HANDLER_INCLUDE
 
+#include "../decision.h"
 #include "antibiotic_actuator.h"
 #include "fertilizer_actuator.h"
 #include "light_actuator.h"
@@ -11,6 +12,7 @@ class ActuatorsHandler {
     ActuatorsHandler();
     virtual ~ActuatorsHandler();
 
+    void ExecuteDecision(const Decision&);
   private:
     AntibioticActuator _antibiotic;
     WaterActuator _water;

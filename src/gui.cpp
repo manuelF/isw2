@@ -21,6 +21,7 @@
 Message* GUI::Menu() {
   int chosen_option = 0;
   std::string new_content;
+  MasterPlan _temporal_plan = MasterPlan::BuildEmpty();
   while(1) {
     switch(_current_screen) {
       case 0: // Main menu
@@ -66,15 +67,74 @@ Message* GUI::Menu() {
         std::cin.ignore();
         getline(std::cin, new_content);
         _plant.AddNewEntry(new_content);
-        _current_screen = 1;
+        _current_screen = 1; // Goto plant view
         return static_cast<Message*>(new MessageReturnPlant(_plant));
 
       case 3: // Master plan view
+        std::cout << std::endl;
+        std::cout << "****** Plan maestro" << std::endl;
+        std::cout << _plan.GetContentForDisplay() << std::endl;
+        std::cout << "0. Volver" << std::endl;
+        std::cout << "1. Agregar/Reemplazar por un plan nuevo " << std::endl;
+        std::cout << "2. Editar el plan actual " << std::endl;
+        std::cout << "Elija la opcion deseada: " ;
+        std::cin >> chosen_option;
+        switch (chosen_option) {
+          case 0: _current_screen = 0; // Goto main screen
+                  continue;
+          case 1: _current_screen = 4; // Goto new master plan
+                  _temporal_plan = MasterPlan::BuildEmpty();
+                  continue;
+          case 2: _current_screen = 5; // Goto edit master plan
+                  std::cout << " No implementado todavia " <<std::endl;
+                  _current_screen = 3;
+                  continue;
+          default: continue;
+        }
         break;
-      case 4: // Master plan edition
-        break;
-      default:
-        assert(false);
+
+      case 4: // Master plan new
+        std::cout << std::endl;
+        std::cout << "****** Nuevo plan maestro" <<  std::endl;
+        std::cout << "Plan nuevo:" << std::endl;
+        std::cout << _temporal_plan.GetContentForDisplay() << std::endl;
+        std::cout << std::endl;
+        std::cout << "0. Volver sin guardar" << std::endl;
+        std::cout << "1. Volver y guardar el plan" << std::endl;
+        std::cout << "2. Agregar entrada al plan" << std::endl;
+        std::cout << "Elija la opcion deseada: " ;
+        std::cin >> chosen_option;
+        switch (chosen_option) {
+          case 0: _current_screen = 0; // Goto main screen
+                  continue;
+          case 1: _current_screen = 3; // Goto new master plan
+                  _plan = _temporal_plan;
+                  return static_cast<Message*>(new MessageReturnMasterPlan(_plan));
+          case 2: // Add new entries
+                  std::cout << std::endl << "Ingrese numero de etapa: ";
+                  std::cin.ignore(); getline(std::cin, new_content);
+                  std::cout << std::endl <<
+                    "Ingrese el nombre de esta etapa: ";
+                  std::cin.ignore(); getline(std::cin, new_content);
+                  std::cout << std::endl <<
+                    "Ingrese la humedad necesaria [poco / moderado / abundante]: ";
+                  std::cin.ignore(); getline(std::cin, new_content);
+                  //TODO: if new_content not in [..] repreguntar
+                  std::cout << std::endl <<
+                    "Ingrese el PH necesario [poco / moderado / abundante]: ";
+                  std::cin.ignore(); getline(std::cin, new_content);
+                  //TODO: if new_content not in [..] repreguntar
+                  std::cout << std::endl <<
+                    "Ingrese la temperatura necesaria [poco / moderado / abundante]: ";
+                  std::cin.ignore(); getline(std::cin, new_content);
+                  //TODO: if new_content not in [..] repreguntar
+                  _temporal_plan.AddStage(Stage(1, "pruebis", 98.5, 7.0, 33.0));
+                  continue;
+          case 5: // Master plan edition
+            break;
+          default:
+            assert(false);
+        }
     }
   }
   return NULL;
@@ -121,6 +181,7 @@ void GUI::Communicate(int sender_fd) {
       delete message_response;
     }
     delete message_needed;
+    memset(buf, 0, sizeof buf);
   }
 }
 
@@ -180,12 +241,14 @@ void GUI::Connect() {
 }
 
 void GUI::SetPlant(Plant plant) {
-  _plant = Plant(plant);
+  _plant = plant;
 }
 
-void GUI::SetMasterPlan(MasterPlan) {
+void GUI::SetMasterPlan(MasterPlan plan) {
+  _plan = plan;
 }
 
-GUI::GUI(char* server, int port) : _server(server), _port(port), _socket(0), _current_screen(0) {
+GUI::GUI(char* server, int port) : _server(server), _port(port),
+  _socket(0), _current_screen(0), _plan(MasterPlan::BuildFromString("")) {
 
 }

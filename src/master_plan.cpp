@@ -2,6 +2,8 @@
 #include <sstream>
 #include <fstream>
 
+#include <iostream>
+
 Stage::Stage(
     int order, std::string name, double target_humidity, double target_ph,
     double target_temperature) : _natural_order(order), _friendly_name(name),
@@ -18,7 +20,14 @@ std::string Stage::Serialize() {
   ss << _friendly_name << " ";
   ss << _humidity_required << " ";
   ss << _ph_required << " ";
-  ss << _temperature_required << std::endl;
+  ss << _temperature_required;
+  return ss.str();
+}
+
+std::string Stage::GetContentForDisplay() {
+  std::stringstream ss;
+  //TODO: Cambiar este serialize por una representacion de mucho poco nada
+  ss << Serialize() << std::endl;
   return ss.str();
 }
 
@@ -33,41 +42,69 @@ Stage Stage::Build(std::string input) {
   return Stage(order, name, target_humidity, target_ph, target_temperature);
 }
 
-MasterPlan::MasterPlan(std::string filename) : _filename(filename) {
+MasterPlan::MasterPlan(std::string filename) : _stages(), _filename(filename), _persist(true) {
+}
+
+MasterPlan MasterPlan::BuildEmpty() {
+  MasterPlan plan("not_valid");
+  plan._persist = false;
+  return plan;
 }
 
 MasterPlan MasterPlan::BuildFromString(std::string all_stages) {
   MasterPlan plan("default_plan");
   std::stringstream input (all_stages);
   std::string tmp;
+  int quantity_stages;
+  input >> tmp; //Me como el "MasterPlan"
+  input >> quantity_stages;
 
-  while(input >> tmp) {
+  for (int i = 0; i < quantity_stages; i++) {
+    input >> tmp;
     plan._stages.push_back(Stage::Build(tmp));
   }
   return plan;
 }
 
 MasterPlan MasterPlan::BuildFromFile(std::string filename) {
-  MasterPlan plan(filename);
   std::ifstream input(filename);
-  std::string tmp;
-  while(input >> tmp) {
-    plan._stages.push_back(Stage::Build(tmp));
-  }
+  std::string tmp("MasterPlan 0");
+  if(input.good())
+    getline(input, tmp);
+  MasterPlan plan(BuildFromString(tmp));
+  plan._filename = filename;
   return plan;
 }
 
 std::string MasterPlan::Serialize() {
   std::stringstream ss;
   ss << "MasterPlan ";
+  ss << _stages.size() << " ";
   for(auto &s: _stages) { // TODO: caracter extra al final?
     ss << s.Serialize() << " ";
   }
   return ss.str();
 }
 
+void MasterPlan::AddStage(Stage s) {
+  _stages.push_back(s);
+}
+
+std::string MasterPlan::GetContentForDisplay() {
+  if(_stages.empty()) {
+    return "Ninguna etapa definida actualmente";
+  }
+  std::stringstream output;
+  for(auto &s : _stages) {
+    output << s.GetContentForDisplay() << std::endl;
+  }
+  return output.str();
+}
+
 MasterPlan::~MasterPlan() {
+  if(!_persist) return;
   std::ofstream output(_filename);
+  output << "MasterPlan " << _stages.size() << " ";
   for(auto &s : _stages) {
     output << s.Serialize() << std::endl;
   }

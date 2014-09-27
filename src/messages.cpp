@@ -2,6 +2,8 @@
 #include "server.h"
 #include "gui.h"
 
+#include <iostream>
+
 Message* MessageBuilder::Build(std::string input) {
   if (input == std::string("Q-GET-PLANT"))
     return static_cast<Message*>( new MessageGetPlant());
@@ -9,8 +11,9 @@ Message* MessageBuilder::Build(std::string input) {
     return static_cast<Message*> ( new MessageReturnPlant(Plant::Build(input)));
   if (input == std::string("Q-GET-MASTER-PLAN"))
     return static_cast<Message*>( new MessageGetMasterPlan());
-  if (input.substr(0, 5) == std::string("Master"))
+  if (input.substr(0, 6) == std::string("Master"))
     return static_cast<Message*> ( new MessageReturnMasterPlan(MasterPlan::BuildFromString(input)));
+  std::cout << "ERRRRRROR con input: " << input  << "intente: " << input.substr(0,5) << std::endl;
   return NULL;
 }
 
@@ -63,7 +66,7 @@ bool MessageReturnPlant::ExpectResponse() {
  */
 
 std::string MessageGetMasterPlan::Serialize () {
-  return std::string("Q-GET-MASTERPLAN");
+  return std::string("Q-GET-MASTER-PLAN");
 }
 
 Message* MessageGetMasterPlan::Execute(Server& s) {

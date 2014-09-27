@@ -7,6 +7,7 @@ struct Stage {
   Stage(int, std::string, double, double, double);
   virtual ~Stage();
   std::string Serialize();
+  std::string GetContentForDisplay();
 
   static Stage Build(std::string);
 
@@ -21,15 +22,21 @@ class MasterPlan {
   public:
     virtual ~MasterPlan();
 
+    static MasterPlan BuildEmpty();
     static MasterPlan BuildFromFile(std::string);
     static MasterPlan BuildFromString(std::string);
     std::string Serialize();
+
+    std::string GetContentForDisplay();
+
+    void AddStage(Stage);
 
   private:
     explicit MasterPlan(std::string);
 
     std::vector<Stage> _stages;
     std::string _filename;
+    bool _persist;
 };
 
 #endif

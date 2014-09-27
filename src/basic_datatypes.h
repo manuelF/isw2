@@ -10,21 +10,22 @@ class SensedValue{
     virtual ~SensedValue(){};
     virtual std::string Serialize() = 0;
     virtual Level levelOf() = 0;
-  protected:
-	//TODO define this values for each class
-	float MIN = 0;
-	float MAX = 99;
 };
 
 class PH: public SensedValue {
   public:
-    PH(double value){
+
+    PH (double value){
     	ph = value;
+      MIN = 0; MAX = 99;
     }
+
     virtual ~PH(){};
+
     std::string Serialize(){
     	return "ph";
     }
+
     Level levelOf(){
     	//TODO define me properly
     	if (ph < MIN){
@@ -36,6 +37,8 @@ class PH: public SensedValue {
     	}
     }
   private:
+    double MIN;
+    double MAX;
   	double ph;
 };
 
@@ -43,11 +46,15 @@ class Temperature: public SensedValue {
   public:
     Temperature(double value){
     	temperature = value;
+      MIN = 0; MAX = 99;
     }
+
     virtual ~Temperature(){};
+
     std::string Serialize(){
     	return "temp";
     }
+
     Level levelOf(){
     	//TODO define me properly
     	if (temperature < MIN){
@@ -59,6 +66,8 @@ class Temperature: public SensedValue {
     	}
     }
   private:
+    double MIN;
+    double MAX;
   	double temperature;
 };
 
@@ -66,11 +75,15 @@ class Humidity: public SensedValue {
   public:
     Humidity(double value){
     	humidity =  value;
+      MIN = 0; MAX = 99;
     }
+
     virtual ~Humidity(){};
+
     std::string Serialize(){
     	return "hum";
     }
+
     Level levelOf(){
     	//TODO define me properly
     	if (humidity < MIN){
@@ -82,6 +95,8 @@ class Humidity: public SensedValue {
     	}
     }
   private:
+    double MIN;
+    double MAX;
   	double humidity;
 };
 #endif
