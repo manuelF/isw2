@@ -9,7 +9,6 @@ class WaterActuator : public Actuator {
     virtual ~WaterActuator();
 
     virtual bool IsWorking();
-    virtual Quantity SupplyRemaining() ;
     virtual void Send(Quantity);
 };
 

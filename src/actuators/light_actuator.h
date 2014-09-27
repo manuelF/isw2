@@ -9,7 +9,6 @@ class LightActuator : public Actuator {
     virtual ~LightActuator();
 
     virtual bool IsWorking();
-    virtual Quantity SupplyRemaining() ;
     virtual void Send(Quantity);
 };
 

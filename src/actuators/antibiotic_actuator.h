@@ -9,7 +9,6 @@ class AntibioticActuator : public Actuator {
     virtual ~AntibioticActuator();
 
     virtual bool IsWorking();
-    virtual Quantity SupplyRemaining() ;
     virtual void Send(Quantity);
 };
 

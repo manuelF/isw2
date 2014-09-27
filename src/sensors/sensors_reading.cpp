@@ -7,9 +7,9 @@ SensorsReading::SensorsReading(Humidity humidity, PH ph, Temperature temperature
 
 std::string SensorsReading::Serialize() {
   std::stringstream ss;
-  ss << humidity << " ";
-  ss << ph << " ";
-  ss << temperature << std::endl;
+  ss << humidity.Serialize() << " ";
+  ss << ph.Serialize() << " ";
+  ss << temperature.Serialize() << std::endl;
 
   return ss.str();
 }

@@ -9,7 +9,6 @@ class FertilizerActuator : public Actuator {
     virtual ~FertilizerActuator();
 
     virtual bool IsWorking();
-    virtual Quantity SupplyRemaining() ;
     virtual void Send(Quantity);
 };
 

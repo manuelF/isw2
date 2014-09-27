@@ -1,0 +1,7 @@
+*.o
+client
+system
+*.aux
+*.tmp
+*.pdf
+*.log
