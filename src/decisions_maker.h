@@ -1,5 +1,5 @@
-#ifndef  _DECISIONS_INCLUDE
-#define  _DECISIONS_INCLUDE
+#ifndef  _DECISIONS_MAKER_INCLUDE
+#define  _DECISIONS_MAKER_INCLUDE
 
 #include <iostream>
 #include <string>
@@ -7,10 +7,10 @@
 #include "history.h"
 #include "timer.h"
 
-class Decisions : public TimerNotifiable {
+class DecisionsMaker : public TimerNotifiable {
   public:
-    Decisions();
-    virtual ~Decisions();
+    DecisionsMaker();
+    virtual ~DecisionsMaker();
 
     void TimerExpired();
   private:

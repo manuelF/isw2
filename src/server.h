@@ -1,6 +1,5 @@
 #ifndef _SERVER_INCLUDE
 #define _SERVER_INCLUDE
-#include "decisions.h"
 #include "master_plan.h"
 #include "messages.h"
 #include "plant.h"
