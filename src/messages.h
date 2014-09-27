@@ -10,6 +10,7 @@ class GUI;
 
 class Message {
   public:
+    virtual ~Message() {} ;
     virtual std::string Serialize() = 0;
     virtual Message* Execute(Server&) = 0;
     virtual Message* Execute(GUI&) = 0;

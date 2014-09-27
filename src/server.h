@@ -9,7 +9,7 @@
 class Server {
   public:
     explicit Server(int);
-    ~Server();
+    virtual ~Server();
 
     void Listen();
 

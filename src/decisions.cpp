@@ -1,34 +1,17 @@
 #include "decisions.h"
-#include <thread>
-
-Decisions::Decisions(std::string plan_filename, std::string history_filename)
-    :  _plan(MasterPlan::BuildFromFile(plan_filename)),
-       _history(history_filename),
-       _plant() {
-  _external.Register(static_cast<ExternalAnomaliesListener*>(this));
-}
 
 Decisions::Decisions() :
-  _plan(MasterPlan::BuildFromFile("default_plan")),
   _history("default_log"),
-  _plant() {
-  _external.Register(static_cast<ExternalAnomaliesListener*>(this));
+  _timer(60*5, static_cast<TimerNotifiable*>(this)) {
+    _timer.Start();
 }
 
 Decisions::~Decisions() {
-  _external.Unregister(static_cast<ExternalAnomaliesListener*>(this));
+  _timer.Stop();
 }
 
-std::string Decisions::GetSensorsReading() {
-  return _external.GetSensorsReading().Serialize();
-}
-
-std::string Decisions::GetForecastWeather() {
-  return _external.GetForecastWeather().Serialize();
-}
-
-void Decisions::ExternalNotification(WeatherReport wr) {
-  std::cout << "We have external notification" << std::endl;
+void Decisions::TimerExpired() {
+  std::cout << "Decisions Timer" << std::endl;
 }
 
 

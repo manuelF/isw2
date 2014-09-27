@@ -2,7 +2,6 @@
 #define _EXTERNAL_CONDITIONS_INCLUDE
 
 #include <set>
-#include "external_anomalies_listener.h"
 #include "humidity_sensor.h"
 #include "ph_sensor.h"
 #include "temperature_sensor.h"
@@ -16,9 +15,6 @@ class ExternalConditions : public TimerNotifiable {
     ExternalConditions();
     ~ExternalConditions();
 
-    void Register(ExternalAnomaliesListener*);
-    void Unregister(ExternalAnomaliesListener*);
-
     SensorsReading GetSensorsReading();
     WeatherReport GetCurrentWeather();
     WeatherReport GetForecastWeather();
@@ -26,10 +22,8 @@ class ExternalConditions : public TimerNotifiable {
     void TimerExpired();
 
   private:
-    void NotifyListeners();
 
     WeatherStation _weather;
-    std::set<ExternalAnomaliesListener*> _listeners;
     HumiditySensor _humidity;
     PHSensor _ph;
     TemperatureSensor _temperature;

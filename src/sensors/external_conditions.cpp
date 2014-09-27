@@ -11,19 +11,6 @@ ExternalConditions::~ExternalConditions() {
   _polling_timer.Stop();
 }
 
-void ExternalConditions::Register(ExternalAnomaliesListener* listener) {
-  std::cout << "Registering" << std::endl;
-  _listeners.insert(listener);
-}
-
-void ExternalConditions::Unregister(ExternalAnomaliesListener* listener) {
-  std::cout << "Unregistering" << std::endl;
-  auto it = _listeners.find(listener);
-  if(it!=_listeners.end()) {
-    _listeners.erase(it);
-  }
-}
-
 SensorsReading ExternalConditions::GetSensorsReading() {
   return SensorsReading(
       _humidity.GetCurrentReading(), _ph.GetCurrentReading(),
@@ -38,15 +25,7 @@ WeatherReport ExternalConditions::GetForecastWeather() {
   return _weather.GetForecastWeather();
 }
 
-void ExternalConditions::NotifyListeners() {
-  WeatherReport w = GetCurrentWeather();
-  for (auto& l : _listeners) {
-    l->ExternalNotification(w);
-  }
-}
-
 void ExternalConditions::TimerExpired() {
   // GetSensorsReading y enviar
   std::cout << "ExternalConditions::TimerExpired" << std::endl;
-  NotifyListeners();
 }
