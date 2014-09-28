@@ -16,11 +16,17 @@
 #include <iostream>
 #include <sstream>
 
+#include "level.h"
 #include "messages.h"
 
 Message* GUI::Menu() {
   int chosen_option = 0;
   std::string new_content;
+  int new_stage_number;
+  std::string new_stage_name;
+  std::string new_humidity;
+  std::string new_ph;
+  std::string new_temperature;
   MasterPlan _temporal_plan = MasterPlan::BuildEmpty();
   while(1) {
     switch(_current_screen) {
@@ -112,23 +118,25 @@ Message* GUI::Menu() {
                   return static_cast<Message*>(new MessageReturnMasterPlan(_plan));
           case 2: // Add new entries
                   std::cout << std::endl << "Ingrese numero de etapa: ";
-                  std::cin.ignore(); getline(std::cin, new_content);
+                  std::cin.ignore(); std::cin >> new_stage_number;
                   std::cout << std::endl <<
                     "Ingrese el nombre de esta etapa: ";
-                  std::cin.ignore(); getline(std::cin, new_content);
+                  std::cin.ignore(); getline(std::cin, new_stage_name);
                   std::cout << std::endl <<
                     "Ingrese la humedad necesaria [poco / moderado / abundante]: ";
-                  std::cin.ignore(); getline(std::cin, new_content);
+                  getline(std::cin, new_humidity);
                   //TODO: if new_content not in [..] repreguntar
                   std::cout << std::endl <<
                     "Ingrese el PH necesario [poco / moderado / abundante]: ";
-                  std::cin.ignore(); getline(std::cin, new_content);
+                  getline(std::cin, new_ph);
                   //TODO: if new_content not in [..] repreguntar
                   std::cout << std::endl <<
                     "Ingrese la temperatura necesaria [poco / moderado / abundante]: ";
-                  std::cin.ignore(); getline(std::cin, new_content);
+                  getline(std::cin, new_temperature);
                   //TODO: if new_content not in [..] repreguntar
-                  _temporal_plan.AddStage(Stage(1, "pruebis", 98.5, 7.0, 33.0));
+                  _temporal_plan.AddStage(Stage(new_stage_number, new_stage_name,
+                        LevelHandler::Build(new_humidity), LevelHandler::Build(new_ph),
+                        LevelHandler::Build(new_temperature)));
                   continue;
           case 5: // Master plan edition
             break;
@@ -249,6 +257,6 @@ void GUI::SetMasterPlan(MasterPlan plan) {
 }
 
 GUI::GUI(char* server, int port) : _server(server), _port(port),
-  _socket(0), _current_screen(0), _plan(MasterPlan::BuildFromString("")) {
+  _socket(0), _current_screen(0), _plan(MasterPlan::BuildEmpty()) {
 
 }
