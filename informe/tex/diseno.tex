@@ -1,0 +1,113 @@
+\section{Dise\~no}
+
+  \subsection{Diagrama de clases}
+
+  \paragraph{Abstracci\'on de los sensores}
+  El enunciado habla sobre tres tipos de sensores bien concretos.
+  Decidimos modelar a cada uno de ellos por serparado. Es decir, no realizamos
+  una abstracci\'on para Sensor. El motivo para sustentar esta decisi\'on
+  que se refleja tanto a nivel de dise\~no como a nivel implementativo es
+  el siguiente.
+
+  Si bien los sensores se comportan de forma semejante,
+  o mejor dicho, son polimorficos con respecto al mensaje \texttt{Sensar},
+  no lo son vistos desde la perspectiva de un lenguaje est\'aticamente tipado.
+  Esto es porque cada sensor devuelve un valor de un tipo o clase distinta.
+  Una soluci\'on a esto hubiese sido no modelar los tipos de los valores de
+  retorno con distintas clases, y poner \'unicamente un valor num\'erico
+  (al estilo \textit{double}). Nos
+  pareci\'o que perd\'iamos mucha sem\'antica con esta soluci\'on.
+
+  Otra soluci\'on podr\'ia haber sido utilizar el patr\'on \textit{visitor}.
+  Pero nos pareci\'o que complejiza el modelo y la implementaci\'on innecesariamente.
+
+  Al no haber realizado esta abstracci\'on se podr\'ia objetar que restringimos
+  la extensibilidad en cuanto a m\'as o distinto tipo de sensores.
+  Para responder a esta posible objeci\'on debe observarse el modelado del
+  \condiciones, el de los sensores y el del
+  \arduino. Al desligar el sensor del \arduino conseguimos
+  sensores vers\'atiles, en el sentido de que pueden depender de varios sensores
+  reales (es decir del mundo real). M\'as a\'un, los sensores modelados
+  permiten tener l\'ogica interna para manejar los sensores del mundo real
+  correctamente.
+  (FALTA nombrar patron composit)
+
+  Si se quisieran agregar nuevos tipos de sensores deber\'ian agregarse nuevas
+  clases de sensores al modelo. Por supuesto deber\'a tambi\'en modificarse
+  el c\'odigo de \condiciones para que se comunique
+  con los nuevos sensores. Pero consideramos que esto es b\'asicamente inevitable,
+  por m\'as que se realice una abstracci\'on del sensor, pues la l\'ogica
+  de todo el sistema depender\'a, en este caso, de nuevos par\'ametros.
+
+  \paragraph{Abstracci\'on de los actuadores}
+  Para el caso de los actuadores nos encontramos con una situaci\'on semejante
+  a la reci\'en presentada. En este caso, sin embargo, optamos por realizar
+  una abstracci\'on. Esta se denomina \texttt{Actuador Simple}. El nombre
+  refleja la naturaleza sencilla de los actuadores modelados: b\'asicamente
+  responden al mensaje \texttt{Suministrar} con una cantidad. Donde
+  \texttt{Cantidad} es una clase que representa valores discretos y que adem\'as
+  son interpretados por cada actuador de forma independiente.
+
+  Esta abstracci\'on permite realizar una calibraci\'on de cada actuador a la
+  hora de inicializar el sistema, que queda
+  guardada en el actuador. Por otro lado permite, al \decisiones,
+  devolver decisiones en un formato semejante al almacenado en el
+  \texttt{Plan Maestro} (y el descripto en el enunciado), que \'unicamente
+  especifica cantidades aproximadas, las modeladas en la clase
+  \texttt{Cantidades}.
+
+  \paragraph{Interacci\'on entre \decisiones y \condiciones}
+  Inicialmente decidimos tener un \timer que peri\'odicamente llame a \condiciones
+  con el mensaje \sensarCondiciones. Una vez recopilada la informaci\'on de los
+  sensores, \condiciones mandaba el mensaje \tomarDecisiones a \decisiones.
+
+  El problema con este protocolo es que \decisiones depende de \condiciones
+  para entrar en juego. Por otro lado, \condiciones termina dependiendo de
+  \condiciones a nivel dise\~no e implementaci\'on, lo cual no resulta razonable,
+  pues son partes independientes del sistema y este acoplamiento puede ser evitado.
+
+  Para esto ustamo dos \timer. Los objetos que antes estaban acoplados, ahora
+  pueden actuar libremente, siendo activados por \timer. \condiciones, luego
+  de sensar, escribe los resultados en el historial. \decisiones lee estos
+  resultados al ser activado, y toma una decisi\'on.
+
+  Otro aspecto interesante que surgi\'o al analizar esta interacci\'on es
+  el comportamiento estilo \textit{observer} que se da entre \timer y
+  \condiciones y entre \timer y \decisiones. Intentamos utilizar el patr\'on
+  cl\'asico en el dise\~no, pero no result\'o natural. Los motivos son
+  principalmente dos:
+  \begin{itemize}
+      \item El \timer se comporta como un observable, pero tiene una sutileza:
+          debe ajustarse el tiempo. Si bien esto puede ser solucionado de
+          forma prolija agregando objetos, decidimos que complicaba el dise\~no
+          por una cuesti\'on \'unicamente formal, que no facilitaba nada
+          concreto.
+      \item Siempre que se siga usando al \timer como tal, el dise\~no seguir\'a
+          siendo extensible, en este aspecto. Pues la funcionalidad de \timer
+          no deber\'ia cambiar, por la esencia misma de un \timer.
+  \end{itemize}
+  Por estos motivos, creemeos que la extensibilidad no fue restringida al
+  no utilizar un \textit{observer} cl\'asico.
+
+
+
+
+  \paragraph{\cliente y \servidor}
+  Para que el sistema pueda funcionar real\'isticamente, nos result\'o esencial
+  desacoplar totalmente el funcionamiento autom\'atico del mismo: manejo de
+  actuadores, recopilar informaci\'on, tomar decisiones, etc. Del funcionamiento
+  asincr\'onico debido al uso por parte del usuario: guardar entradas sobre la
+  planta en el historial, realizar consultas, etc.
+
+  Para esto separamos el programa en dos procesos. El cliente y el servidor.
+  Que a su vez, dieron lugar a dos objetos: \cliente y \servidor.
+
+  \paragraph{Bootstrapping}
+
+  \paragraph{Mensaje}
+
+  \paragraph{Historial}
+
+  \subsection{Diagramas de objetos}
+
+  \subsection{Diagramas de FALTA}
