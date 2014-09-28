@@ -1,6 +1,4 @@
-\def \aag {\textbf{As a Gardener I Want to }}
-\def \sic {\textbf{So I Can }}
-
+\def \CODI {INT1}
 \def \USRI {\aag  check the PH, humidity and temperature of
     the ground through the Ardruino sensor \sic verify the actual plant conditions.}
 
@@ -29,6 +27,10 @@
 
 \def \POII{8}
 
+
+
+
+\def \CODII {INT2}
 \def \USRII {\aag  get weather for tomorrow from the metheorological center \sic
     see what actions will be taken.}
 \def \ACCII {
@@ -53,6 +55,9 @@
 
 \def \POIII {5}
 
+
+
+\def \CODIII {INT10}
 \def \USRIII {\aag automatize the actions to take
     \sic follow the master plan}
 
@@ -82,6 +87,8 @@
 \def \POIIII {8}
 
     
+
+\def \CODIV {INT12}
 \def \USRIV {
     \aag automatize the actuators activation
     \sic so actions can be taken automatically
@@ -107,89 +114,50 @@
 
 \def \POIIV {5}
 
-%Total for theme 'Interface'
-%62.0 points
-%Garden Logic
-%Code:
-%GAL
-%
-%    GAL1
-%    As
-%    botanist
-%    
-%    specify care rules
-%    \sic
-%    get warnings when the growth conditions are not ideal
-%        [edit]
-%    [edit]
-%    3
-%    GAL2
-%    In progress
-%    sprint 1
-%    As
-%    botanist
-%    
-%    input a master growth plan
-%    \sic
-%    specify growth conditions for the plant
-%        a)
-%        The system must have a valid way to input the values for every growth stage.
-%    Value: 5
-%
-%    Description:
-%    Interface that allows the botanist especify values for the PH, humidity and temperature of the ground for every growth stage.
-%
-%    Tasks:
-%    -desing an interface so the user can input a master plan.
-%    3
-%    GAL3
-%    As
-%    a botanist
-%    
-%    visualize the historical values of indicators and supplies.
-%    \sic
-%    decide if the values are correct.
-%        [edit]
-%    [edit]
-%    3
-%    Add story
-%
-%Total for theme 'Garden Logic'
-%9.0 points
-%Web
-%Code:
-%WEB
-%
-%    WEB1
-%    As
-%    a gardener
-%    
-%    check via web the status
-%    \sic
-%    monitor my plant from around the world
-%
-%
 
-\def \ancho {p{5.4cm}}
+
+\def \CODV {GAL2}
+\def \USRV {\aab input a master growth plan \sic specify growth conditions for the plant}
+
+\def \ACCV {
+    \empezarenum
+        \item The system must have a valid way to input the values for every growth stage.
+    \terminarenum}
+\def \VALV {5}
+
+\def \DESV {Interface that allows the botanist especify values for the PH, humidity and
+    temperature of the ground for every growth stage.}
+
+\def \TASV {
+    \empezarenum
+        \item desing an interface so the user can input a master plan.
+    \terminarenum}
+
+\def \POIV {3}
+
+
+
 
 
 \begin{landscape}
-\section{Sprint Backlog}
+\section{\sprintback}
 
 \begin{small}
-\begin{tabular}{ |\ancho|\ancho|l|l|\ancho|\ancho| }
+\begin{tabular}{ |l|\ancho|\ancho|l|l|\ancho|\ancho| }
 \hline
 \multicolumn{6}{ |c| }{Sprint Backlog} \\
 \hline
-User Story & Acceptance Criteria & Value & Points & Tasks & Description \\
+Code & User Story & Acceptance Criteria & Value & Points & Tasks & Description \\
 \hline
-\USRI & \ACCI & \VALI & \POII & \TASI & \DESI \\
+\CODI & \USRI & \ACCI & \VALI & \POII & \TASI & \DESI \\
 \hline
-\USRII & \ACCII & \VALII & \POIII & \TASII & \DESII \\
+\CODII & \USRII & \ACCII & \VALII & \POIII & \TASII & \DESII \\
 \hline
-\USRIII & \ACCIII & \VALIII & \POIIII & \TASIII & \DESIII \\
+\CODIII & \USRIII & \ACCIII & \VALIII & \POIIII & \TASIII & \DESIII \\
 \hline
-\USRIV & \ACCIV & \VALIV & \POIIV & \TASIV & \DESIV \\
+\CODIV & \USRIV & \ACCIV & \VALIV & \POIIV & \TASIV & \DESIV \\
+\hline
+\CODV & \USRV & \ACCV & \VALV & \POIV & \TASV & \DESV \\
 \hline
 \end{tabular}
 
