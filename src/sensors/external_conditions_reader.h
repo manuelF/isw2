@@ -5,19 +5,19 @@
 #include "humidity_sensor.h"
 #include "ph_sensor.h"
 #include "temperature_sensor.h"
-#include "sensors_reading.h"
+#include "external_data.h"
 #include "weather_station.h"
 #include "../timer_notifiable.h"
 #include "../timer.h"
 
-class ExternalConditions : public TimerNotifiable {
+class ExternalConditionsReader : public TimerNotifiable {
   public:
-    ExternalConditions();
-    ~ExternalConditions();
+    ExternalConditionsReader();
+    ~ExternalConditionsReader();
 
-    SensorsReading GetSensorsReading();
-    WeatherReport GetCurrentWeather();
-    WeatherReport GetForecastWeather();
+    ExternalData GetSensorsReading();
+    // WeatherReport GetCurrentWeather();
+    // WeatherReport GetForecastWeather();
 
     void TimerExpired();
 

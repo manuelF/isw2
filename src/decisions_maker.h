@@ -15,7 +15,7 @@ class DecisionsMaker : public TimerNotifiable {
     void TimerExpired();
   private:
     ActuatorsHandler _actuators;
-    History _history;
+    //History _history;
     Timer _timer;
 };
 

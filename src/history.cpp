@@ -1,26 +1,26 @@
 #include "history.h"
 #include <iostream>
 
-History::History(std::string filename) : _current_filename(filename) {
-  Load(filename);
+History::History(){
+  Load();
 }
 
 History::~History() {
-  Save(_current_filename);
+  Save();
 }
 
 void History::Insert() {
   //_items.push_back(item);
 }
 
-void History::Save(std::string filename) {
-  for(auto &i : _items) {
+void History::Save() {
+  for(auto &i : _actions_items) {
     std::string result = i.Serialize();
     std::cout << result;
   }
 }
 
-void History::Load(std::string filename) {
+void History::Load() {
   /*
    * Abrir el archivo
    * Mientras haya lineas

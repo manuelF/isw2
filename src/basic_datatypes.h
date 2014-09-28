@@ -1,6 +1,6 @@
 #ifndef _BASIC_DATATYPES_INCLUDE
 #define _BASIC_DATATYPES_INCLUDE
-#include <string>
+#include <sstream>
 #include "level.h"
 
 typedef int Seconds;
@@ -23,7 +23,9 @@ class PH: public SensedValue {
     virtual ~PH(){};
 
     std::string Serialize(){
-    	return "ph";
+    	std::stringstream ss;
+  		ss << " " << ph << " ";
+    	return ss.str();
     }
 
     Level levelOf(){
@@ -52,7 +54,9 @@ class Temperature: public SensedValue {
     virtual ~Temperature(){};
 
     std::string Serialize(){
-    	return "temp";
+    	std::stringstream ss;
+  		ss << " " << temperature << " ";
+    	return ss.str();
     }
 
     Level levelOf(){
@@ -81,7 +85,9 @@ class Humidity: public SensedValue {
     virtual ~Humidity(){};
 
     std::string Serialize(){
-    	return "hum";
+    	std::stringstream ss;
+  		ss << " " << humidity << " ";
+    	return ss.str();
     }
 
     Level levelOf(){

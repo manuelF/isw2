@@ -3,21 +3,28 @@
 
 #include <vector>
 #include "log_item.h"
+#include "action_log_item.h"
+#include "external_conditions_log_item.h"
+#include "plant_log_item.h"
 
 class History {
   public:
-    History(std::string);
+    History();
     virtual ~History();
 
     void Insert();
 
-    void Save(std::string);
+    void Save();
 
   private:
-    void Load(std::string);
+    void Load();
 
-    std::string _current_filename;
-    std::vector<LogItem> _items;
+    std::string _actions_filename;
+    std::string _plant_filename;
+    std::string _external_data_filename;
+    std::vector<ActionLogItem> _actions_items;
+    std::vector<PlantLogItem> _plant_times;
+    //std::vector<ExternalConditionsLogItem> _external_condition_items;
 };
 
 #endif

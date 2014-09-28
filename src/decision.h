@@ -1,6 +1,8 @@
 #ifndef _DECISION_INCLUDE
 #define _DECISION_INCLUDE
 #include "actuators/quantity.h"
+#include <string>
+
 
 struct Decision {
   public:
@@ -11,7 +13,7 @@ struct Decision {
 	Quantity water;
 	Quantity light;
 	Quantity fertilizer;
-	Quantity antibiotics;
+	Quantity antibiotic;
 };
 
 
