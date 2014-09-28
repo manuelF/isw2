@@ -39,22 +39,23 @@
 \newcommand{\arduino}{\texttt{Arduino}}
 \newcommand{\cliente}{\texttt{Cliente}}
 \newcommand{\servidor}{\texttt{Servidor}}
+\newcommand{\mensaje}{\texttt{Mensaje}}
+\newcommand{\constructorMensaje}{\texttt{Constructor de Mensaje}}
 
 \newcommand{\empezarenum}{\begin{enumerate*}[label=(\arabic*.),itemjoin={\newline}]}
 \newcommand{\terminarenum}{\end{enumerate*}}
 
 
-\def \aag {\textbf{As a Gardener I Want to }}
-\def \aab {\textbf{As a Botanist I Want to }}
-\def \sic {\textbf{So I Can }}
+\def \aag {\textbf{As a Gardener I Want to}}
+\def \aab {\textbf{As a Botanist I Want to}}
+\def \sic {\textbf{So I Can}}
 
-%para las tablas
-\def \ancho {p{5cm}}
 
 \begin{document}
 
   \materia{Ingenier\'ia del Software $2$}
-  \titulo{Trabajo Pr\'actico de Programaci\'on FALTA}
+  \titulo{Trabajo Pr\'actico de Dise\~no y Desarrollo,
+            Huerta org\'anica de precisi\'on}
   \integrante{Luis Scoccola}{$382/10$}{luis.scoccola@gmail.com}
 
   \maketitle
@@ -68,26 +69,13 @@
 %  \section{\sprintback}
   \input{sprintbacklog.tex}
 
-  \section{Seguimiento}
-    \subsection{Burndown Charts}
+%  \section{Seguimiento}
+  \input{seguimiento.tex}
 
 %  \section{Dise\~no}
   \input{diseno.tex}
 
-  \section{Retrospectiva}
-    \subsection{Inconvenientes encontrados}
-    \paragraph{Tareas programadas en el \sprintback}
-    Al momento de definir las tareas no ten\'iamos experiencia en separar y definir
-    tareas concretas para un proyecto. A pesar de nuestro intento por modularizar
-    las tareas y no olvidar partes esenciales result\'o que b\'asicamente obviamos
-    las tareas de modelado y dise\~no. Por otro lado, las tareas de implementaci\'on
-    resultaron modularizadas de forma poco conveniente, pues no se correspond\'ian
-    con las clases, que fueron dise\~nadas luego. Si bi\'en el \sprintback tuvo
-    este inconveniente, a la hora de ponernos a trabajar notamos r\'apidamente
-    el problema, y logramos distribuirnos las tareas de forma eficiente.
-
-    \subsection{Proxima iteraci\'on}
-
-    \paragraph{Historial visitor}
+%  \section{Retrospectiva}
+  \input{retrospectiva}
 
 \end{document}
