@@ -2,9 +2,10 @@
 #define _MASTER_PLAN_INCLUDE
 #include <string>
 #include <vector>
+#include "level.h"
 
 struct Stage {
-  Stage(int, std::string, double, double, double);
+  Stage(int, std::string, Level, Level, Level);
   virtual ~Stage();
   std::string Serialize();
   std::string GetContentForDisplay();
@@ -13,9 +14,9 @@ struct Stage {
 
   int _natural_order;
   std::string _friendly_name;
-  double _humidity_required;
-  double _ph_required;
-  double _temperature_required;
+  Level _humidity_required;
+  Level _ph_required;
+  Level _temperature_required;
 };
 
 class MasterPlan {

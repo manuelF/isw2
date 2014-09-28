@@ -2,11 +2,9 @@
 #include <sstream>
 #include <fstream>
 
-#include <iostream>
-
 Stage::Stage(
-    int order, std::string name, double target_humidity, double target_ph,
-    double target_temperature) : _natural_order(order), _friendly_name(name),
+    int order, std::string name, Level target_humidity, Level target_ph,
+    Level target_temperature) : _natural_order(order), _friendly_name(name),
     _humidity_required(target_humidity), _ph_required(target_ph),
     _temperature_required(target_temperature) {
 }
@@ -18,9 +16,9 @@ std::string Stage::Serialize() {
   std::stringstream ss;
   ss << _natural_order << " ";
   ss << _friendly_name << " ";
-  ss << _humidity_required << " ";
-  ss << _ph_required << " ";
-  ss << _temperature_required;
+  ss << LevelHandler::Serialize(_humidity_required) << " ";
+  ss << LevelHandler::Serialize(_ph_required) << " ";
+  ss << LevelHandler::Serialize(_temperature_required);
   return ss.str();
 }
 
@@ -35,11 +33,12 @@ Stage Stage::Build(std::string input) {
   std::stringstream ss(input);
   int order; ss >> order;
   std::string name; ss >> name;
-  double target_humidity; ss >> target_humidity;
-  double target_ph; ss >> target_ph;
-  double target_temperature; ss >> target_temperature;
+  std::string target_humidity; ss >> target_humidity;
+  std::string target_ph; ss >> target_ph;
+  std::string target_temperature; ss >> target_temperature;
 
-  return Stage(order, name, target_humidity, target_ph, target_temperature);
+  return Stage(order, name, LevelHandler::Build(target_humidity), LevelHandler::Build(target_ph),
+      LevelHandler::Build(target_temperature));
 }
 
 MasterPlan::MasterPlan(std::string filename) : _stages(), _filename(filename), _persist(true) {
@@ -60,7 +59,7 @@ MasterPlan MasterPlan::BuildFromString(std::string all_stages) {
   input >> quantity_stages;
 
   for (int i = 0; i < quantity_stages; i++) {
-    input >> tmp;
+    getline(input, tmp);
     plan._stages.push_back(Stage::Build(tmp));
   }
   return plan;
