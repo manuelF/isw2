@@ -1,4 +1,5 @@
 #include "light_actuator.h"
+#include <iostream>
 
 LightActuator::LightActuator () : _arduino(Arduino(8082)) {
 }
@@ -13,5 +14,5 @@ bool LightActuator::IsWorking() {
 void LightActuator::Send(Quantity q) {
     //TODO define me
     _arduino.writeSignal(15);
-    stdout << "Light Actuator has sent " << q << endl;
+    std::cout << "Light Actuator has sent " << q << std::endl;
 }

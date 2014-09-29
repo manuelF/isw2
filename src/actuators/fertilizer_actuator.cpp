@@ -1,4 +1,5 @@
 #include "fertilizer_actuator.h"
+#include <iostream>
 
 FertilizerActuator::FertilizerActuator () : _arduino(Arduino(8081)) {
 }
@@ -13,6 +14,6 @@ bool FertilizerActuator::IsWorking() {
 void FertilizerActuator::Send(Quantity q) {
     //TODO define me
     _arduino.writeSignal(15);
-    stdout << "Fertilizer Actuator has sent " << q << endl;
+    std::cout << "Fertilizer Actuator has sent " << q << std::endl;
 }
 

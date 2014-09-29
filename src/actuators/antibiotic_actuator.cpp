@@ -1,4 +1,5 @@
 #include "antibiotic_actuator.h"
+#include <iostream>
 
 AntibioticActuator::AntibioticActuator () : _arduino(Arduino(8080)) {
 }
@@ -13,5 +14,5 @@ bool AntibioticActuator::IsWorking() {
 void AntibioticActuator::Send(Quantity q) {
     //TODO define me
     _arduino.writeSignal(15);
-    stdout << "Antibiotic Actuator has sent " << q << endl;
+    std::cout << "Antibiotic Actuator has sent " << q << std::endl;
 }

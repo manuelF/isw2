@@ -1,5 +1,5 @@
-#ifndef _ACTION_LOG_ITEM
-#define _ACTION_LOG_ITEM
+#ifndef _EXTERNAL_CONDITIONS_LOG_ITEM
+#define _EXTERNAL_CONDITIONS_LOG_ITEM
 
 #include "log_item.h"
 #include <string>
@@ -12,6 +12,7 @@ class ExternalConditionsLogItem : public LogItem {
     virtual ~ExternalConditionsLogItem();
     std::string Serialize();
     static ExternalConditionsLogItem Build(std::string);
+    ExternalData GetExternalData();
   private:
   	ExternalData _external_data;
 };

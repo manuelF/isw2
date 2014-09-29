@@ -10,6 +10,8 @@ class FertilizerActuator : public Actuator {
 
     virtual bool IsWorking();
     virtual void Send(Quantity);
+  private:
+    Arduino _arduino;
 };
 
 #endif

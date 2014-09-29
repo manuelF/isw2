@@ -28,10 +28,11 @@ void History::InsertExternalConditionLog(ExternalData ed){
 }
 
 ExternalData History::GetLastExternalCondition(){
-    return _external_condition_items.back();
+    return _external_condition_items.back().GetExternalData();
 }
 
-void SaveThisCollectionOnThisFile(std::vector<LogItem> vector, std::string file){
+template <class LogType>
+void SaveThisCollectionOnThisFile(std::vector<LogType> vector, std::string file){
     std::ofstream output(file);
     output << "HistorySize: " << vector.size() << " ";
     for(auto &s : vector) {
@@ -45,12 +46,13 @@ void History::Save() {
     SaveThisCollectionOnThisFile(_external_condition_items,_external_data_filename);
 }
 
-void LoadThisCollectionFromThisFile(std::vector<LogItem> vector, std::string filename){
+template <class LogType>
+void LoadThisCollectionFromThisFile(std::vector<LogType>& vector, std::string filename){
     std::ifstream input(filename);
     std::string tmp("MasterPlan 0");
     while(input.good()){
         getline(input, tmp);
-        vector.push_back(LogItem::Build(tmp));
+        vector.push_back(LogType::Build(tmp));
     }
 }
 

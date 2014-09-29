@@ -2,7 +2,7 @@
 #define _PH_SENSOR_INCLUDE
 
 #include "../basic_datatypes.h"
-#include "../arduino/arduino.h'
+#include "../arduino/arduino.h"
 
 class PHSensor {
   public:

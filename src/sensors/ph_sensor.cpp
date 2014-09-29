@@ -5,7 +5,7 @@ PHSensor::PHSensor() : _arduino(Arduino(8085)){
 
 }
 
-virtual PHSensor::~PHSensor(){
+PHSensor::~PHSensor(){
 
 }
 

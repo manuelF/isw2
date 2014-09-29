@@ -26,3 +26,7 @@ ExternalConditionsLogItem::~ExternalConditionsLogItem() {
 std::string ExternalConditionsLogItem::Serialize() {
   return _external_data.Serialize();
 }
+
+ExternalData ExternalConditionsLogItem::GetExternalData() {
+  return _external_data;
+}

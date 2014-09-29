@@ -13,7 +13,7 @@
 
 class ExternalConditionsReader : public TimerNotifiable {
   public:
-    ExternalConditionsReader();
+    explicit ExternalConditionsReader(History);
     ~ExternalConditionsReader();
 
     ExternalData GetSensorsReading();

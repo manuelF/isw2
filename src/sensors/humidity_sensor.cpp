@@ -4,7 +4,7 @@
 HumiditySensor::HumiditySensor() : _arduino(Arduino(8084)){
 }
 
-virtual HumiditySensor::~HumiditySensor(){
+HumiditySensor::~HumiditySensor(){
 }
 
 Humidity HumiditySensor::GetCurrentReading() {

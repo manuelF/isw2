@@ -2,7 +2,7 @@ BING=client
 BIND=system
 CXXFLAGS=-std=c++0x -Wall -pthread -pedantic -ggdb
 
-SRCS:=$(wildcard *.cpp) $(wildcard sensors/*.cpp) $(wildcard actuators/*.cpp)
+SRCS:=$(wildcard *.cpp) $(wildcard sensors/*.cpp) $(wildcard actuators/*.cpp) $(wildcard arduino/*.cpp)
 OBJS:=$(SRCS:%.cpp=%.o)
 
 BINOBJS := $(filter-out $(BIND).o $(BING).o,$(OBJS))
