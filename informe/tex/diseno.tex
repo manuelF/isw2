@@ -4,13 +4,13 @@
 
       \subsubsection{Abstracci\'on de los sensores}
           El enunciado habla sobre tres tipos de sensores bien concretos.
-          Decidimos modelar a cada uno de ellos por serparado. Es decir, no realizamos
+          Decidimos modelar a cada uno de ellos por separado. Es decir, no realizamos
           una abstracci\'on para Sensor. El motivo para sustentar esta decisi\'on
           que se refleja tanto a nivel de dise\~no como a nivel implementativo es
           el siguiente.
 
           Si bien los sensores se comportan de forma semejante,
-          o mejor dicho, son polimorficos con respecto al mensaje \texttt{Sensar},
+          o mejor dicho, son polim\'orficos con respecto al mensaje \texttt{Sensar},
           no lo son vistos desde la perspectiva de un lenguaje est\'aticamente tipado.
           Esto es porque cada sensor devuelve un valor de un tipo o clase distinta.
           Una soluci\'on a esto hubiese sido no modelar los tipos de los valores de
@@ -18,17 +18,20 @@
           (al estilo \textit{double}). Nos
           pareci\'o que perd\'iamos mucha sem\'antica con esta soluci\'on.
 
-          Otra soluci\'on podr\'ia haber sido utilizar el patr\'on \textit{visitor}.
-          Pero nos pareci\'o que complejiza el modelo y la implementaci\'on innecesariamente.
+          Otra soluci\'on podr\'ia haber sido utilizar el patr\'on \textit{visitor} sobre
+          un sensor abstracto, de manera que externamente se utilizara el sensor y se lo
+          interpretara como la medici\'on apropiada. Esto nos pareci\'o que complejiza el
+          modelo y la implementaci\'on innecesariamente, adem\'as de agregar acoplamiento
+          entre funcionalidades claramente delimitadas.
 
           Al no haber realizado esta abstracci\'on se podr\'ia objetar que restringimos
           la extensibilidad en cuanto a m\'as o distinto tipo de sensores.
-          Para responder a esta posible objeci\'on debe observarse el modelado del
-          \condiciones{}, el de los sensores y el del
-          \arduino{}. Al desligar el sensor del \arduino{} conseguimos
-          sensores vers\'atiles, en el sentido de que pueden depender de varios sensores
+          Para responder a esta posible objeci\'on, debe observarse el modelado del
+          \condiciones{}, el de los sensores y el del \arduino{}.
+          Al desligar el sensor del \arduino{} conseguimos
+          sensores vers\'atiles, en el sentido de que pueden depender de uno o varios sensores
           reales (es decir del mundo real). M\'as a\'un, los sensores modelados
-          permiten tener l\'ogica interna para manejar los sensores del mundo real
+          permiten contener l\'ogica interna para manejar los sensores del mundo real
           correctamente.
 
           Si se quisieran agregar nuevos tipos de sensores deber\'ian agregarse nuevas
@@ -38,7 +41,7 @@
           por m\'as que se realice una abstracci\'on del sensor, pues la l\'ogica
           de todo el sistema depender\'a, en este caso, de nuevos par\'ametros.
 
-          \subsubsection{Abstracci\'on de los actuadores}
+      \subsubsection{Abstracci\'on de los actuadores}
           Para el caso de los actuadores nos encontramos con una situaci\'on semejante
           a la reci\'en presentada. En este caso, sin embargo, optamos por realizar
           una abstracci\'on. Esta se denomina \texttt{Actuador Simple}. El nombre
@@ -109,14 +112,14 @@
           procesos distintos, result\'o natural y conveniente especificar la forma
           y el prop\'osito de estos mensajes.
           Para esto utilizamos el patr\'on \textit{Command}.
-          
+
           Como los procesos corriendo en un sistema operativo \textsc{UNIX} \'unicamente
           pueden comunicarse enviando \textit{bytes}, es decir, el sistema operativo no
           provee niveles de abstracci\'on para enviar objetos, la clase
           \constructorMensaje{} viene al caso. Y la abstracci\'on del \mensaje{}
           resulta muy \'util.
           El funcionamiento b\'asico es: para comunicarse el \cliente{} con el \servidor{}
-          o viceversa, el objeto crea un \mensaje{}.
+          (y viceversa), el objeto crea un \mensaje{}.
           Luego, utilizando el m\'etodo \texttt{Serializar} de \mensaje{}, consigue un
           \textit{string} que representa al mensaje, y que env\'ia mediante un \textit{socket}.
 
