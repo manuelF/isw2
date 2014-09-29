@@ -1,7 +1,7 @@
 #include "arduino.h"
 #include <iostream>
 
-Arduino::Arduino(){
+Arduino::Arduino(Port p) : _port(p){
     //TODO open connection
 }
 
@@ -9,11 +9,12 @@ Arduino::~Arduino() {
     //TODO close connection
 }
 
-float Arduino::readSignal(Port p){
+float Arduino::readSignal(){
     //TODO ask for signal
-    return -1;
+    float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+    return r;
 }
 
-void Arduino::writeSignal(Port p, float signal){
+void Arduino::writeSignal(float signal){
     //TODO write signal
 }

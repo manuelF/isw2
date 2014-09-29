@@ -11,6 +11,7 @@ class ExternalConditionsLogItem : public LogItem {
     ExternalConditionsLogItem(ExternalData);
     virtual ~ExternalConditionsLogItem();
     std::string Serialize();
+    static ExternalConditionsLogItem Build(std::string);
   private:
   	ExternalData _external_data;
 };

@@ -9,13 +9,13 @@
 
 class DecisionsMaker : public TimerNotifiable {
   public:
-    DecisionsMaker();
+    DecisionsMaker(History); //Should this be a pointer to History? TODO para manu
     virtual ~DecisionsMaker();
 
     void TimerExpired();
   private:
-    ActuatorsHandler _actuators;
-    //History _history;
+    ActuatorsHandler _actuators_handler;
+    History _history;
     Timer _timer;
 };
 

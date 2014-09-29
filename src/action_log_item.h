@@ -7,11 +7,12 @@
 class ActionLogItem : public LogItem {
   public:
     ActionLogItem(Decision);
-    ActionLogItem(std::string);
     virtual ~ActionLogItem();
     std::string Serialize();
+    static ActionLogItem Build(std::string);
   private:
   	Decision _decision;
+
 };
 
 #endif

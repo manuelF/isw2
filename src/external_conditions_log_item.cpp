@@ -1,7 +1,7 @@
 #include "external_conditions_log_item.h"
 #include <sstream>
 
-ExternalConditionsLogItem::ExternalConditionsLogItem(std::string wr): _external_data(ExternalData(Humidity(0),PH(0),Temperature(0),WeatherReport(0))){
+ExternalConditionsLogItem ExternalConditionsLogItem::Build(std::string wr){
 	std:: stringstream ss(wr);
 	double tmp;
 
@@ -14,7 +14,7 @@ ExternalConditionsLogItem::ExternalConditionsLogItem(std::string wr): _external_
   	ss >> tmp;
 	WeatherReport weather_report = WeatherReport(tmp);
 
-  	_external_data = ExternalData(humidity,ph,temperature,weather_report);
+  	return ExternalConditionsLogItem(ExternalData(humidity,ph,temperature,weather_report));
 }
 
 ExternalConditionsLogItem::ExternalConditionsLogItem(ExternalData wr): _external_data(wr){

@@ -4,21 +4,20 @@
 ActionLogItem::ActionLogItem(Decision decision): _decision(decision){
 }
 
-ActionLogItem::ActionLogItem(std::string desicion_string):
-		_decision(Decision(Quantity::NOTHING,Quantity::NOTHING,Quantity::NOTHING,Quantity::NOTHING)){
-	std:: stringstream ss(desicion_string);
+ActionLogItem ActionLogItem::Build(std::string decision_string){
+	std:: stringstream ss(decision_string);
 	std:: string tmp;
 
 	ss >> tmp;
 	Quantity water = QuantityHandler::Build(tmp);
 	ss >> tmp;
-	Quantity ligth = QuantityHandler::Build(tmp);
+	Quantity light = QuantityHandler::Build(tmp);
 	ss >> tmp;
 	Quantity fertilizer = QuantityHandler::Build(tmp);
 	ss >> tmp;
 	Quantity antibiotics = QuantityHandler::Build(tmp);
 
-	_decision = Decision(water,ligth,fertilizer,antibiotics);
+	return ActionLogItem(Decision(water,light,fertilizer,antibiotics));
 }
 
 

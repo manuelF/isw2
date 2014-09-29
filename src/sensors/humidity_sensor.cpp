@@ -1,5 +1,13 @@
 #include "humidity_sensor.h"
+#include "../arduino/arduino.h"
+
+HumiditySensor::HumiditySensor() : _arduino(Arduino(8084)){
+}
+
+virtual HumiditySensor::~HumiditySensor(){
+}
 
 Humidity HumiditySensor::GetCurrentReading() {
-  return Humidity(98.0f);
+    //TODO define proper translation to humidity percentage
+  return Humidity(_arduino.readSignal() * 100);
 }
