@@ -1,0 +1,186 @@
+\def \diseno {\paragraph{Design}}
+\def \implementacion {\textbf{Implementation}}
+\def \testing {\textbf{Testing}}
+
+\def \codI {INT1}
+\def \usrI {\aag{}  check the PH, humidity and temperature of
+    the ground through the Ardruino sensor \sic{} verify the actual plant conditions.}
+
+\def \tasI {
+    \diseno{}
+    \begin{enumerate}
+        \item abstract the \textit{Arduinos}.
+        \item design the sensors.
+        \item design the sensor manager.
+        \item design a class or classes for a types that represent
+            the measurments.
+        \item design an atomatic way for the sensors to sensate and save the
+            information.
+    \end{enumerate}
+    \implementacion{}
+    \begin{enumerate}
+        \item retrieve the information measured from the Arduino interface.
+        \item interpret the information correctly.
+        \item display the information in a human-readable way.
+    \end{enumerate}
+    \testing
+    \begin{enumerate}
+        \item simulate the information measured by the Arduino.
+    \end{enumerate}
+}
+
+\def \asstoI {
+    \diseno{}
+    \implementacion{}
+    \testing{}
+}
+
+
+\def \codII {INT2}
+\def \usrII {\aag{}  get weather for tomorrow from the metheorological center \sic{}
+    see what actions will be taken.}
+
+\def \tasII {
+    \diseno{}
+    \begin{enumerate}
+        \item design the metheorological center.
+        \item design a class for a type that represents the measurements.
+        \item design an atomatic way for the metheorological center to sensate
+            and save the information.
+    \end{enumerate}
+    \implementacion{}
+    \begin{enumerate}
+        \item retrieve the information from the meteorological center.
+        \item interpret the information correctly.
+        \item display the information in a human-readable way.
+    \end{enumerate}
+
+    \testing
+    \begin{enumerate}
+        \item simulate the information from the center.
+    \end{enumerate}
+}
+
+\def \asstoII {
+    \diseno{}
+    \implementacion{}
+    \testing{}
+}
+
+
+
+
+\def \codIII {INT10}
+\def \usrIII {\aag{} automatize the actions to take
+    \sic{} follow the master plan}
+\def \tasIII {
+    \diseno{}
+    \begin{enumerate}
+        \item design a decision-maker.
+        \item design a class for the type of the decisions.
+    \end{enumerate}
+    \implementacion{}
+    \begin{enumerate}
+        \item (INT1).
+        \item (GAL2).
+        \item decide what actions to take.
+    \end{enumerate}
+}
+
+\def \asstoIII {
+    \diseno{}
+    \implementacion{}
+    \testing{}
+}
+
+
+
+\def \codIV {INT12}
+\def \usrIV {
+    \aag{} automatize the actuators activation
+    \sic{} so actions can be taken automatically
+}
+
+\def \tasIV {
+    \diseno{}
+    \begin{enumerate}
+        \item design the actuators.
+        \item design an actuator manager.
+    \end{enumerate}
+    \implementacion{}
+    \begin{enumerate}
+        \item (INT10).
+        \item control the actuators.
+    \end{enumerate}
+    \begin{enumerate}
+        \item simulate the actuators incidence and response.
+    \end{enumerate}
+}
+
+\def \asstoIV {
+    \diseno{}
+    \implementacion{}
+    \testing{}
+}
+
+
+
+
+\def \codV {GAL2}
+\def \usrV {\aab input a master growth plan \sic{} specify growth conditions for the plant}
+
+\def \tasV {
+    \diseno{}
+    \begin{enumerate}
+        \item design an interface so the user can input a master plan.
+        \item design the master plan format.
+    \end{enumerate}
+    \implementacion{}
+    \begin{enumerate}
+        \item implement the master plan in a persistent and yet modifiable
+            fashion.
+    \end{enumerate}
+}
+
+\def \asstoV {
+    \diseno{}
+    \implementacion{}
+    \testing{}
+}
+
+
+
+
+\def \anchosprintdos {p{10cm}}
+
+\begin{landscape}
+
+\begin{small}
+\begin{tabular}{ |l|p{4.7cm}|p{10cm}|p{7cm}| }
+\hline
+\multicolumn{4}{ |c| }{Sprint Backlog w/ elaborated tasks} \\
+\hline
+Code & User Story & Tasks & Assigned to and estimated hours \\
+\hline
+\codI & \usrI & \tasI & \asstoI \\
+\hline
+\codII & \usrII & \tasII & \asstoII \\
+\hline
+\end{tabular}
+
+\begin{tabular}{ |l|p{4.7cm}|p{10cm}|p{7cm}| }
+\hline
+\multicolumn{4}{ |c| }{Sprint Backlog w/ elaborated tasks (cont.)} \\
+\hline
+Code & User Story & Tasks & Assigned to and estimated hours \\
+\hline
+\codIII & \usrIII & \tasIII & \asstoIII \\
+\hline
+\codIV & \usrIV & \tasIV & \asstoIV \\
+\hline
+\codV & \usrV & \tasV & \asstoV \\
+\hline
+\end{tabular}
+
+\end{small}
+\end{landscape}
