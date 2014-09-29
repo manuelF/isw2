@@ -1,17 +1,20 @@
 #include "decisions_maker.h"
 
-DecisionsMaker::DecisionsMaker() :
-  //_history("default_log"),
-  _timer(60*5, static_cast<TimerNotifiable*>(this)) {
+DecisionsMaker::DecisionsMaker(History his) : _history(his), _timer(60*5, static_cast<TimerNotifiable*>(this)) {
     _timer.Start();
+    _actuators_handler = ActuatorsHandler();
 }
 
 DecisionsMaker::~DecisionsMaker() {
-  _timer.Stop();
+    _timer.Stop();
 }
 
 void DecisionsMaker::TimerExpired() {
-  std::cout << "DecisionsMaker Timer" << std::endl;
+    ExternalData ed = _history.GetLastExternalCondition();
+    //TODO take a decision
+    Decision des = Decision(NOTHING,LOW,HIGH,NOTHING);
+    _actuators_handler.ExecuteDecision(des);
+    _history.InsertActionLog(des);
 }
 
 

@@ -2,17 +2,25 @@
 #define _HISTORY_INCLUDE
 
 #include <vector>
-#include "log_item.h"
 #include "action_log_item.h"
 #include "external_conditions_log_item.h"
 #include "plant_log_item.h"
+#include "log_item.h"
+#include "sensors/external_data.h"
+#include "decision.h"
 
 class History {
   public:
     History();
     virtual ~History();
 
-    void Insert();
+    void InsertActionLog(Decision);
+
+    void InsertPlantLog(std::string);
+
+    void InsertExternalConditionLog(ExternalData);
+
+    ExternalData GetLastExternalCondition();
 
     void Save();
 
@@ -23,8 +31,8 @@ class History {
     std::string _plant_filename;
     std::string _external_data_filename;
     std::vector<ActionLogItem> _actions_items;
-    std::vector<PlantLogItem> _plant_times;
-    //std::vector<ExternalConditionsLogItem> _external_condition_items;
+    std::vector<PlantLogItem> _plant_items;
+    std::vector<ExternalConditionsLogItem> _external_condition_items;
 };
 
 #endif

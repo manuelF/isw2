@@ -4,6 +4,7 @@
 
 class LogItem {
   public:
+
     virtual std::string Serialize() = 0;
 };
 

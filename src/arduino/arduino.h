@@ -1,14 +1,18 @@
 #ifndef  _ARDUINO_INCLUDE
 #define  _ARDUINO_INCLUDE
 
+#include "port.h"
+
 class Arduino {
 public:
-    Arduino();
+    Arduino(Port);
     virtual ~Arduino();
 
-    float readSignal(Port p);
+    float readSignal();
 
-    void writeSignal(Port p, float signal);
+    void writeSignal(float signal);
+private:
+    Port _port;
 };
 
 #endif

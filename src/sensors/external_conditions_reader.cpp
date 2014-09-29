@@ -2,8 +2,9 @@
 
 #include <iostream>
 
-ExternalConditionsReader::ExternalConditionsReader()
-  : _weather(), _polling_timer(1, static_cast<TimerNotifiable*>(this)) {
+ExternalConditionsReader::ExternalConditionsReader(History his)
+  : _weather(), _polling_timer(1, static_cast<TimerNotifiable*>(this)), _history(his)
+{
     _polling_timer.Start();
 }
 
@@ -18,6 +19,5 @@ ExternalData ExternalConditionsReader::GetSensorsReading() {
 }
 
 void ExternalConditionsReader::TimerExpired() {
-  // GetSensorsReading y enviar
-  std::cout << "ExternalConditionsReader::TimerExpired" << std::endl;
+    _history.InsertExternalConditionLog(GetSensorsReading());
 }

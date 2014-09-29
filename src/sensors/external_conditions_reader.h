@@ -9,6 +9,7 @@
 #include "weather_station.h"
 #include "../timer_notifiable.h"
 #include "../timer.h"
+#include "../history.h"
 
 class ExternalConditionsReader : public TimerNotifiable {
   public:
@@ -28,6 +29,7 @@ class ExternalConditionsReader : public TimerNotifiable {
     PHSensor _ph;
     TemperatureSensor _temperature;
     Timer _polling_timer;
+    History _history;
 
 };
 

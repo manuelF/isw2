@@ -2,10 +2,16 @@
 #define _PH_SENSOR_INCLUDE
 
 #include "../basic_datatypes.h"
+#include "../arduino/arduino.h'
 
 class PHSensor {
   public:
+    PHSensor();
+    virtual ~PHSensor();
     PH GetCurrentReading();
+private:
+    Arduino _arduino;
+
 };
 
 #endif
