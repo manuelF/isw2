@@ -3,7 +3,7 @@
 #include "master_plan.h"
 #include "messages.h"
 #include "plant.h"
-
+#include "sensors/external_data.h"
 
 class Server {
   public:
@@ -16,6 +16,8 @@ class Server {
     void SetPlant(Plant);
     MasterPlan GetMasterPlan();
     void SetMasterPlan(MasterPlan);
+    ExternalData GetSensorsReading();
+
 
   private:
     void Communicate(int);

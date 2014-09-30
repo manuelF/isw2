@@ -13,6 +13,10 @@ Message* MessageBuilder::Build(std::string input) {
     return static_cast<Message*>( new MessageGetMasterPlan());
   if (input.substr(0, 6) == std::string("Master"))
     return static_cast<Message*> ( new MessageReturnMasterPlan(MasterPlan::BuildFromString(input)));
+  if (input == std::string("Q-GET-SENSORS-READING"))
+    return static_cast<Message*>( new MessageGetSensorsReading());
+  if (input.substr(0, 4) == std::string("Data"))
+    return static_cast<Message*> ( new MessageReturnSensorsReading(ExternalData::Build(input)));
   std::cout << "ERRRRRROR con input: " << input  << "intente: " << input.substr(0,5) << std::endl;
   return NULL;
 }
@@ -103,6 +107,52 @@ Message* MessageReturnMasterPlan::Execute(GUI &g) {
 }
 
 bool MessageReturnMasterPlan::ExpectResponse() {
+  return false;
+}
+
+/*
+ * ***************************
+ */
+
+std::string MessageGetSensorsReading::Serialize () {
+  return std::string("Q-GET-SENSORS-READING");
+}
+
+Message* MessageGetSensorsReading::Execute(Server& s) {
+  return new MessageReturnSensorsReading(s.GetSensorsReading());
+}
+
+Message* MessageGetSensorsReading::Execute(GUI& s) {
+  return NULL;
+}
+
+bool MessageGetSensorsReading::ExpectResponse() {
+  return true;
+}
+
+/*
+ * ***************************
+ */
+
+MessageReturnSensorsReading::MessageReturnSensorsReading(ExternalData data)
+  : _sensors(data) {
+}
+
+std::string MessageReturnSensorsReading::Serialize () {
+  return _sensors.Serialize();
+}
+
+Message* MessageReturnSensorsReading::Execute(Server& s) {
+  return NULL;
+}
+
+Message* MessageReturnSensorsReading::Execute(GUI& g) {
+//TODO Aca hay que imprimir por pantalla
+  g.SetSensors(_sensors);
+  return NULL;
+}
+
+bool MessageReturnSensorsReading::ExpectResponse() {
   return false;
 }
 

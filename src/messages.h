@@ -4,6 +4,7 @@
 #include <string>
 #include "plant.h"
 #include "master_plan.h"
+#include "sensors/external_data.h"
 
 class Server;
 class GUI;
@@ -61,5 +62,26 @@ class MessageReturnMasterPlan : public Message {
 
   private:
     MasterPlan _plan;
+};
+
+
+class MessageGetSensorsReading : public Message {
+  public:
+    std::string Serialize();
+    Message* Execute(Server&);
+    Message* Execute(GUI&);
+    bool ExpectResponse();
+};
+
+
+class MessageReturnSensorsReading : public Message {
+  public:
+    explicit MessageReturnSensorsReading(ExternalData);
+    std::string Serialize();
+    Message* Execute(Server&);
+    Message* Execute(GUI&);
+    bool ExpectResponse();
+  private:
+    ExternalData _sensors;
 };
 #endif

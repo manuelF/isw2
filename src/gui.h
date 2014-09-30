@@ -5,6 +5,7 @@
 #include "master_plan.h"
 #include "messages.h"
 #include "plant.h"
+#include "sensors/external_data.h"
 
 class GUI {
   public:
@@ -14,6 +15,7 @@ class GUI {
 
     void SetPlant(Plant);
     void SetMasterPlan(MasterPlan);
+    void SetSensors(ExternalData);
 
   private:
     Message* Menu();
@@ -25,6 +27,7 @@ class GUI {
     int _current_screen;
     Plant _plant;
     MasterPlan _plan;
+    ExternalData _data;
 };
 
 #endif

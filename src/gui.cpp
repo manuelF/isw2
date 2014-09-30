@@ -36,6 +36,7 @@ Message* GUI::Menu() {
         std::cout << "0. Salir" << std::endl;
         std::cout << "1. Ver/editar planta " << std::endl;
         std::cout << "2. Ver/editar plan maestro " << std::endl;
+        std::cout << "3. Ver la medicion de los sensores " << std::endl;
         std::cout << "Elija la opcion deseada: " ;
         std::cin >> chosen_option;
         switch (chosen_option) {
@@ -44,6 +45,8 @@ Message* GUI::Menu() {
                   return static_cast<Message*>(new MessageGetPlant());
           case 2: _current_screen = 3; // Goto masterplan view
                   return static_cast<Message*>(new MessageGetMasterPlan());
+          case 3: _current_screen = 6; // Goto sensors view
+                  return static_cast<Message*>(new MessageGetSensorsReading());
           default: continue;
         }
         assert(false);
@@ -138,11 +141,20 @@ Message* GUI::Menu() {
                         LevelHandler::Build(new_humidity), LevelHandler::Build(new_ph),
                         LevelHandler::Build(new_temperature)));
                   continue;
-          case 5: // Master plan edition
-            break;
-          default:
-            assert(false);
+            default:
+                  continue;
         }
+        case 5: // Master plan edition
+                 break;
+        case 6: //Get sensors reading
+                std::cout << std::endl;
+                std::cout << "****** Mediciones actuales de sensores" <<  std::endl;
+                std::cout << _data.GetContentForDisplay() << std::endl;
+                std::cout << std::endl;
+                _current_screen = 0;
+                break;
+        default:
+            assert(false);
     }
   }
   return NULL;
@@ -256,7 +268,12 @@ void GUI::SetMasterPlan(MasterPlan plan) {
   _plan = plan;
 }
 
+void GUI::SetSensors(ExternalData data) {
+  _data = data;
+}
+
 GUI::GUI(char* server, int port) : _server(server), _port(port),
-  _socket(0), _current_screen(0), _plan(MasterPlan::BuildEmpty()) {
+  _socket(0), _current_screen(0), _plan(MasterPlan::BuildEmpty()),
+  _data(ExternalData::GetSample()) {
 
 }

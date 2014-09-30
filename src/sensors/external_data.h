@@ -9,6 +9,10 @@ struct ExternalData {
   ExternalData(Humidity, PH, Temperature, WeatherReport);
 
   std::string Serialize();
+  std::string GetContentForDisplay();
+  static ExternalData Build(std::string);
+
+  static ExternalData GetSample();
 
   Humidity humidity;
   PH ph;

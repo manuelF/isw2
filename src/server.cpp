@@ -39,6 +39,9 @@ void Server::SetMasterPlan(MasterPlan plan) {
   _plan = plan;
 }
 
+ExternalData Server::GetSensorsReading() {
+  return ExternalData::GetSample();
+}
 
 void Server::Communicate(int sender_fd) {
   char buf[10000];

@@ -7,6 +7,7 @@ class WeatherReport {
     WeatherReport(double);
     virtual ~WeatherReport();
 
+    std::string GetContentForDisplay();
     std::string Serialize();
 
   private:
