@@ -107,11 +107,16 @@
           La comunicaci\'on con el cliente no es trivial, y se detalla su dise\~no a
           continuaci\'on.
 
+          Para ver como se implement\'o la comunicaci\'on efectivamente, remitirse
+          a la secci\'on de implementaci\'on.
+          
       \subsubsection{Clase \mensaje{}}
           Al tener que transmitir los mensajes entre \cliente{} y \servidor{} entre
           procesos distintos, result\'o natural y conveniente especificar la forma
           y el prop\'osito de estos mensajes.
-          Para esto utilizamos el patr\'on \textit{Command}.
+          Para esto utilizamos el patr\'on \textit{Command}. Esto da extensibilidad
+          a la hora de agregar nuevas funcionalidades en \servidor{}, pues se pueden
+          agregar nuevos comandos/mensajes comodamente.
 
           Como los procesos corriendo en un sistema operativo \textsc{UNIX} \'unicamente
           pueden comunicarse enviando \textit{bytes}, es decir, el sistema operativo no
@@ -129,6 +134,10 @@
           Si bien el proceso puede parecer complejo, es el \textit{tradeoff} m\'as simple
           \footnote{Que se nos ocurri\'o.} para que la soluci\'on no se salga del paradigma,
           pero al mismo tiempo, poder separar el cliente y el servidor en procesos distintos.
+
+          Como se dijo arriba, remitirse a la secci\'on de implementaci\'on para ver
+          los detalles de la comunicaci\'on, incluyendo c\'omo se ejecuta el mensaje
+          una vez reconstruido por el servidor, mediante \textit{double dispatch}.
 
       \subsubsection{Bootstrapping}
 

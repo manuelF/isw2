@@ -30,23 +30,30 @@
 }
 
 \def \asstoI {
+    \diseno{} $4 hs$
+    \implementacion{} $20 hs$
+    \testing{} $1 hs$
+}
+
+
+\def \asstoI {
     \diseno{}
     \begin{enumerate}
-        \item 1 hora  - Luis
-        \item 1 hora  - Luis
-        \item 1 hora  - Luis
-        \item 1 hora  - Fabricio
-        \item 2 horas - Guillermo
+        \item $1$ hora  - Luis
+        \item $1$ hora  - Luis
+        \item $1$ hora  - Luis
+        \item $1$ hora  - Fabricio
+        \item $2$ horas - Guillermo
 	\end{enumerate}
     \implementacion{}
     \begin{enumerate}
-        \item 7 horas - Manuel
-        \item 7 horas - Manuel y Luis
-        \item 4 horas - Luciano y Guillermo
+        \item $7$ horas - Manuel
+        \item $7$ horas - Manuel
+        \item $4$ horas - Luciano y Guillermo
     \end{enumerate}
     \testing{}
     \begin{enumerate}
-        \item 7 horas - Luciano y Fabricio
+        \item $5$ horas - Luciano y Manuel
     \end{enumerate}
 }
 
@@ -77,21 +84,27 @@
 }
 
 \def \asstoII {
+    \diseno{} $2hs$
+    \implementacion{} $4hs$
+    \testing{} $4hs$
+}
+
+\def \asstoII {
     \diseno{}
     \begin{enumerate}
-        \item 1 hora - Guillermo
-        \item 1 hora - Fabricio
-        \item 1 hora - Guillermo
+        \item $1$ hora - Guillermo y Luis
+        \item $1$ hora - Fabricio
+        \item $1$ hora - Guillermo
     \end{enumerate}
     \implementacion{}
     \begin{enumerate}
-        \item 2 horas - Manuel
-        \item 1 horas - Manuel
-        \item 2 horas - Luciano
+        \item $2$ horas - Manuel
+        \item $1$ horas - Manuel
+        \item $2$ horas - Luciano
     \end{enumerate}
     \testing{}
     \begin{enumerate}
-        \item 5 horas - Luciano y Luis
+        \item $5$ horas - Luciano
     \end{enumerate}
 }
 
@@ -114,16 +127,26 @@
 }
 
 \def \asstoIII {
+    \diseno{} $4hs$
+    \implementacion{} $20hs$
+    \testing{} $4hs$
+}
+
+\def \asstoIII {
     \diseno{}
     \begin{enumerate}
-        \item 6 horas - Luis y Guillermo
-        \item 1 hora  - Luis y Guillermo
+        \item $6$ horas - Luis y Guillermo
+        \item $1$ hora  - Luis y Guillermo
     \end{enumerate}
     \implementacion{}
     \begin{enumerate}
-        \item 20 horas - Manuel, Luciano y Fabricio
+        \item $20$ horas - Manuel y Luciano
     \end{enumerate}
     \testing{}
+    \begin{enumerate}
+        \item $4$ horas - Manuel
+    \end{enumerate}
+
 }
 
 
@@ -151,18 +174,24 @@
 }
 
 \def \asstoIV {
+    \diseno{} $2hs$
+    \implementacion{} $4hs$
+    \testing{} $4hs$
+}
+
+\def \asstoIV {
     \diseno{}
     \begin{enumerate}
-        \item 1 hora - Guillermo
-        \item 1 hora - Guillermo
+        \item $1$ hora - Guillermo y Luis
+        \item $1$ hora - Guillermo y Fabricio
     \end{enumerate}
     \implementacion{}
     \begin{enumerate}
-        \item 5 horas - Luciano y Luis
+        \item $5$ horas - Luciano
     \end{enumerate}
     \testing{}
     \begin{enumerate}
-        \item 6 horas - Manuel y Fabricio
+        \item $6$ horas - Manuel
     \end{enumerate}
 }
 
@@ -183,17 +212,26 @@
     \end{enumerate}
 }
 
+\def \asstoIV {
+    \diseno{} $2hs$
+    \implementacion{} $4hs$
+    \testing{} $4hs$
+}
+
 \def \asstoV {
     \diseno{}
     \begin{enumerate}
-        \item 2 horas - Guillermo y Luis
-        \item 1 hora - Fabricio
+        \item $4$ horas - Guillermo y Luis
+        \item $1$ hora - Fabricio
     \end{enumerate}
     \implementacion{}
     \begin{enumerate}
-        \item 4 horas - Manuel y Luciano
+        \item $8$ horas - Manuel y Luciano
     \end{enumerate}
     \testing{}
+    \begin{enumerate}
+        \item $2$ horas - Manuel y Luciano
+    \end{enumerate}
 }
 
 
@@ -203,30 +241,35 @@
 
 \begin{landscape}
 
+Notar que cuando aparecen $n$ horas asignadas a m\'as de
+una persona, quiere decir que estas personas estuvieron $n$
+horas \textbf{en total} realizando esta tarea; no que que
+cada una estuvo $n$ horas.
+
 \begin{small}
-\begin{tabular}{ |l|p{4.7cm}|p{10cm}|p{7cm}| }
+\begin{tabular}{ |l|p{4.7cm}|p{10cm}|l|p{7cm}| }
 \hline
-\multicolumn{4}{ |c| }{Sprint Backlog w/ elaborated tasks} \\
+\multicolumn{5}{ |c| }{Sprint Backlog w/ elaborated tasks} \\
 \hline
-Code & User Story & Tasks & Assigned to and estimated hours \\
+Code & User Story & Tasks & Estimated hours & Assigned to and used hours\\
 \hline
-\codI & \usrI & \tasI & \asstoI \\
+\codI & \usrI & \tasI & \essI & \asstoI \\
 \hline
-\codII & \usrII & \tasII & \asstoII \\
+\codII & \usrII & \tasII & \essII & \asstoII \\
 \hline
 \end{tabular}
 
-\begin{tabular}{ |l|p{4.7cm}|p{10cm}|p{7cm}| }
+\begin{tabular}{ |l|p{4.7cm}|p{10cm}|l|p{7cm}| }
 \hline
-\multicolumn{4}{ |c| }{Sprint Backlog w/ elaborated tasks (cont.)} \\
+\multicolumn{5}{ |c| }{Sprint Backlog w/ elaborated tasks (cont.)} \\
 \hline
-Code & User Story & Tasks & Assigned to and estimated hours \\
+Code & User Story & Tasks & Estimated hours & Assigned to and used hours \\
 \hline
-\codIII & \usrIII & \tasIII & \asstoIII \\
+\codIII & \usrIII & \tasIII & \essIII & \asstoIII \\
 \hline
-\codIV & \usrIV & \tasIV & \asstoIV \\
+\codIV & \usrIV & \tasIV & \essIV & \asstoIV \\
 \hline
-\codV & \usrV & \tasV & \asstoV \\
+\codV & \usrV & \tasV & \essV & \asstoV \\
 \hline
 \end{tabular}
 

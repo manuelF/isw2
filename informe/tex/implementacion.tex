@@ -1,0 +1,80 @@
+\section{Implementaci\'on}
+    \subsection{Testing}
+      \paragraph{Para la integridad del \textit{software}}
+
+        Para corroborar el correcto funcionamiento del sistema se crearon objetos para
+        representar a los sensores y que simulararn a las mediciones.
+        De forma an\'aloga se crearon objetos que simulen a los actuadores.
+        
+        Se utiliz\'o una \textit{suite} de tests para verificar que las
+        serializarciones (en el caso de la comuncicaci\'on v\'ia \textit{sockets})
+        y los mensajes y construcciones entre objetos fuesen compatibles.
+
+      \paragraph{Para la \demostracion{}}
+        Se probaron tanto instanciaciones de \arduino{} que devolvieran mediciones
+        fijas como instanciaciones que devuelvan valores aleatorios o prefijados
+        en archivos.
+    \subsection{\textit{Script} de la \demostracion{}}
+
+      En lo siguiente se pone a prueba el ciclo de vida b\'asico del sistema:
+      despertar a los sensores y actuadores peri\'odicamente, tomar decisiones
+      y guardar todo esto en el historial.
+
+      Adem\'as se muestra c\'omo el usuario puede modificar el plan maestro, y,
+      lo que es m\'as interesante, como el sistema actua conforme a este cambio.
+
+      \begin{enumerate}
+        \item Se corre el servidor (\texttt{./server}).
+        \item El servidor carga el plan maestro.
+        \item Se abre el cliente (\texttt{./client localhost}).
+        \item Se le pide el estado fenol\'ogico a la planta y se
+            agregan dos anotaciones.
+            La respuesta es que la planta se encuentra en la etapa $4$, donde
+            la humedad debe ser baja, el PH alto y la temperatura baja.
+        \item El \timer{} de \condiciones{} se activa varias veces. As\'i se guardan las
+            mediciones de los sensores y de la central meteorol\'ogica.
+            Se observan los valores: PH bajo, Humerdad alto, Temperatura baja y
+            Probabilidad de lluvia $10\%$.
+            Todo esto se guarda en el historial.
+        \item Luego de algunos sensados se activa el \timer{} de \decisiones{}\footnote{
+            los tiempos son $1m$ para el de \condiciones{} y $5m$ para el de \decisiones{}.}.
+        \item \decisiones{} consulta el \'ultimo sensado en el historial y pregunta al plan
+            maestro la estapa actual.
+        \item Dados estos valores decide una cantidad para cada actuador: baja, nada, baja.
+        \item Env\'ia la decisi\'on a \manejadorAct{}.
+        \item \manejadorAct{} se comunica con los actuadores indicando la cantidad
+            correspondiente.
+        \item Cada actuador se comunica con su arduino indicando el nuevo valor de su
+            \textit{dimmer}.
+        \item El tomador de decisiones guarda la decisi\'on tomada en el historial.
+        \item Se realiza una nueva ronda de sensados.
+        \item El usuario pide al cliente modificar el plan maestro.
+        \item Se modifica el estado $4$ del plan. Ahora la humedad debe ser baja,
+            \textbf{el PH bajo} y la temperatura alta.
+        \item Se muestra en pantalla, del servidor, que se modific\'o el plan.
+        \item Luego de otro sensado se activa nuevamente el \timer{} de \decisiones{}.
+        \item Se prosigue de forma an\'aloga pero administrando una cantidad
+            \textbf{distinta} pues el plan es distinto.
+      \end{enumerate}
+
+    \subsection{Comunicaci\'on por \textit{Sockets}}
+      La comunicaci\'on entre cliente y servidor se realiza utilizando \textsc{UNIX}
+      \textit{sockets}.
+      Cuando se crea el objeto servidor, se configura un \textit{file descriptor} con
+      un \textit{socket} \textit{bindeado} a la primera IP no-local que se encuentre.
+      El servidor se pone en modo escucha, esperando una conexi\'on \textsc{TCP}
+      al puerto configurado. Al finalizar la conexi\'on el servidor se vuelve a poner
+      en modo escucha.
+      Es importante notar que por m\'as que el servidor est\'e esperando mensajes,
+      simultaneamente, funcionan todos los eventos asicr\'onicos de timers, con lo cual,
+      ambas funcionalidades est\'an desacopladas.
+
+      Por la contraparte, la atenci\'on de la comunicaci\'on funciona de la siguiente manera.
+      El servidor espera mensajes a traves del \textit{file descriptor} mencionado antes.
+      Cuando recibe una cadena de texto (que es lo unico que puede enviarse a traves de
+      \textit{sockets}) se la env\'ia a \constructorMensajes{} que se encarga de
+      parsear y reconstruir el mensaje original.
+      Una vez reconstruido, el servidor ejecuta el mensaje, pasandose a si mismo como par\'ametro.
+      Mediante este \textit{double dispatch} el mensaje sabe que debe ejecutar cierta funcionaldidad
+      y devolver un mensaje de respuesta. El servidor entonces env\'ia este mensaje serializado
+      de vuelta al cliente. El mensaje de respuesta se maneja con un mecanismo an\'alogo.

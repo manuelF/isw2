@@ -25,9 +25,25 @@
       ajustadas, si bien la diferencia con las horas reales de implementaci\'on no
       fue tan grande.
 
-    \subsection{Pr\'oxima iteraci\'on}
+    \subsection{Pr\'oxima iteraci\'on -- no implementado}
+      \subsubsection{Decisiones dependientes del \textit{input} del usuario}
+        En lo que se implement\'o las decisiones de como actuar dependen del plan
+        maestro, y de los datos recolectados por los sensores.
+        Las caracter\'isticas escritas por el usuario sirven a modo de \textit{log}
+        para que el usuario pueda chequear la evoluci\'on de la planta.
 
-      \subsubsection{Decisiones reales}
+        En una nueva iteraci\'on se podr\'ia modificar el proceso de decisi\'on para
+        que tome en cuenta las caracter\'isticas escritas por el usuario en el
+        historial.
 
-      \subsubsection{Historial visitor}
+        Para esto deber\'ia agregarse un nuevo tipo de entrada en el historial
+        que permita guardar caracter\'isticas bien definidas con un formato apropiado.
+
+        Para agregar esto al dise\~no bastar\'a heredar un nuevo tipo de entrada
+        del historial, y que \decisiones{} use esta nueva clase.
+
+      \subsubsection{SMS}
+
+      \subsubsection{Recopilador}
+        Servidor deberia habar con recopilador
 
