@@ -1,5 +1,7 @@
 #include "arduino.h"
 #include <iostream>
+#include <random>
+
 
 Arduino::Arduino(Port p) : _port(p){
     //TODO open connection

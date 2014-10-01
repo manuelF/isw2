@@ -33,9 +33,11 @@ class MasterPlan {
     void AddStage(Stage);
     void ModifyStage(int, Stage);
 
-  private:
-    explicit MasterPlan(std::string);
+    Stage GetActualStage();
 
+private:
+    explicit MasterPlan(std::string);
+    int _actual_stage;
     std::vector<Stage> _stages;
     std::string _filename;
     bool _persist;

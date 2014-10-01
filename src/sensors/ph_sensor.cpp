@@ -1,3 +1,4 @@
+#include <iostream>
 #include "ph_sensor.h"
 #include "../arduino/arduino.h"
 
@@ -11,5 +12,7 @@ PHSensor::~PHSensor(){
 
 PH PHSensor::GetCurrentReading() {
     //TODO define proper translation to ph
-  return PH(_arduino.readSignal() * 14);
+    PH ph = PH(_arduino.readSignal() * 14);
+    std::cout << "PH-S:: el nivel de ph sensado es: " << ph.levelOf() << std::endl;
+    return ph;
 }

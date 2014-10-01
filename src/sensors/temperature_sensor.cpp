@@ -1,3 +1,4 @@
+#include <iostream>
 #include "temperature_sensor.h"
 #include "../arduino/arduino.h"
 
@@ -11,5 +12,7 @@ TemperatureSensor::~TemperatureSensor(){
 
 Temperature TemperatureSensor::GetCurrentReading() {
     //TODO define proper translation to degrees
-  return Temperature(_arduino.readSignal() * 50 - 10);
+    Temperature t =  Temperature(_arduino.readSignal() * 50 - 10);
+    std::cout << "Temp-S:: el nivel de temperatura sensado es: " << t.levelOf() << std::endl;
+    return t;
 }

@@ -1,3 +1,4 @@
+#include <iostream>
 #include "humidity_sensor.h"
 #include "../arduino/arduino.h"
 
@@ -9,5 +10,7 @@ HumiditySensor::~HumiditySensor(){
 
 Humidity HumiditySensor::GetCurrentReading() {
     //TODO define proper translation to humidity percentage
-  return Humidity(_arduino.readSignal() * 100);
+    Humidity h = Humidity(_arduino.readSignal() * 100);
+    std::cout << "HS:: el nivel de humedad sensado es: " << h.levelOf() << std::endl;
+  return h;
 }

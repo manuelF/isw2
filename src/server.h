@@ -4,6 +4,9 @@
 #include "messages.h"
 #include "plant.h"
 #include "sensors/external_data.h"
+#include "history.h"
+#include "decisions_maker.h"
+#include "sensors/external_conditions_reader.h"
 
 class Server {
   public:
@@ -26,7 +29,9 @@ class Server {
 
     Plant _plant;
     MasterPlan _plan;
-    //Decisions _d;
+    //History _history;
+    //DecisionsMaker _decisions_maker;
+    //ExternalConditionsReader _external_conditions_reader;
 };
 
 #endif

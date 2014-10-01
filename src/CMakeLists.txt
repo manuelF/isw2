@@ -1,14 +1,69 @@
 cmake_minimum_required(VERSION 2.8.4)
-project(plantApp)
+project(src)
 
-add_subdirectory (actuators)
-add_subdirectory (arduino)
-add_subdirectory (sensors)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-#include_directories("${PROJECT_BINARY_DIR}")
+set(SOURCE_FILES
+    actuators/actuator.h
+    actuators/actuators_handler.cpp
+    actuators/actuators_handler.h
+    actuators/antibiotic_actuator.cpp
+    actuators/antibiotic_actuator.h
+    actuators/fertilizer_actuator.cpp
+    actuators/fertilizer_actuator.h
+    actuators/light_actuator.cpp
+    actuators/light_actuator.h
+    actuators/quantity.cpp
+    actuators/quantity.h
+    actuators/water_actuator.cpp
+    actuators/water_actuator.h
+    arduino/arduino.cpp
+    arduino/arduino.h
+    arduino/port.h
+    sensors/external_conditions_reader.cpp
+    sensors/external_conditions_reader.h
+    sensors/external_data.cpp
+    sensors/external_data.h
+    sensors/humidity_sensor.cpp
+    sensors/humidity_sensor.h
+    sensors/ph_sensor.cpp
+    sensors/ph_sensor.h
+    sensors/temperature_sensor.cpp
+    sensors/temperature_sensor.h
+    sensors/weather_report.cpp
+    sensors/weather_report.h
+    sensors/weather_station.cpp
+    sensors/weather_station.h
+    action_log_item.cpp
+    action_log_item.h
+    basic_datatypes.h
+    client.cpp
+    decision.cpp
+    decision.h
+    decisions_maker.cpp
+    decisions_maker.h
+    external_conditions_log_item.cpp
+    external_conditions_log_item.h
+    gui.cpp
+    gui.h
+    history.cpp
+    history.h
+    level.cpp
+    level.h
+    log_item.h
+    master_plan.cpp
+    master_plan.h
+    messages.cpp
+    messages.h
+    plant.cpp
+    plant.h
+    plant_log_item.cpp
+    plant_log_item.h
+    server.cpp
+    server.h
+    system.cpp
+    timer.cpp
+    timer.h
+    timer_notifiable.h)
 
-set(SOURCE_FILES action_log_item.cpp basic_datatypes.h client.cpp decision.cpp decisions_maker.cpp
- external_conditions_log_item.cpp gui.cpp history.cpp level.cpp master_plan.cpp messages.cpp plant.cpp
- plant_log_item.cpp server.cpp system.cpp timer.cpp)
-
-add_executable(plantApp ${SOURCE_FILES})
+add_executable(src ${SOURCE_FILES})

@@ -118,3 +118,10 @@ MasterPlan::~MasterPlan() {
   }
 }
 
+Stage MasterPlan::GetActualStage() {
+    //para la demo siempre es el 4
+    _actual_stage = 4;
+
+
+    return _stages[_actual_stage];
+}

@@ -20,6 +20,7 @@ ExternalData ExternalConditionsReader::GetSensorsReading() {
 
 void ExternalConditionsReader::TimerExpired() {
   ExternalData ed = GetSensorsReading();
-  std::cout << "Se senso: " << ed.GetContentForDisplay() << std::endl;
+  std::cout << "ECR:: Se senso: " << ed.GetContentForDisplay() << std::endl;
   _history.InsertExternalConditionLog(ed);
+  std::cout << "ECR:: persisti en el historial las mediciones tomadas." << std::endl;
 }

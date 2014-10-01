@@ -1,3 +1,4 @@
+#include <iostream>
 #include "timer.h"
 
 Timer::Timer(Seconds s, TimerNotifiable* n) :
@@ -26,6 +27,7 @@ void Timer::Trigger() {
     std::this_thread::sleep_for(_interval);
     if (!_started) continue;
     if (_abort) return;
+      std::cout << "Timer:: activandose despues de " << _interval.count() << " segundos " << std::endl;
     _to_awake->TimerExpired();
   }
 }
