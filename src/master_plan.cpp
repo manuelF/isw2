@@ -27,7 +27,6 @@ std::string Stage::GetContentForDisplay() {
   std::stringstream ss;
   //TODO: Cambiar este serialize por una representacion de mucho poco nada
   ss << Serialize() << std::endl;
-  ss << "--- " << _friendly_name;
   return ss.str();
 }
 
@@ -121,7 +120,5 @@ MasterPlan::~MasterPlan() {
 Stage MasterPlan::GetActualStage() {
     //para la demo siempre es el 4
     _actual_stage = 4;
-
-
     return _stages[_actual_stage];
 }

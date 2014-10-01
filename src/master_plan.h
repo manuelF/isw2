@@ -35,12 +35,12 @@ class MasterPlan {
 
     Stage GetActualStage();
 
+    bool _persist;
+    std::string _filename;
 private:
     explicit MasterPlan(std::string);
     int _actual_stage;
     std::vector<Stage> _stages;
-    std::string _filename;
-    bool _persist;
 };
 
 #endif

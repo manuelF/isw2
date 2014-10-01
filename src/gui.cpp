@@ -95,8 +95,6 @@ Message* GUI::Menu() {
                   _temporal_plan = MasterPlan::BuildEmpty();
                   continue;
           case 2: _current_screen = 5; // Goto edit master plan
-                  std::cout << " No implementado todavia " <<std::endl;
-                  _current_screen = 3;
                   continue;
           default: continue;
         }
@@ -141,33 +139,33 @@ Message* GUI::Menu() {
                         LevelHandler::Build(new_humidity), LevelHandler::Build(new_ph),
                         LevelHandler::Build(new_temperature)));
                   continue;
-          case 3: // Edit entry
-                  std::cout << std::endl << "Ingrese el numero de etapa a editar";
-                  std::cin.ignore(); std::cin >> new_stage_number;
-                  std::cout << std::endl <<
-                    "Ingrese el nombre de esta etapa: ";
-                  std::cin.ignore(); getline(std::cin, new_stage_name);
-                  std::cout << std::endl <<
-                    "Ingrese la humedad necesaria [poco / moderado / abundante]: ";
-                  getline(std::cin, new_humidity);
-                  //TODO: if new_content not in [..] repreguntar
-                  std::cout << std::endl <<
-                    "Ingrese el PH necesario [poco / moderado / abundante]: ";
-                  getline(std::cin, new_ph);
-                  //TODO: if new_content not in [..] repreguntar
-                  std::cout << std::endl <<
-                    "Ingrese la temperatura necesaria [poco / moderado / abundante]: ";
-                  getline(std::cin, new_temperature);
-                  //TODO: if new_content not in [..] repreguntar
-                  _temporal_plan.ModifyStage(new_stage_number, Stage(new_stage_number, new_stage_name,
-                        LevelHandler::Build(new_humidity), LevelHandler::Build(new_ph),
-                        LevelHandler::Build(new_temperature)));
-
           default:
                   continue;
         }
         case 5: // Master plan edition
-                 break;
+                std::cout << std::endl << "Ingrese el numero de etapa a editar";
+                std::cin.ignore(); std::cin >> new_stage_number;
+                std::cout << std::endl <<
+                  "Ingrese el nombre de esta etapa: ";
+                std::cin.ignore(); getline(std::cin, new_stage_name);
+                std::cout << std::endl <<
+                  "Ingrese la humedad necesaria [poco / moderado / abundante]: ";
+                getline(std::cin, new_humidity);
+                //TODO: if new_content not in [..] repreguntar
+                std::cout << std::endl <<
+                  "Ingrese el PH necesario [poco / moderado / abundante]: ";
+                getline(std::cin, new_ph);
+                //TODO: if new_content not in [..] repreguntar
+                std::cout << std::endl <<
+                  "Ingrese la temperatura necesaria [poco / moderado / abundante]: ";
+                getline(std::cin, new_temperature);
+                //TODO: if new_content not in [..] repreguntar
+                _plan.ModifyStage(new_stage_number, Stage(new_stage_number, new_stage_name,
+                      LevelHandler::Build(new_humidity), LevelHandler::Build(new_ph),
+                      LevelHandler::Build(new_temperature)));
+                _current_screen = 3;
+                return static_cast<Message*>(new MessageReturnMasterPlan(_plan));
+                break;
         case 6: //Get sensors reading
                 std::cout << std::endl;
                 std::cout << "****** Mediciones actuales de sensores" <<  std::endl;

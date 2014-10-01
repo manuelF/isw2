@@ -97,6 +97,8 @@ std::string MessageReturnMasterPlan::Serialize () {
 }
 
 Message* MessageReturnMasterPlan::Execute(Server &s) {
+  _plan._persist = true;
+  _plan._filename = std::string("default_plan");
   s.SetMasterPlan(_plan);
   return NULL;
 }
