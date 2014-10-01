@@ -3,7 +3,7 @@
 #include <iostream>
 
 ExternalConditionsReader::ExternalConditionsReader(History his)
-  : _weather(), _polling_timer(1, static_cast<TimerNotifiable*>(this)), _history(his)
+  : _weather(), _polling_timer(60*1, static_cast<TimerNotifiable*>(this)), _history(his)
 {
     _polling_timer.Start();
 }
@@ -19,5 +19,7 @@ ExternalData ExternalConditionsReader::GetSensorsReading() {
 }
 
 void ExternalConditionsReader::TimerExpired() {
-    _history.InsertExternalConditionLog(GetSensorsReading());
+  ExternalData ed = GetSensorsReading();
+  std::cout << "Se senso: " << ed.GetContentForDisplay() << std::endl;
+  _history.InsertExternalConditionLog(ed);
 }

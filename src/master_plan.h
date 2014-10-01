@@ -31,6 +31,7 @@ class MasterPlan {
     std::string GetContentForDisplay();
 
     void AddStage(Stage);
+    void ModifyStage(int, Stage);
 
   private:
     explicit MasterPlan(std::string);

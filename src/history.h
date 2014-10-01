@@ -9,16 +9,16 @@
 #include "sensors/external_data.h"
 #include "decision.h"
 
-class History {
-  public:
-    History();
-    virtual ~History();
+  class History {
+    public:
+      History();
+      virtual ~History();
 
-    void InsertActionLog(Decision);
+      void InsertActionLog(Decision);
 
-    void InsertPlantLog(std::string);
+      void InsertPlantLog(std::string);
 
-    void InsertExternalConditionLog(ExternalData);
+      void InsertExternalConditionLog(ExternalData);
 
     ExternalData GetLastExternalCondition();
 

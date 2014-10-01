@@ -1,6 +1,7 @@
 #include "master_plan.h"
 #include <sstream>
 #include <fstream>
+#include <iostream>
 
 Stage::Stage(
     int order, std::string name, Level target_humidity, Level target_ph,
@@ -26,6 +27,7 @@ std::string Stage::GetContentForDisplay() {
   std::stringstream ss;
   //TODO: Cambiar este serialize por una representacion de mucho poco nada
   ss << Serialize() << std::endl;
+  ss << "--- " << _friendly_name;
   return ss.str();
 }
 
@@ -51,7 +53,7 @@ MasterPlan MasterPlan::BuildEmpty() {
 }
 
 MasterPlan MasterPlan::BuildFromString(std::string all_stages) {
-  MasterPlan plan("default_plan");
+  MasterPlan plan = MasterPlan::BuildEmpty();
   std::stringstream input (all_stages);
   std::string tmp;
   int quantity_stages;
@@ -68,9 +70,12 @@ MasterPlan MasterPlan::BuildFromString(std::string all_stages) {
 MasterPlan MasterPlan::BuildFromFile(std::string filename) {
   std::ifstream input(filename);
   std::string tmp("MasterPlan 0");
-  if(input.good())
+  std::string t ;
+  while(input.good()) {
     getline(input, tmp);
-  MasterPlan plan(BuildFromString(tmp));
+    t += tmp + "\n";
+  }
+  MasterPlan plan(BuildFromString(t));
   plan._filename = filename;
   return plan;
 }
@@ -80,13 +85,17 @@ std::string MasterPlan::Serialize() {
   ss << "MasterPlan ";
   ss << _stages.size() << " ";
   for(auto &s: _stages) { // TODO: caracter extra al final?
-    ss << s.Serialize() << " ";
+    ss << s.Serialize() << " \n";
   }
   return ss.str();
 }
 
 void MasterPlan::AddStage(Stage s) {
   _stages.push_back(s);
+}
+
+void MasterPlan::ModifyStage(int i, Stage s) {
+  _stages[i-1]=s;
 }
 
 std::string MasterPlan::GetContentForDisplay() {
