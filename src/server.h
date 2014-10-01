@@ -29,9 +29,9 @@ class Server {
 
     Plant _plant;
     MasterPlan _plan;
-    //History _history;
-    //DecisionsMaker _decisions_maker;
-    //ExternalConditionsReader _external_conditions_reader;
+    History _history;
+    DecisionsMaker _decisions_maker;
+    ExternalConditionsReader _external_conditions_reader;
 };
 
 #endif

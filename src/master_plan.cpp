@@ -42,7 +42,7 @@ Stage Stage::Build(std::string input) {
       LevelHandler::Build(target_temperature));
 }
 
-MasterPlan::MasterPlan(std::string filename) : _stages(), _filename(filename), _persist(true) {
+MasterPlan::MasterPlan(std::string filename) : _persist(true), _filename(filename) {
 }
 
 MasterPlan MasterPlan::BuildEmpty() {

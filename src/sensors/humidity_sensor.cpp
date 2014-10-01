@@ -11,6 +11,6 @@ HumiditySensor::~HumiditySensor(){
 Humidity HumiditySensor::GetCurrentReading() {
     //TODO define proper translation to humidity percentage
     Humidity h = Humidity(_arduino.readSignal() * 100);
-    std::cout << "HS:: el nivel de humedad sensado es: " << h.levelOf() << std::endl;
+    std::cout << "HS:: el nivel de humedad sensado es: " << LevelHandler::Serialize(h.levelOf())<< std::endl;
   return h;
 }

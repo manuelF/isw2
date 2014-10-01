@@ -13,6 +13,6 @@ PHSensor::~PHSensor(){
 PH PHSensor::GetCurrentReading() {
     //TODO define proper translation to ph
     PH ph = PH(_arduino.readSignal() * 14);
-    std::cout << "PH-S:: el nivel de ph sensado es: " << ph.levelOf() << std::endl;
+    std::cout << "PH-S:: el nivel de ph sensado es: " << LevelHandler::Serialize(ph.levelOf()) << std::endl;
     return ph;
 }

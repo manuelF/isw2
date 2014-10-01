@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-ExternalConditionsReader::ExternalConditionsReader(History his)
-  : _weather(), _polling_timer(60*1, static_cast<TimerNotifiable*>(this)), _history(his)
+ExternalConditionsReader::ExternalConditionsReader(History& his)
+  : _polling_timer(60*1, static_cast<TimerNotifiable*>(this)), _history(his)
 {
     _polling_timer.Start();
 }

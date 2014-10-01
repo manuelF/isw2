@@ -71,9 +71,9 @@ void Server::Communicate(int sender_fd) {
 }
 
 Server::Server(int port) : _port(port), _listener(0), _newconnection(0),
-    _plant(), _plan(MasterPlan::BuildFromFile("default_plan"))
-    //_history(), _decisions_maker(DecisionsMaker(_history,_plan)),
-    //_external_conditions_reader(ExternalConditionsReader(_history))
+    _plan(MasterPlan::BuildFromFile("default_plan")),
+    _decisions_maker(_history, _plan),
+    _external_conditions_reader(_history)
     {
 
   struct addrinfo hints, *servinfo, *p;

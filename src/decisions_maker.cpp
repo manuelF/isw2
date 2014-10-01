@@ -1,6 +1,6 @@
 #include "decisions_maker.h"
 
-DecisionsMaker::DecisionsMaker(History his, MasterPlan mp) :
+DecisionsMaker::DecisionsMaker(History& his, MasterPlan& mp) :
         _history(his), _master_plan(mp), _timer(60*5, static_cast<TimerNotifiable*>(this)) {
     _timer.Start();
     _actuators_handler = ActuatorsHandler();

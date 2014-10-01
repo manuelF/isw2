@@ -13,7 +13,7 @@
 
 class ExternalConditionsReader : public TimerNotifiable {
   public:
-    explicit ExternalConditionsReader(History);
+    explicit ExternalConditionsReader(History&);
     ~ExternalConditionsReader();
 
     ExternalData GetSensorsReading();
@@ -29,7 +29,7 @@ class ExternalConditionsReader : public TimerNotifiable {
     PHSensor _ph;
     TemperatureSensor _temperature;
     Timer _polling_timer;
-    History _history;
+    History& _history;
 
 };
 
