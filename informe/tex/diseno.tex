@@ -31,7 +31,7 @@
           Al desligar el sensor del \arduino{} conseguimos
           sensores vers\'atiles, en el sentido de que pueden depender de uno o varios sensores
           reales (es decir del mundo real). M\'as a\'un, los sensores modelados
-          permiten contener l\'ogica interna para manejar los sensores del mundo real
+          permiten tener l\'ogica interna para manejar los sensores del mundo real
           correctamente.
 
           Si se quisieran agregar nuevos tipos de sensores deber\'ian agregarse nuevas
@@ -58,6 +58,16 @@
           especifica cantidades aproximadas, las modeladas en la clase
           \texttt{Cantidades}.
 
+      \subsubsection{Clase \texttt{Cantidad} y \calibrador{}}
+          Justamente para que la cantidad tenga la sem\'antica apropiada en cada
+          contexto, es necesario que el actuador sepa interpretarla.
+          Para esto se lo debe calibrar al inicializar el sistema, de esto se
+          encarga el \calibrador{}. Adem\'as la calibraci\'on podr\'ia ser incluida
+          en el plan maestro para soportar distintos tipos de planta de forma
+          c\'omoda. Si bien esto no estaba en el enunciado y no fue implementado,
+          el modelo resulta extensible para estas modificaciones, ya que resulta
+          esperable que se necesite este tipo de funcionalidad en el futuro.
+
       \subsubsection{Interacci\'on entre \decisiones{} y \condiciones{}}
           Inicialmente decidimos tener un \timer{} que peri\'odicamente llame a \condiciones{}
           con el mensaje \sensarCondiciones{}. Una vez recopilada la informaci\'on de los
@@ -70,7 +80,7 @@
 
           Para esto usamos dos \timer{}. Los objetos que antes estaban acoplados, ahora
           pueden actuar libremente, siendo activados por \timer{}. \condiciones{}, luego
-          de sensar, escribe los resultados en el historial. \decisiones{} lee estos
+          de sensar, escribe los resultados en el \historial{}. \decisiones{} lee estos
           resultados al ser activado, y toma una decisi\'on.
 
           Otro aspecto interesante que surgi\'o al analizar esta interacci\'on es
@@ -96,12 +106,12 @@
           desacoplar totalmente el funcionamiento autom\'atico del mismo: manejo de
           actuadores, recopilar informaci\'on, tomar decisiones, etc. Del funcionamiento
           asincr\'onico debido al uso por parte del usuario: guardar entradas sobre la
-          planta en el historial, realizar consultas, etc.
+          planta en el \historial{}, realizar consultas, etc.
 
           Para esto separamos el programa en dos procesos. El cliente y el servidor.
           Que a su vez, dieron lugar a dos objetos: \cliente{} y \servidor{}.
 
-          El patr\'on utilizado es \textit{Façade}. El \servidor{} es qui\'en
+          El patr\'on utilizado es \textit{Fa\c{c}ade}. El \servidor{} es qui\'en
           encapsula todo el comportamiento autom\'atico del sistema.
 
           La comunicaci\'on con el cliente no es trivial, y se detalla su dise\~no a
@@ -139,9 +149,16 @@
           los detalles de la comunicaci\'on, incluyendo c\'omo se ejecuta el mensaje
           una vez reconstruido por el servidor, mediante \textit{double dispatch}.
 
-      \subsubsection{Bootstrapping}
+      \subsubsection{Clase \historial{}}
+          El \historial{} tiene actualmente tres tipos de entradas, pero esto puede
+          ser f\'acilmente modificado, gracias a utilizar herencia.
+          La parte interesante del \historial{} es la forma en que es recorrido.
+          Si bien esta funcionalidad no fue implementada si fue dise\~nada.
+          Para recorrer el \historial{} se utiliza un \textit{Visitor}, en este caso
+          representado por \recopilador{} quien sabe como recorrer \historial{}.
 
-      \subsubsection{Historial}
+      \subsubsection{Dise\~no del \planmaestro{}}
+
 
   \subsection{Diagramas de objetos}
 

@@ -72,9 +72,13 @@
       Por la contraparte, la atenci\'on de la comunicaci\'on funciona de la siguiente manera.
       El servidor espera mensajes a traves del \textit{file descriptor} mencionado antes.
       Cuando recibe una cadena de texto (que es lo unico que puede enviarse a traves de
-      \textit{sockets}) se la env\'ia a \constructorMensajes{} que se encarga de
+      \textit{sockets}) se la env\'ia a \constructorMensaje{} que se encarga de
       parsear y reconstruir el mensaje original.
       Una vez reconstruido, el servidor ejecuta el mensaje, pasandose a si mismo como par\'ametro.
       Mediante este \textit{double dispatch} el mensaje sabe que debe ejecutar cierta funcionaldidad
       y devolver un mensaje de respuesta. El servidor entonces env\'ia este mensaje serializado
       de vuelta al cliente. El mensaje de respuesta se maneja con un mecanismo an\'alogo.
+
+
+%      \subsubsection{Bootstrapping}
+%      FALTA
