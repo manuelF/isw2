@@ -10,8 +10,9 @@
 
 class DecisionsMaker : public TimerNotifiable {
   public:
-    DecisionsMaker(History&, MasterPlan&); //Should this be a pointer to History? TODO para manu
+    DecisionsMaker(History&, MasterPlan&);
     virtual ~DecisionsMaker();
+	void SetMasterPlan(MasterPlan&);
 
     void TimerExpired();
   private:
