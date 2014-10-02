@@ -102,7 +102,7 @@
           no utilizar un \textit{observer} cl\'asico.
 
       \subsubsection{\cliente{} y \servidor{}}
-          Para que el sistema pueda funcionar real\'isticamente, nos result\'o esencial
+          Para que el sistema pueda funcionar al momento de implementarlo, nos result\'o esencial
           desacoplar totalmente el funcionamiento autom\'atico del mismo: manejo de
           actuadores, recopilar informaci\'on, tomar decisiones, etc. Del funcionamiento
           asincr\'onico debido al uso por parte del usuario: guardar entradas sobre la
@@ -161,5 +161,14 @@
 
 
   \subsection{Diagramas de objetos}
+    En la secci\'on de diagramas se pueden observar dos diagramas de objetos.
+    Uno detalla el estado del sistema haciendo omisi\'on de la parte que concierne
+    al \historial{}.
+    El segundo muestra el estado del \historial{} y algunos objetos pertinentes
+    en un intervalo de unos pocos minutos de tiempo. Esto se debe a que el
+    \historial{} almacena una gran cantidad de informaci\'on en poco tiempo.
 
   \subsection{Diagramas de secuencia}
+    Los diagramas de secuencia muestran las dos acciones principales que
+    representan el ciclo de vida del sistema.
+    Una es una iteraci\'on del \decisiones{}, la otra, una iteraci\'on de \condiciones{}.
