@@ -30,17 +30,17 @@
         \item Se le pide el estado fenol\'ogico a la planta y se
             agregan dos anotaciones.
             La respuesta es que la planta se encuentra en la etapa $4$, donde
-            la humedad debe ser baja, el PH alto y la temperatura baja.
+            la humedad debe ser baja, el PH bajo y la temperatura baja.
         \item El \timer{} de \condiciones{} se activa varias veces. As\'i se guardan las
             mediciones de los sensores y de la central meteorol\'ogica.
-            Se observan los valores: PH bajo, Humerdad alto, Temperatura baja y
+            Se observan los valores: PH bajo, Humerdad bajo, Temperatura baja y
             Probabilidad de lluvia $10\%$.
             Todo esto se guarda en el historial.
         \item Luego de algunos sensados se activa el \timer{} de \decisiones{}\footnote{
             los tiempos son $1m$ para el de \condiciones{} y $5m$ para el de \decisiones{}.}.
         \item \decisiones{} consulta el \'ultimo sensado en el historial y pregunta al plan
             maestro la estapa actual.
-        \item Dados estos valores decide una cantidad para cada actuador: baja, nada, baja.
+        \item Dados estos valores decide una cantidad para cada actuador: poco, poco, poco, nada.
         \item Env\'ia la decisi\'on a \manejadorAct{}.
         \item \manejadorAct{} se comunica con los actuadores indicando la cantidad
             correspondiente.
@@ -49,8 +49,8 @@
         \item El tomador de decisiones guarda la decisi\'on tomada en el historial.
         \item Se realiza una nueva ronda de sensados.
         \item El usuario pide al cliente modificar el plan maestro.
-        \item Se modifica el estado $4$ del plan. Ahora la humedad debe ser baja,
-            \textbf{el PH bajo} y la temperatura alta.
+        \item Se modifica el estado $4$ del plan. Ahora la humedad debe ser abundante,
+            \textbf{el PH bajo} y la temperatura baja.
         \item Se muestra en pantalla, del servidor, que se modific\'o el plan.
         \item Luego de otro sensado se activa nuevamente el \timer{} de \decisiones{}.
         \item Se prosigue de forma an\'aloga pero administrando una cantidad
