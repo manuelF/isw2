@@ -37,6 +37,7 @@ MasterPlan Server::GetMasterPlan() {
 
 void Server::SetMasterPlan(MasterPlan plan) {
   _plan = plan;
+  _decisions_maker.SetMasterPlan(plan);
 }
 
 ExternalData Server::GetSensorsReading() {
