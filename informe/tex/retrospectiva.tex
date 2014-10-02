@@ -25,7 +25,7 @@
       ajustadas, si bien la diferencia con las horas reales de implementaci\'on no
       fue tan grande.
 
-    \subsection{Pr\'oxima iteraci\'on -- no implementado}
+    \subsection{Pr\'oxima iteraci\'on -- No implementado}
       \subsubsection{Decisiones dependientes del \textit{input} del usuario}
         En lo que se implement\'o las decisiones de como actuar dependen del plan
         maestro, y de los datos recolectados por los sensores.
@@ -43,9 +43,21 @@
         del historial, y que \decisiones{} use esta nueva clase.
 
       \subsubsection{SMS}
+        El dise\~no comtempla la opci\'on de enviar un SMS en cambio de que las
+        condiciones cambien abruptamente, esto se har\'ia mediante un objeto encargado
+        de leer las entradas de condiciones externas, analizarlas y obrar en caso de
+        ser necesario.
 
       \subsubsection{Implementaci\'on del \calibrador{}}
-
+        En una de las \'ultimas reuniones con el product owner se nos hizo notar que
+        no estaba contamplada la posibilidad de graduar las \textit{Cantidades} que los 
+        actuadores deben interpretar para poder cuidar de la planta. Por ello se 
+        modific\'o el dise\~no creando un \calibrador{}, aunque el mismo no se 
+        implement\'o en el sprint.
+        
       \subsubsection{Implementaci\'on del \recopilador{}}
-        Servidor deberia habar con recopilador
+        Recordemos que el historial posee tres tipos de entrada distintos, es por
+        esto que en el siguiente sprint se debe implementar el Visitor \recopilador{}
+        El mismo se encargar\'a de navegar el historial y recuperar las entradas
+        requeridas.
 
