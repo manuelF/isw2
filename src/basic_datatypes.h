@@ -20,6 +20,9 @@ class PH: public SensedValue {
       MIN = 0; MAX = 99;
     }
 
+    bool operator==(const PH& other) const {
+      return ph== other.ph;
+    }
     virtual ~PH(){};
 
     std::string Serialize(){
@@ -51,6 +54,9 @@ class Temperature: public SensedValue {
       MIN = 0; MAX = 99;
     }
 
+    bool operator==(const Temperature& other) const {
+      return temperature == other.temperature;
+    }
     virtual ~Temperature(){};
 
     std::string Serialize(){
@@ -80,6 +86,10 @@ class Humidity: public SensedValue {
     Humidity(double value){
     	humidity =  value;
       MIN = 0; MAX = 99;
+    }
+
+    bool operator==(const Humidity& other) const {
+      return humidity == other.humidity;
     }
 
     virtual ~Humidity(){};

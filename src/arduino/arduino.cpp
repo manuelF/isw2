@@ -19,4 +19,12 @@ float Arduino::readSignal(){
 
 void Arduino::writeSignal(float signal){
     //TODO write signal
+    Arduino::writeCount++;
 }
+
+void Arduino::ResetWriteCountForTest() {
+  writeCount = 0;
+}
+
+
+int Arduino::writeCount;

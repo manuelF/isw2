@@ -17,7 +17,7 @@ class Plant {
     static Plant Build(std::string);
   private:
     std::vector<std::string> _entries;
-    Stage _stage;
+//    Stage _stage;
 };
 
 #endif

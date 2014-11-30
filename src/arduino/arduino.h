@@ -3,6 +3,7 @@
 
 #include "port.h"
 
+
 class Arduino {
 public:
     Arduino(Port);
@@ -11,6 +12,9 @@ public:
     float readSignal();
 
     void writeSignal(float signal);
+
+    static void ResetWriteCountForTest();
+    static int writeCount;
 private:
     Port _port;
 };

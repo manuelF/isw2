@@ -66,3 +66,6 @@ void History::Load() {
    *  Insertarla a _items
    */
 }
+
+void History::Clear() {
+}

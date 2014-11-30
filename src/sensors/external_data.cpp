@@ -5,6 +5,10 @@ ExternalData::ExternalData(Humidity humidity, PH ph, Temperature temperature, We
   humidity(humidity), ph(ph), temperature(temperature), weather_report(weather_report) {
 }
 
+bool ExternalData::operator==(const ExternalData& other) const {
+  return humidity == other.humidity && ph == other.ph && temperature == other.temperature;
+}
+
 std::string ExternalData::Serialize() {
   std::stringstream ss;
   ss << "Data ";

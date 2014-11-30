@@ -8,6 +8,7 @@
 struct ExternalData {
   ExternalData(Humidity, PH, Temperature, WeatherReport);
 
+  bool operator==(const ExternalData&) const;
   std::string Serialize();
   std::string GetContentForDisplay();
   static ExternalData Build(std::string);
