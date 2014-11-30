@@ -24,11 +24,11 @@ void sigchld_handler(int s)
 }
 
 Plant Server::GetPlant() {
-  return _plant;
+  return _plan.GetPlant();
 }
 
 void Server::SetPlant(Plant plant) {
-  _plant = plant;
+  _plan.SetPlant(plant);
 }
 
 MasterPlan Server::GetMasterPlan() {

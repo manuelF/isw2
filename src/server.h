@@ -27,7 +27,6 @@ class Server {
     int _port;
     int _listener, _newconnection;  // listen on sock_fd, new connection on new_fd
 
-    Plant _plant;
     MasterPlan _plan;
     History _history;
     DecisionsMaker _decisions_maker;
