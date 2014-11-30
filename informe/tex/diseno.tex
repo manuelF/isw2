@@ -6,46 +6,36 @@
     como se corresponden las clases implementadas con las \textit{stories} del
     \textit{backlog}.
 
+  \subsection{Reentrega} 
       \subsubsection{Abstracci\'on de los sensores}
           El enunciado habla sobre tres tipos de sensores bien concretos.
-          Decidimos modelar a cada uno de ellos por separado. Es decir, no realizamos
-          una abstracci\'on para Sensor. El motivo para sustentar esta decisi\'on
-          que se refleja tanto a nivel de dise\~no como a nivel implementativo es
-          el siguiente.
+	  Por este motivo en la primer entrega hab\'iamos decidido no
+	  abstraerlos en una sola clase, sin embargo esto queda desprolijo ya
+	  que los \textit{Actuadores} si fueron abstraidos. 
+	  En esta reentrega los \textit{Sensores} se abstraen como un \sensor{}
+	  y una \medida{} que corresponde a el tipo de fen\'omeno que se est\'a
+	  observando.
+	   
+      \subsubsection{\planta{}}
+	  En esta reentrega decidimos modelar la planta como un objeto del 
+	  sistema, esto nos permite reflejar el estado actual de la planta,
+	  teniendo en cuenta su \estadio{}, la altura, cantidad de hojas, 
+	  etc. 
+	  A su vez, agregar este objeto nos facilita modelar los estados 
+	  fenol\'ogicos que suceden en la planta, permitiendo ahora que el
+	  usuario indique manualmente cuando suceden los cambios de estad\'ios.
+ 	  Recordemos que en la primer entrega los estados de la planta iban
+	  variando solo en base a factores temporales. 
 
-          Si bien los sensores se comportan de forma semejante,
-          o mejor dicho, son polim\'orficos con respecto al mensaje \texttt{Sensar},
-          no lo son vistos desde la perspectiva de un lenguaje est\'aticamente tipado.
-          Esto es porque cada sensor devuelve un valor de un tipo o clase distinta.
-          Una soluci\'on a esto hubiese sido no modelar los tipos de los valores de
-          retorno con distintas clases, y poner \'unicamente un valor num\'erico
-          (al estilo \textit{double}). Nos
-          pareci\'o que perd\'iamos mucha sem\'antica con esta soluci\'on.
+      \subsubsection{Plan Maestro} 
+	  El \planmaestro{} ahora posee como colaborador interno a la \planta{}
+	  . Tambi\'en se cambi\'o el dise\~no de \etapa{} para que cada etapa
+	  est\'e asociada a un \estadio{}. De esta manera el \planmaestro{}
+	  sabe como actuar para cada estado fenol\'ogico de la planta. 
 
-          Otra soluci\'on podr\'ia haber sido utilizar el patr\'on \textit{visitor} sobre
-          un sensor abstracto, de manera que externamente se utilizara el sensor y se lo
-          interpretara como la medici\'on apropiada. Esto nos pareci\'o que complejiza el
-          modelo y la implementaci\'on innecesariamente, adem\'as de agregar acoplamiento
-          entre funcionalidades claramente delimitadas.
+  \subsection{Primera entrega}
 
-          Al no haber realizado esta abstracci\'on se podr\'ia objetar que restringimos
-          la extensibilidad en cuanto a m\'as o distinto tipo de sensores.
-          Para responder a esta posible objeci\'on, debe observarse el modelado del
-          \condiciones{}, el de los sensores y el del \arduino{}.
-          Al desligar el sensor del \arduino{} conseguimos
-          sensores vers\'atiles, en el sentido de que pueden depender de uno o varios sensores
-          reales (es decir del mundo real). M\'as a\'un, los sensores modelados
-          permiten tener l\'ogica interna para manejar los sensores del mundo real
-          correctamente.
-
-          Si se quisieran agregar nuevos tipos de sensores deber\'ian agregarse nuevas
-          clases de sensores al modelo. Por supuesto deber\'a tambi\'en modificarse
-          el c\'odigo de \condiciones{} para que se comunique
-          con los nuevos sensores. Pero consideramos que esto es b\'asicamente inevitable,
-          por m\'as que se realice una abstracci\'on del sensor, pues la l\'ogica
-          de todo el sistema depender\'a, en este caso, de nuevos par\'ametros.
-
-      \subsubsection{Abstracci\'on de los actuadores}
+     \subsubsection{Abstracci\'on de los actuadores}
           Para el caso de los actuadores nos encontramos con una situaci\'on semejante
           a la reci\'en presentada. En este caso, sin embargo, optamos por realizar
           una abstracci\'on. Esta se denomina \texttt{Actuador Simple}. El nombre
@@ -161,17 +151,6 @@
           Para recorrer el \historial{} se utiliza un \textit{Visitor}, en este caso
           representado por \recopilador{} quien sabe como recorrer \historial{}.
 
-      \subsubsection{Dise\~no del \planmaestro{}}
-          El \planmaestro{} consta de distintas etapas. Cada una de estas especifica
-          un \texttt{Nivel} para cada uno de los factores que son controlados
-          por el sistema.
-          El cambio de etapa depende \'unicamente del paso del tiempo, y no de las
-          caracter\'isticas actuales de la planta introducidas por el usuario.
-
-          Esta fue nuestra interpretaci\'on del enunciado, si bien, luego de la \'ultima
-          reuni\'on con el \textit{product owner} se nos se\~nal\'o que un mejor
-          dise\~no contemplar\'ia esta posibilidad. En la ultima secci\'on se comenta
-          brevemente la posibilidad de mejorar este aspecto en una pr\'oxima iteraci\'on.
 
 
   \subsection{Diagramas de objetos}

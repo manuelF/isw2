@@ -51,8 +51,12 @@
 \newcommand{\empezarenum}{\begin{enumerate*}[label=(\arabic*.),itemjoin={\newline}]}
 \newcommand{\terminarenum}{\end{enumerate*}}
 
-
-
+\newcommand{\sensor}{\texttt{Sensor Simple}}
+\newcommand{\medida}{\texttt{Medida}}
+\newcommand{\planta}{\texttt{Planta}}
+\newcommand{\etapa}{\texttt{Etapa}}
+\newcommand{\estadio}{\texttt{Estad\'io}
+}
 \def \aag {\textbf{As a Gardener I Want to}}
 \def \aab {\textbf{As a Botanist I Want to}}
 \def \sic {\textbf{So I Can}}
@@ -61,13 +65,12 @@
 \begin{document}
 
   \materia{Ingenier\'ia del Software $2$}
-  \titulo{Trabajo Pr\'actico de Dise\~no y Desarrollo,
+  \titulo{Recuperatorio Trabajo Pr\'actico,
             Huerta org\'anica de precisi\'on}
   \integrante{Guillermo Gallardo Diez}{$032/10$}{gagdiez@hotmail.com}
   \integrante{Manuel Ferreria}{$199/10$}{mferreria@gmail.com}
   \integrante{Luciano Gandini}{$207/10$}{gl.gandini@gmail.com}
   \integrante{Luis Scoccola}{$382/10$}{luis.scoccola@gmail.com}
-  \integrante{Fabrizio Borghini}{$406/10$}{fabriborghini@gmail.com}
 
   \maketitle
   \newpage
@@ -85,13 +88,11 @@
 
 %  \section{Dise\~no}
   \input{diseno.tex}
-  TODO
-  - pintar un mapita del diagrama de clases
-    de acuerdo a las tareas del sprint
-  - formatear e integrar los diagramas
 
 %  \section{Implementaci\'on}
   \input{implementacion.tex}
+
+  \input{test.tex}
 
 %  \section{Retrospectiva}
   \input{retrospectiva.tex}
