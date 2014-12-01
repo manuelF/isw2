@@ -3,9 +3,8 @@
 #include <iostream>
 
 ExternalConditionsReader::ExternalConditionsReader(History& his)
-  : _polling_timer(17*1, static_cast<TimerNotifiable*>(this)), _history(his)
-{
-    _polling_timer.Start();
+  : _polling_timer(1*1, static_cast<TimerNotifiable*>(this)), _history(his) {
+  _polling_timer.Start();
 }
 
 ExternalConditionsReader::~ExternalConditionsReader() {

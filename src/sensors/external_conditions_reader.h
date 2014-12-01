@@ -17,8 +17,6 @@ class ExternalConditionsReader : public TimerNotifiable {
     ~ExternalConditionsReader();
 
     ExternalData GetSensorsReading();
-    // WeatherReport GetCurrentWeather();
-    // WeatherReport GetForecastWeather();
 
     void TimerExpired();
 
@@ -30,7 +28,6 @@ class ExternalConditionsReader : public TimerNotifiable {
     TemperatureSensor _temperature;
     Timer _polling_timer;
     History& _history;
-
 };
 
 #endif
