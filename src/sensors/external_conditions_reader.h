@@ -18,6 +18,8 @@ class ExternalConditionsReader : public TimerNotifiable {
 
     ExternalData GetSensorsReading();
 
+    void SetUpForTest();
+
     void TimerExpired();
 
   private:

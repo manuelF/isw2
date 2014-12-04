@@ -9,8 +9,8 @@ class TemperatureSensor {
     TemperatureSensor();
     virtual ~TemperatureSensor();
     Temperature GetCurrentReading();
+    void SetUpForTest();
   private:
     Arduino _arduino;
-
 };
 #endif

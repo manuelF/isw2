@@ -13,21 +13,21 @@
 
 template <class T>
 void WriteBeginTest(T i) {
-  std::cout << "******************* TEST " << i << " **********************" << std::endl;
+  std::cout << "******************* TEST        " << i << " **********************" << std::endl;
 }
 
 template <class T>
 void WriteEndTest(T i) {
-  std::cout << "******************* END TEST " << i << " ******************"<< std::endl;
+  std::cout << "******************* TEST " << i << " **********************"<< std::endl << std::endl;
 }
 void TestTodosLosActuadoresEscriben() {
   WriteBeginTest("Todos los actuadores escriben");
-  Quantity q_nothing = QuantityHandler::Build("nada");
-  Decision d(q_nothing, q_nothing, q_nothing, q_nothing);
+  Quantity q_low = QuantityHandler::Build("bajo");
+  Decision d(q_low, q_low, q_low, q_low);
   ActuatorsHandler ah;
   ah.ExecuteDecision(d);
   assert(Arduino::writeCount == 4);
-  WriteEndTest("Todos los actuadores escriben");
+  WriteEndTest("Exito: Todos los actuadores escriben");
 }
 
 void TestModificarEtapaPlanMaestro() {
@@ -44,7 +44,7 @@ void TestModificarEtapaPlanMaestro() {
   assert(mp.GetActualStage()._friendly_name == "Prueba4");
   mp.ModifyStage(4, newStage);
   assert(mp.GetActualStage()._friendly_name == "NuevoStage");
-  WriteEndTest("Agregar y Modificar etapas plan maestro");
+  WriteEndTest("Exito: Agregar y Modificar etapas plan maestro");
 }
 
 void TestNuevaEntradaEnHistorial() {
@@ -55,15 +55,19 @@ void TestNuevaEntradaEnHistorial() {
   his.Clear();
   his.InsertExternalConditionLog(ed);
   assert(his.GetLastExternalCondition() == ed);
-  WriteEndTest("Agregar una entrada al historial");
+  WriteEndTest("Exito: Agregar una entrada al historial");
 }
 
 void TestCondicionesExternas() {
   WriteBeginTest("Los sensores miden correctamente");
   History his;
   ExternalConditionsReader ecr(his);
+  ecr.SetUpForTest();
   ExternalData ed = ecr.GetSensorsReading();
-  WriteEndTest("Los sensores miden correctamente");
+  assert(ed.humidity == 100.);
+  assert(ed.ph == 14.);
+  assert(ed.temperature == 40.);
+  WriteEndTest("Exito: Los sensores miden correctamente");
 }
 
 int main(int argc, char* argv[]) {

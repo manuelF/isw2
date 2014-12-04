@@ -17,6 +17,12 @@ ExternalData ExternalConditionsReader::GetSensorsReading() {
       _temperature.GetCurrentReading(), _weather.GetCurrentWeather());
 }
 
+void ExternalConditionsReader::SetUpForTest() {
+  _humidity.SetUpForTest();
+  _ph.SetUpForTest();
+  _temperature.SetUpForTest();
+}
+
 void ExternalConditionsReader::TimerExpired() {
   ExternalData ed = GetSensorsReading();
   std::cout << "ECR:: Se senso: " << ed.GetContentForDisplay() << std::endl;

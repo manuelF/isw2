@@ -9,6 +9,7 @@ class PHSensor {
     PHSensor();
     virtual ~PHSensor();
     PH GetCurrentReading();
+    void SetUpForTest();
 private:
     Arduino _arduino;
 

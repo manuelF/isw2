@@ -13,10 +13,13 @@ public:
 
     void writeSignal(float signal);
 
+    void SetUpForTest();
+
     static void ResetWriteCountForTest();
     static int writeCount;
 private:
     Port _port;
+    bool _isTest;
 };
 
 #endif

@@ -3,7 +3,7 @@
 #include <random>
 
 
-Arduino::Arduino(Port p) : _port(p){
+Arduino::Arduino(Port p) : _port(p), _isTest(false) {
     //TODO open connection
 }
 
@@ -13,7 +13,9 @@ Arduino::~Arduino() {
 
 float Arduino::readSignal(){
     //TODO ask for signal
-    float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+    float r = 1.0;
+    if (!_isTest)
+      r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
     return r;
 }
 
@@ -26,5 +28,8 @@ void Arduino::ResetWriteCountForTest() {
   writeCount = 0;
 }
 
+void Arduino::SetUpForTest() {
+  _isTest = true;
+}
 
 int Arduino::writeCount;

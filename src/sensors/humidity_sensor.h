@@ -9,8 +9,8 @@ class HumiditySensor {
     HumiditySensor();
     virtual ~HumiditySensor();
     Humidity GetCurrentReading();
+    void SetUpForTest();
   private:
     Arduino _arduino;
-
 };
 #endif
