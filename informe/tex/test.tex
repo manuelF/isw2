@@ -2,24 +2,28 @@
 
   Para esta reentrega se agregaron el conjunto de tests desarrollados para
   probar el prototipo presentado durante la demostraci\'on al PM. Dichos test
-  se encuentran dentro del archivo \textit{src/test.cpp} y son detallados a 
-  continuaci\'on. 
+  se encuentran dentro del archivo \textit{src/test.cpp} y son detallados a
+  continuaci\'on.
 
   \subsection{Actuadores}
     El test \textit{TodosLosActuadoresEscriben} prueba la comunicaci\'on con
-    los actuadores. Para ello se le da una \textit{decisi\'on} al 
+    los actuadores. Para ello se le da una \textit{decisi\'on} al
     \manejadorAct{} y se corrobora que los \textit{actuadores} se hayan
     activado de manera correcta.
-  
+
   \subsection{Plan Maestro}
     El test \textit{ModificarEtapaPlanMaestro} crea etapas en el \planmaestro{}
-    , se cerciora que las mismas se agregaron, luego modifica una de ellas y 
-    comprueba que efectivamente cambi\'o.  
+    , se cerciora que las mismas se agregaron, luego modifica una de ellas y
+    comprueba que efectivamente cambi\'o.
 
   \subsection{Historial}
     El test \textit{NuevaEntradaEnHistorial} comprueba el correcto
-    funcionamiento del \historial{} al agregar una entrada del tipo 
-    \textit{Condici\'on Externa}.  
+    funcionamiento del \historial{} al agregar una entrada del tipo
+    \textit{Condici\'on Externa}.
 
-  \subsection{Plan Maestro}
-    Se testea 	
+  \subsection{Condiciones Externas}
+    El test \textit{CondicionesExternas} comprueba que las mediciones
+    que se realizan de los sensores sean las correctas. Se inicializa para el test
+    el arduino  de cada uno de los sensores para que devuelva siempre la misma medicion,
+    que despues es interpretada de manera generica cada uno de los sensores. Es decir,
+    por ejemplo, el sensor de PH es el que sabe interpretar correctamente el Arduino.
